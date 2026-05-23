@@ -1,0 +1,144 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { Play } from "lucide-react";
+
+/* 🔥 HERO BANNERS */
+const banners = [
+    {
+        title: "Gilani Series",
+        desc: "Life of Abdul Qadir Gilani (RA)",
+        image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+        link: "/series/gilani",
+    },
+    {
+        title: "Salahuddin Ayyubi",
+        desc: "The legendary Muslim leader",
+        image: "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d",
+        link: "/series/salahuddin",
+    },
+    {
+        title: "Dirilis Ertugrul",
+        desc: "Rise of the Ottoman Empire",
+        image: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
+        link: "/series/ertugrul",
+    },
+];
+
+
+const slideVariants: Variants = {
+    initial: { opacity: 0, scale: 1.05 },
+    animate: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: "easeInOut" } },
+    exit: { opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }
+};
+
+const textVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+export default function FeaturedBanner() {
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex((prev) => (prev + 1) % banners.length);
+        }, 5000); // 5 seconds interval
+        return () => clearInterval(interval);
+    }, []);
+
+    const current = banners[index];
+
+    return (
+        <section
+            className="relative h-[45vh] w-full overflow-hidden rounded-2xl bg-black"
+        >
+            {/* Background Image - Absolute Positioning with Overlay */}
+            <AnimatePresence mode="popLayout">
+                <motion.div
+                    key={index}
+                    variants={slideVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    className="absolute inset-0 h-full w-full"
+                >
+                    <img
+                        src={current.image}
+                        alt={current.title}
+                        className="h-full w-full object-cover object-center"
+                    />
+                    {/* Dark gradient for text readability */}
+                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
+                </motion.div>
+            </AnimatePresence>
+
+            {/* Content Container - Responsive Padding and Width */}
+            <div className="absolute inset-0 z-10 flex items-end pb-8 pt-4 px-4 sm:px-8 lg:px-12">
+                <div className="max-w-2xl text-left w-full">
+
+                    {/* Title */}
+                    <motion.h1
+                        key={`title-${index}`}
+                        variants={textVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="text-2xl font-bold text-white sm:text-4xl lg:text-5xl tracking-tight drop-shadow-md"
+                    >
+                        {current.title}
+                    </motion.h1>
+
+                    {/* Description */}
+                    <motion.p
+                        key={`desc-${index}`}
+                        variants={textVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="mt-2 sm:mt-4 text-sm sm:text-base lg:text-lg text-gray-200 line-clamp-2 max-w-md sm:max-w-none"
+                    >
+                        {current.desc}
+                    </motion.p>
+
+                    {/* Buttons */}
+                    <motion.div
+                        key={`btns-${index}`}
+                        variants={textVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="mt-4 sm:mt-6 flex gap-3 sm:gap-4"
+                    >
+                        <Link
+                            href={current.link}
+                            className="flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity active:scale-95"
+                        >
+                            <Play className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-current" />
+                            Watch Now
+                        </Link>
+
+                        <Link
+                            href="/series"
+                            className="rounded-md border border-white/30 px-4 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm font-medium text-white hover:bg-white/10 transition-colors active:scale-95"
+                        >
+                            Browse
+                        </Link>
+                    </motion.div>
+                </div>
+            </div>
+
+            {/* Dots Pagination */}
+            <div className="absolute bottom-4 right-4 sm:left-1/2 sm:right-auto z-20 flex sm:-translate-x-1/2 gap-1.5 sm:gap-2 bg-black/20 backdrop-blur-xs px-2 py-1 rounded-full">
+                {banners.map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => setIndex(i)}
+                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${i === index ? "w-4 sm:w-6 bg-white" : "w-1.5 sm:w-2 bg-white/40"
+                            }`}
+                        aria-label={`Go to slide ${i + 1}`}
+                    />
+                ))}
+            </div>
+        </section>
+    );
+}
