@@ -11,50 +11,56 @@ async function bootstrap() {
 
   // Helmet security middleware with custom CSP
   app.use(
-  helmet({
-    crossOriginEmbedderPolicy: false,
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
+    helmet({
+      crossOriginEmbedderPolicy: false,
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
 
-        /* images */
-        imgSrc: [
-          "'self'",
-          "data:",
-          "https://res.cloudinary.com", // ✅ cloudinary
-        ],
+          /* images */
+          imgSrc: [
+            "'self'",
+            "data:",
+            "https://res.cloudinary.com", // ✅ cloudinary
+          ],
 
-        /* scripts */
-        scriptSrc: [
-          "'self'",
-          "'unsafe-inline'", // ⚠️ needed for dev / Next.js
-          "https:",
-        ],
+          /* scripts */
+          scriptSrc: [
+            "'self'",
+            "'unsafe-inline'", // ⚠️ needed for dev / Next.js
+            "https:",
+          ],
 
-        /* styles */
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          "https:",
-        ],
+          /* styles */
+          styleSrc: [
+            "'self'",
+            "'unsafe-inline'",
+            "https:",
+          ],
 
-        /* API calls */
-        connectSrc: [
-          "'self'",
-          "http://localhost:3000", // frontend
-          "http://localhost:4000", // backend (if different port)
-        ],
+          /* API calls */
+          connectSrc: [
+            "'self'",
+            "http://localhost:3000", // frontend
+            "http://localhost:4000", // backend (if different port)
+          ],
 
-        /* iframe (YouTube etc) */
-        frameSrc: [
-          "'self'",
-          "https://www.youtube.com",
-          "https://player.vimeo.com",
-        ],
+          /* iframe (YouTube etc) */
+          frameSrc: [
+            "'self'",
+            "https://www.youtube.com",
+            "https://player.vimeo.com",
+          ],
+        },
       },
-    },
-  })
-);
+    })
+  );
+
+  // CORS configuration
+  app.enableCors({
+    origin: "http://localhost:3000", // frontend URL
+    credentials: true, // MUST for cookies
+  });
 
   // Get config service
   const configService = app.get(ConfigService);

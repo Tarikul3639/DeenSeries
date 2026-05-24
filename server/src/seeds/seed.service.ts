@@ -11,7 +11,7 @@ export class SeedService {
     @InjectModel(Series.name) private seriesModel: Model<Series>,
     @InjectModel(Episode.name) private episodeModel: Model<Episode>,
     @InjectModel(Movie.name) private movieModel: Model<Movie>,
-  ) {}
+  ) { }
 
   async seed() {
     console.log("🌱 Seeding database...");
@@ -45,9 +45,14 @@ export class SeedService {
       title: "Omar Movie",
       slug: "omar-movie",
       description: "Islamic historical drama",
+      tagline: "The Life of Umar ibn Al-Khattab (RA)",
       embed: "<iframe src='https://www.youtube.com/embed/dQw4w9WgXcQ'></iframe>",
       duration: "2h 30m",
       genres: ["History", "Islamic"],
+      quality: "4K",
+      rating: "9.7",
+      releaseDate: "2024",
+      poster: "https://example.com/poster.jpg",
     });
 
     console.log("✅ Seeding completed!");

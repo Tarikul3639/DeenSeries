@@ -11,30 +11,29 @@ import {
   Film,
 } from "lucide-react";
 
-/* ---------------- MOVIE DATA ---------------- */
-const MOVIE_DATA = {
-  id: "umar",
-  title: "Omar Movie",
-  tagline: "The Life of Umar ibn Al-Khattab (RA)",
-  description:
-    "A powerful historical drama depicting the life, leadership, and legacy of Umar ibn Al-Khattab (RA), one of the greatest figures in Islamic history.",
-  poster:
-    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-  rating: "9.7",
-  quality: "4K ULTRA HD",
-  releaseDate: "2024",
-  duration: "2h 30m",
-  genres: ["Historical", "Islamic", "Biography"],
-  embed:
-    '<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" class="w-full h-full" allowfullscreen></iframe>',
-};
+// API
+import { useGetMoviesQuery } from "@/store/features/movies/movie.api";
 
 export default function MoviePage() {
   const params = useParams();
   const { movieId } = params as { movieId: string };
 
-  // demo → always same UI
-  const movie = MOVIE_DATA;
+  const { data, isLoading, isError } = useGetMoviesQuery();
+
+  // 🔥 find movie by slug or id
+  const movie = data?.find(
+    (m) => m.slug === movieId || m._id === movieId
+  );
+
+  /* 🧠 STATES */
+
+  if (isLoading) {
+    return <p className="text-center py-20">Loading...</p>;
+  }
+
+  if (isError || !movie) {
+    return <p className="text-center py-20">Movie not found</p>;
+  }
 
   return (
     <main className="min-h-screen bg-zinc-50/50 text-zinc-800 pb-16">
@@ -46,13 +45,13 @@ export default function MoviePage() {
             href="/movies"
             className="group inline-flex items-center gap-2.5 text-base font-medium text-zinc-500 hover:text-zinc-900 transition"
           >
-            <ArrowLeft className="h-5 w-5 transition group-hover:-translate-x-1" />
+            <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-all duration-300" />
 
             <span className="relative flex w-24 overflow-hidden">
-              <span className="transition group-hover:translate-x-24">
+              <span className="group-hover:translate-x-24 transition-all duration-300">
                 Back
               </span>
-              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-0 font-semibold">
+              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-0 font-semibold transition-all duration-300">
                 To Movies
               </span>
             </span>
@@ -66,7 +65,7 @@ export default function MoviePage() {
         {/* PLAYER */}
         <div className="relative w-full aspect-video overflow-hidden bg-black rounded-sm border border-zinc-200 shadow-md">
           <div
-            className="w-full h-full [&_iframe]:absolute [&_iframe]:inset-0"
+            className="w-full h-full [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:w-full [&_iframe]:h-full"
             dangerouslySetInnerHTML={{ __html: movie.embed }}
           />
         </div>
@@ -88,7 +87,7 @@ export default function MoviePage() {
               </h1>
 
               <span className="text-xs text-zinc-400 font-medium">
-                {movie.duration} • {movie.releaseDate}
+                {movie.duration} • {movie.createdAt?.slice(0, 4)}
               </span>
             </div>
 
@@ -114,7 +113,7 @@ export default function MoviePage() {
               </h2>
 
               <p className="text-[11px] italic text-zinc-500">
-                "{movie.tagline}"
+                {movie.tagline || "No tagline available"}
               </p>
             </div>
 
@@ -128,7 +127,7 @@ export default function MoviePage() {
                   <Sparkles className="h-3 w-3" /> Rating
                 </span>
                 <span className="text-amber-600 font-bold">
-                  ★ {movie.rating}
+                  ★ {movie.rating || "N/A"}
                 </span>
               </div>
 
@@ -146,14 +145,14 @@ export default function MoviePage() {
                   <Tv className="h-3 w-3" /> Release
                 </span>
                 <span className="text-zinc-600">
-                  {movie.releaseDate}
+                  {movie.createdAt?.slice(0, 4)}
                 </span>
               </div>
             </div>
 
             {/* GENRES */}
             <div className="flex flex-wrap gap-1 pt-2">
-              {movie.genres.map((g) => (
+              {movie.genres?.map((g) => (
                 <span
                   key={g}
                   className="bg-zinc-50 border border-zinc-200 px-2 py-0.5 text-[10px]"

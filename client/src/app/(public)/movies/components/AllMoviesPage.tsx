@@ -1,111 +1,61 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ItemProps } from "@/components/MovieCard";
 import { MovieFilters } from "./MovieFilters";
 import { MovieGrid } from "./MovieGrid";
 import { EmptyState } from "@/components/EmptyState";
-import { ArrowRight } from "lucide-react";
+import { ErrorState } from "@/components/ErrorState";
+import { ArrowRight, Loader2 } from "lucide-react";
 
-// 📌 DEMO DATA same
-const DEMO_MOVIES: ItemProps[] = [
-    {
-        id: "gilani",
-        title: "Gilani Series",
-        description: "The spiritual journey...",
-        episodes: 24,
-        poster: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-        quality: "HD",
-        rating: "9.8",
-        releaseDate: "2025",
-    },
-    {
-        id: "salahuddin",
-        title: "Salahuddin Ayyubi",
-        description: "The legendary...",
-        episodes: 30,
-        poster: "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d",
-        quality: "4K",
-        rating: "9.6",
-        releaseDate: "2024",
-    },
-    {
-        id: "ertugrul",
-        title: "Dirilis Ertugrul",
-        description: "The heroic story...",
-        episodes: 150,
-        poster: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
-        quality: "HD",
-        rating: "9.5",
-        releaseDate: "2014",
-    },
-    {
-        id: "omar",
-        title: "Omar Series",
-        description: "The monumental...",
-        episodes: 31,
-        poster: "https://images.unsplash.com/photo-1518495973542-4542c06a5843",
-        quality: "HD",
-        rating: "9.9",
-        releaseDate: "2012",
-    },
-    {
-        id: "payitaht",
-        title: "Payitaht Abdulhamid",
-        description: "The struggle of...",
-        episodes: 154,
-        poster: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1",
-        quality: "HD",
-        rating: "8.9",
-        releaseDate: "2017",
-    },
-    {
-        id: "kurulus-osman",
-        title: "Kurulus Osman",
-        description: "The epic foundation...",
-        episodes: 120,
-        poster: "https://images.unsplash.com/photo-1536440136628-849c177e76a1",
-        quality: "4K",
-        rating: "9.2",
-        releaseDate: "2019",
-    },
-    {
-        id: "ibn-battuta",
-        title: "The Journey of Ibn Battuta",
-        description: "Following the...",
-        poster: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800",
-        quality: "BlueRay",
-        rating: "8.7",
-        releaseDate: "2023",
-    },
-    {
-        id: "andalus",
-        title: "Fath Al-Andalus",
-        description: "The historical...",
-        episodes: 30,
-        poster: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
-        quality: "HD",
-        rating: "9.0",
-        releaseDate: "2022",
-    },
-];
+// API Integration
+import { useGetMoviesQuery } from "@/store/features/movies/movie.api";
 
+/**
+ * AllMoviesPage Component
+ * Renders the aggregated catalog of movies with client-side searching,
+ * specialized state screens (loading, empty, error), and pagination triggers.
+ */
 export default function AllMoviesPage() {
-    const [searchQuery, setSearchQuery] = useState(""); // input typing
-    const [activeQuery, setActiveQuery] = useState(""); // actual search
+    // 1. Server Data Retrieval
+    const { data, isLoading, isError, error, refetch } = useGetMoviesQuery();
+    console.log(data);
+    // 2. Local State Management for Filters
+    const [searchQuery, setSearchQuery] = useState("");
+    const [activeQuery, setActiveQuery] = useState("");
 
-    // 🔍 FILTER ONLY ON activeQuery
+    /**
+     * 3. Domain Model Transformation
+     * Map database payload model into standardized client UI model structure.
+     */
+    const movies = useMemo(() => {
+        if (!data) return [];
+
+        return data.map((movie) => ({
+            id: movie._id,
+            title: movie.title,
+            description: movie.description,
+            poster: "https://via.placeholder.com/300x400", // Fallback static resource
+            quality: movie.quality,
+            rating: "N/A",
+            releaseDate: movie.createdAt ? movie.createdAt.slice(0, 4) : "N/A",
+        }));
+    }, [data]);
+
+    /**
+     * 4. Client Side Filter Core
+     * Dynamically filters normalized dataset based on confirmed search tokens.
+     */
     const filteredMovies = useMemo(() => {
-        return DEMO_MOVIES.filter((movie) => {
+        return movies.filter((movie) => {
             const matchesSearch =
                 movie.title.toLowerCase().includes(activeQuery.toLowerCase()) ||
                 movie.description?.toLowerCase().includes(activeQuery.toLowerCase());
 
             return matchesSearch;
         });
-    }, [activeQuery]);
+    }, [movies, activeQuery]);
 
-    // 🔍 trigger search
+    // 5. Actions & Event Handlers
     const handleSearch = () => {
         setActiveQuery(searchQuery);
     };
@@ -115,33 +65,61 @@ export default function AllMoviesPage() {
         setActiveQuery("");
     };
 
+    // 6. Evaluated Flags for Layout Render Machine
+    const hasData = filteredMovies.length > 0;
+    const isFeedEmpty = !isLoading && !isError && filteredMovies.length === 0;
+
     return (
-        <div className="min-h-screen bg-background text-foreground py-8 px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-7xl space-y-6">
-                {/* FILTERS */}
+        <div className="min-h-screen flex flex-col justify-between py-8 px-4 bg-slate-50/50">
+            <div className="w-full mx-auto max-w-7xl space-y-6 flex-1 flex flex-col">
+                {/* Search & Filter Header bar */}
                 <MovieFilters
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                     onSearch={handleSearch}
                 />
 
-                {/* CONTENT */}
-                {filteredMovies.length > 0 ? (
-                    <MovieGrid movies={filteredMovies} />
-                ) : (
-                    <EmptyState onReset={handleResetFilters} />
+                {/* --- STATE DISPLAY CONTROL LAYER --- */}
+
+                {/* Scenario A: Request Active & Loading */}
+                {isLoading && (
+                    <div className="flex-1 flex flex-col justify-center items-center min-h-100 gap-3">
+                        <Loader2 className="h-8 w-8 text-gray-500 animate-spin" />
+                        <p className="text-sm font-medium text-slate-500">Loading master catalog...</p>
+                    </div>
                 )}
 
-                {/* LOAD MORE */}
-                {filteredMovies.length > 0 && (
-                    <div className="pt-8 flex justify-center">
-                        <button className="group relative inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-medium text-primary-foreground shadow-sm transition-all hover:shadow-md active:scale-[0.98]">
-                            Load More
-                            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                        </button>
+                {/* Scenario B: Server Request Error Fallback */}
+                {isError && !isLoading && (
+                    <div className="flex-1 flex items-center justify-center min-h-100">
+                        <ErrorState
+                            title="Failed to load movies"
+                            rawError={error}
+                            onRetry={refetch}
+                        />
+                    </div>
+                )}
+
+                {/* Scenario C: Active Feed Render */}
+                {hasData && !isLoading && <MovieGrid movies={filteredMovies} />}
+
+                {/* Scenario D: Complete Clean Output With Zero Records Matches */}
+                {isFeedEmpty && (
+                    <div className="flex-1 flex items-center justify-center min-h-100">
+                        <EmptyState onReset={handleResetFilters} />
                     </div>
                 )}
             </div>
+
+            {/* Pagination Controls Layer */}
+            {hasData && !isLoading && (
+                <div className="pt-8 flex justify-center shrink-0">
+                    <button className="group relative inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-slate-850 active:scale-[0.98] cursor-pointer">
+                        Load More
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </button>
+                </div>
+            )}
         </div>
     );
 }
