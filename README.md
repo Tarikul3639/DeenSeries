@@ -1,13 +1,9 @@
----
-
 # 🚀 ✅ FULL README.md
 
 ```md
 # 🕌 DeenSeries
 
 A modern fullstack platform to stream Islamic series and movies with a clean, distraction-free experience.
-
----
 
 ## ✨ Features
 
@@ -25,8 +21,6 @@ A modern fullstack platform to stream Islamic series and movies with a clean, di
 - Movie management system
 - Modern dashboard UI
 
----
-
 ## 🔐 Security
 
 - JWT Authentication (Access + Refresh Token)
@@ -35,8 +29,6 @@ A modern fullstack platform to stream Islamic series and movies with a clean, di
 - Helmet security headers
 - DTO validation (class-validator)
 - Secure Cloudinary upload (signature-based)
-
----
 
 ## 🧱 Tech Stack
 
@@ -53,18 +45,12 @@ A modern fullstack platform to stream Islamic series and movies with a clean, di
 - Cloudinary Integration
 - Swagger API Docs
 
----
-
 ## 📁 Project Structure
-
-```
 
 client/   → Next.js frontend
 server/   → NestJS backend
 
 ```
-
----
 
 ## ⚙️ Environment Variables
 
@@ -87,8 +73,6 @@ CLOUDINARY_API_SECRET=
 
 ````
 
----
-
 ## 🚀 Getting Started
 
 ### 1️⃣ Clone repo
@@ -98,8 +82,6 @@ git clone https://github.com/tarikul3639/deenseries.git
 cd deenseries
 ````
 
----
-
 ### 2️⃣ Setup Backend
 
 ```bash
@@ -107,8 +89,6 @@ cd server
 npm install
 npm run start:dev
 ```
-
----
 
 ### 3️⃣ Setup Frontend
 
@@ -118,15 +98,11 @@ npm install
 npm run dev
 ```
 
----
-
 ## 🌱 Seed Database
 
 ```bash
 npm run seed
 ```
-
----
 
 ## 🔗 API Docs
 
@@ -136,15 +112,12 @@ Swagger available at:
 http://localhost:3000/api
 ```
 
----
-
 ## 📸 Media Upload
 
 * Direct upload from frontend
 * Cloudinary signed upload
 * Secure & scalable
 
----
 
 ## 🔮 Future Improvements
 
@@ -154,27 +127,20 @@ http://localhost:3000/api
 * Search & filtering
 * Analytics dashboard
 
----
-
 ## 🤝 Contributing
 
 Pull requests are welcome. For major changes, open an issue first.
 
----
 
 ## 📄 License
 
 MIT License
-
----
 
 ## 👨‍💻 Author
 
 Built with ❤️ by Tarikul
 
 ````
-
----
 
 # 🔥 Bonus (optional but powerful)
 
@@ -184,5 +150,3 @@ Built with ❤️ by Tarikul
 ## 🌍 Live Demo
 https://your-site.com
 ````
-
----
