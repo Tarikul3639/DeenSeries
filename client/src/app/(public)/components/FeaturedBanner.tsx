@@ -66,7 +66,7 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                         variants={textVariants}
                         initial="hidden"
                         animate="visible"
-                        className="text-2xl font-bold text-white sm:text-4xl lg:text-5xl tracking-tight drop-shadow-md"
+                        className="text-xl sm:text-2xl font-bold text-white md:text-4xl lg:text-5xl tracking-tight drop-shadow-md"
                     >
                         {current.title}
                     </motion.h1>
@@ -77,7 +77,7 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                         variants={textVariants}
                         initial="hidden"
                         animate="visible"
-                        className="mt-2 sm:mt-4 text-sm sm:text-base lg:text-lg text-gray-200 line-clamp-2 max-w-md sm:max-w-none"
+                        className="mt-2 sm:mt-4 text-xs sm:text-sm lg:text-base xl:text-xl text-gray-200 line-clamp-2 max-w-md sm:max-w-none"
                     >
                         {current.description || "No description available."}
                     </motion.p>
@@ -88,7 +88,7 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                         variants={textVariants}
                         initial="hidden"
                         animate="visible"
-                        className="mt-4 sm:mt-6 flex gap-3 sm:gap-4"
+                        className="mt-4 sm:mt-6 flex gap-3 sm:gap-4 text-[11px] sm:text-xs md:text-sm font-medium"
                     >
                         <Link
                             href={
@@ -96,15 +96,15 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                                     ? `/series/${current.id}`
                                     : `/movies/${current.id}`
                             }
-                            className="flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity active:scale-95"
+                            className="flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 sm:px-6 sm:py-3 font-semibold text-primary-foreground hover:opacity-90 transition-opacity active:scale-95"
                         >
-                            <Play className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-current" />
+                            <Play className="size-3 sm:size-3.5 md:size-4 fill-current" />
                             Watch Now
                         </Link>
 
                         <Link
                             href="/series"
-                            className="rounded-md border border-white/30 px-4 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm font-medium text-white hover:bg-white/10 transition-colors active:scale-95"
+                            className="rounded-md border border-white/30 px-4 py-2 sm:px-6 sm:py-3 text-white hover:bg-white/10 transition-colors active:scale-95"
                         >
                             Browse
                         </Link>

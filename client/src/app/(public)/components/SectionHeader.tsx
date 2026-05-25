@@ -17,7 +17,7 @@ export function SectionHeader({ title, seeAllHref }: SectionHeaderProps) {
 
       <Link
         href={seeAllHref}
-        className="group flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-white hover:text-gray-100 transition uppercase bg-primary px-2 sm:px-2.5 py-1 sm:py-1.5 rounded"
+        className="group flex items-center gap-1 text-[9px] sm:text-[10px] md:text-[11px] font-semibold text-white hover:text-gray-100 transition uppercase bg-primary/90 hover:bg-primary px-2 sm:px-2.5 py-1 sm:py-1.5 rounded"
       >
         <span>see all</span>
         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
