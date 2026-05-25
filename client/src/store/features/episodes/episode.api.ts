@@ -18,7 +18,7 @@ export interface Episode {
     thumbnail?: string;
     duration?: string;
     quality: string;
-    rating?: number;
+    rating?: string;
     releaseDate?: string;
 
     isPublished: boolean;
