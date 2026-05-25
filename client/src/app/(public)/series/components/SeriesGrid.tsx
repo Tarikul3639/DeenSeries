@@ -19,11 +19,11 @@ export function SeriesGrid({ Series }: SeriesGridProps) {
     >
       {Series.map((Series) => (
         <motion.div
-          key={Series.id}
+          key={Series._id}
           variants={fadeUp}
           exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.15 } }}
         >
-          <Link href={`/series/${Series.id}`} className="select-none group">
+          <Link href={`/series/${Series._id}`} className="select-none group">
             <SeriesCard item={Series} />
           </Link>
         </motion.div>

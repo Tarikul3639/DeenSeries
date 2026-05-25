@@ -4,29 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Play } from "lucide-react";
-
-/* 🔥 HERO BANNERS */
-const banners = [
-    {
-        title: "Gilani Series",
-        desc: "Life of Abdul Qadir Gilani (RA)",
-        image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-        link: "/series/gilani",
-    },
-    {
-        title: "Salahuddin Ayyubi",
-        desc: "The legendary Muslim leader",
-        image: "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d",
-        link: "/series/salahuddin",
-    },
-    {
-        title: "Dirilis Ertugrul",
-        desc: "Rise of the Ottoman Empire",
-        image: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
-        link: "/series/ertugrul",
-    },
-];
-
+import { FeaturedItem } from "@/store/features/home/home.api";
 
 const slideVariants: Variants = {
     initial: { opacity: 0, scale: 1.05 },
@@ -39,17 +17,20 @@ const textVariants: Variants = {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
-export default function FeaturedBanner() {
+export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setIndex((prev) => (prev + 1) % banners.length);
-        }, 5000); // 5 seconds interval
-        return () => clearInterval(interval);
-    }, []);
+        if (!items.length) return;
 
-    const current = banners[index];
+        const interval = setInterval(() => {
+            setIndex((prev) => (prev + 1) % items.length);
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, [items.length]);
+
+    const current = items[index];
 
     return (
         <section
@@ -98,7 +79,7 @@ export default function FeaturedBanner() {
                         animate="visible"
                         className="mt-2 sm:mt-4 text-sm sm:text-base lg:text-lg text-gray-200 line-clamp-2 max-w-md sm:max-w-none"
                     >
-                        {current.desc}
+                        {current.description || "No description available."}
                     </motion.p>
 
                     {/* Buttons */}
@@ -110,7 +91,11 @@ export default function FeaturedBanner() {
                         className="mt-4 sm:mt-6 flex gap-3 sm:gap-4"
                     >
                         <Link
-                            href={current.link}
+                            href={
+                                current.type === "series"
+                                    ? `/series/${current.id}`
+                                    : `/movies/${current.id}`
+                            }
                             className="flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity active:scale-95"
                         >
                             <Play className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-current" />
@@ -129,7 +114,7 @@ export default function FeaturedBanner() {
 
             {/* Dots Pagination */}
             <div className="absolute bottom-4 right-4 sm:left-1/2 sm:right-auto z-20 flex sm:-translate-x-1/2 gap-1.5 sm:gap-2 bg-black/20 backdrop-blur-xs px-2 py-1 rounded-full">
-                {banners.map((_, i) => (
+                {items.map((_, i) => (
                     <button
                         key={i}
                         onClick={() => setIndex(i)}

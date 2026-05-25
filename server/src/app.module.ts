@@ -7,6 +7,7 @@ import { DatabaseModule } from './database/database.module';
 import { SeriesModule } from './modules/series/series.module';
 import { EpisodesModule } from './modules/episodes/episodes.module';
 import { MoviesModule } from './modules/movies/movies.module';
+import { HomeModule } from './modules/home/home.module';
 
 // _-_-_-_ Auth _-_-_-
 import { AuthModule } from './modules/auth/auth.module';
@@ -26,14 +27,14 @@ import { SeedModule } from './seeds/seed.module';
       validationSchema: envValidationSchema,
     }),
 
-    ThrottlerModule.forRoot({
-      throttlers: [
-        {
-          ttl: 60000, // 60 sec
-          limit: 10,  // max 10 requests
-        },
-      ],
-    }),
+    // ThrottlerModule.forRoot({
+    //   throttlers: [
+    //     {
+    //       ttl: 60000, // 60 sec
+    //       limit: 10,  // max 10 requests
+    //     },
+    //   ],
+    // }),
 
     DatabaseModule,
     SeriesModule,
@@ -42,16 +43,17 @@ import { SeedModule } from './seeds/seed.module';
     AuthModule,
     MediaModule,
     SeedModule,
+    HomeModule,
   ],
 
   controllers: [],
 
-  providers: [
-    // Global rate limit guard
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
-  ],
+  // providers: [
+  //   // Global rate limit guard
+  //   {
+  //     provide: APP_GUARD,
+  //     useClass: ThrottlerGuard,
+  //   },
+  // ],
 })
 export class AppModule {}

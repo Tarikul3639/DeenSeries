@@ -1,31 +1,86 @@
 import { Metadata } from "next";
-import { SERIES_DATA } from "./components/series-data";
-import { SeriesHero } from "./components/SeriesHero";
-import { SeriesEpisodesHeader } from "./components/SeriesEpisodesHeader";
-import { SeriesEpisodesGrid } from "./components/SeriesEpisodesGrid";
+import { EpisodeResponse } from "@/store/features/episodes/episode.api";
+import SeriesDetailsPage from "./components/SeriesDetailsPage";
 
-export const metadata: Metadata = {
-  title: "Gilani Series",
-  description:
-    "Watch Gilani Series with a clean and distraction-free viewing experience.",
-};
+/* METADATA (SAFE + SEO READY) */
+export async function generateMetadata(
+  { params }: { params: Promise<{ seriesId: string }> }
+): Promise<Metadata> {
+  const { seriesId } = await params;
 
-export default function SeriesDetailsPage({ params }: { params: { seriesId: string } }) {
-  const currentSeries = SERIES_DATA;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/episodes/series/${seriesId}`,
+      { cache: "no-store" }
+    );
 
-  return (
-    <div className="min-h-screen bg-background text-foreground pb-16">
-      <SeriesHero currentSeries={currentSeries} />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 space-y-6">
-        <SeriesEpisodesHeader
-          totalEpisodes={currentSeries.totalEpisodes}
-          season="Season 1"
-        />
+    /* If fail api */
+    if (!res.ok) {
+      return {
+        title: "Series not found",
+        description: "This series does not exist or has been removed.",
+      };
+    }
 
-        <div className="group-wrapper">
-          <SeriesEpisodesGrid episodes={currentSeries.episodes} seriesId={params.seriesId} />
-        </div>
-      </div>
-    </div>
-  );
+    /* SAFE JSON PARSE */
+    const text = await res.text();
+
+    if (!text) {
+      return {
+        title: "Series not found",
+      };
+    }
+
+    let response: EpisodeResponse;
+
+    try {
+      response = JSON.parse(text);
+    } catch (err) {
+      console.error("JSON parse error:", err);
+
+      return {
+        title: "Error loading series",
+      };
+    }
+
+    return {
+      title: response.series.title || "DeenSeries",
+      description:
+        response.series.description ||
+        "Watch Islamic series on DeenSeries platform.",
+
+      openGraph: {
+        title: response.series.title,
+        description: response.series.description,
+        images: [
+          response.series.coverPoster || "/og-image.png",
+        ],
+      },
+
+      twitter: {
+        card: "summary_large_image",
+        title: response.series.title,
+        description: response.series.description,
+        images: [
+          response.series.coverPoster || "/og-image.png",
+        ],
+      },
+    };
+  } catch (error) {
+    console.error("Metadata fetch error:", error);
+
+    return {
+      title: "DeenSeries",
+      description: "Watch Islamic series and movies.",
+    };
+  }
+}
+
+/* 🔥 PAGE */
+export default async function SeriesPage(
+  { params }: { params: Promise<{ seriesId: string }> }
+) {
+  const { seriesId } = await params;
+
+  return <SeriesDetailsPage seriesId={seriesId} />;
 }

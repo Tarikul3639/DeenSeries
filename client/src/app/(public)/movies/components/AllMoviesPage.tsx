@@ -1,14 +1,15 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { MovieFilters } from "./MovieFilters";
 import { MovieGrid } from "./MovieGrid";
 import { EmptyState } from "@/components/EmptyState";
 import { ErrorState } from "@/components/ErrorState";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 // API Integration
 import { useGetMoviesQuery } from "@/store/features/movies/movie.api";
+import { Pagination } from "@/components/Pagination";
 
 /**
  * AllMoviesPage Component
@@ -16,58 +17,20 @@ import { useGetMoviesQuery } from "@/store/features/movies/movie.api";
  * specialized state screens (loading, empty, error), and pagination triggers.
  */
 export default function AllMoviesPage() {
-    // 1. Server Data Retrieval
-    const { data, isLoading, isError, error, refetch } = useGetMoviesQuery();
-    console.log(data);
-    // 2. Local State Management for Filters
+    const [page, setPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
     const [activeQuery, setActiveQuery] = useState("");
 
-    /**
-     * 3. Domain Model Transformation
-     * Map database payload model into standardized client UI model structure.
-     */
-    const movies = useMemo(() => {
-        if (!data) return [];
+    const { data, isLoading, isError, error, refetch } =
+        useGetMoviesQuery(
+            {
+                page,
+                limit: 12,
+                search: activeQuery,
+            }
+        );
 
-        return data.map((movie) => ({
-            id: movie._id,
-            title: movie.title,
-            description: movie.description,
-            poster: "https://via.placeholder.com/300x400", // Fallback static resource
-            quality: movie.quality,
-            rating: "N/A",
-            releaseDate: movie.createdAt ? movie.createdAt.slice(0, 4) : "N/A",
-        }));
-    }, [data]);
-
-    /**
-     * 4. Client Side Filter Core
-     * Dynamically filters normalized dataset based on confirmed search tokens.
-     */
-    const filteredMovies = useMemo(() => {
-        return movies.filter((movie) => {
-            const matchesSearch =
-                movie.title.toLowerCase().includes(activeQuery.toLowerCase()) ||
-                movie.description?.toLowerCase().includes(activeQuery.toLowerCase());
-
-            return matchesSearch;
-        });
-    }, [movies, activeQuery]);
-
-    // 5. Actions & Event Handlers
-    const handleSearch = () => {
-        setActiveQuery(searchQuery);
-    };
-
-    const handleResetFilters = () => {
-        setSearchQuery("");
-        setActiveQuery("");
-    };
-
-    // 6. Evaluated Flags for Layout Render Machine
-    const hasData = filteredMovies.length > 0;
-    const isFeedEmpty = !isLoading && !isError && filteredMovies.length === 0;
+    // console.log("API Response:", { data, isLoading, isError, error });
 
     return (
         <div className="min-h-screen flex flex-col justify-between py-8 px-4 bg-slate-50/50">
@@ -76,20 +39,24 @@ export default function AllMoviesPage() {
                 <MovieFilters
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
-                    onSearch={handleSearch}
+                    onSearch={() => {
+                        setPage(1); // Reset pagination
+                        setActiveQuery(searchQuery);
+                    }}
+                    onClear={() => {
+                        setPage(1); // Reset pagination
+                        setSearchQuery("");
+                        setActiveQuery("");
+                    }}
                 />
 
-                {/* --- STATE DISPLAY CONTROL LAYER --- */}
-
-                {/* Scenario A: Request Active & Loading */}
                 {isLoading && (
                     <div className="flex-1 flex flex-col justify-center items-center min-h-100 gap-3">
                         <Loader2 className="h-8 w-8 text-gray-500 animate-spin" />
-                        <p className="text-sm font-medium text-slate-500">Loading master catalog...</p>
+                        <p className="text-sm font-medium text-slate-500">Loading ...</p>
                     </div>
                 )}
 
-                {/* Scenario B: Server Request Error Fallback */}
                 {isError && !isLoading && (
                     <div className="flex-1 flex items-center justify-center min-h-100">
                         <ErrorState
@@ -100,25 +67,35 @@ export default function AllMoviesPage() {
                     </div>
                 )}
 
-                {/* Scenario C: Active Feed Render */}
-                {hasData && !isLoading && <MovieGrid movies={filteredMovies} />}
+                {/* GRID */}
+                {!isLoading && !isError && (
+                    <MovieGrid movies={data?.data || []} />
+                )}
 
-                {/* Scenario D: Complete Clean Output With Zero Records Matches */}
-                {isFeedEmpty && (
+                {/* EMPTY */}
+                {!isLoading && data && data.data.length === 0 && (
                     <div className="flex-1 flex items-center justify-center min-h-100">
-                        <EmptyState onReset={handleResetFilters} />
+                        <EmptyState
+                            onReset={() => {
+                                setPage(1);
+                                setSearchQuery("");
+                                setActiveQuery("");
+                            }}
+                        />
                     </div>
                 )}
             </div>
 
-            {/* Pagination Controls Layer */}
-            {hasData && !isLoading && (
-                <div className="pt-8 flex justify-center shrink-0">
-                    <button className="group relative inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-slate-850 active:scale-[0.98] cursor-pointer">
-                        Load More
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                    </button>
-                </div>
+            {/* PAGINATION */}
+            {data && data?.totalPages > 1 && (
+                <Pagination
+                    page={page}
+                    totalPages={data.totalPages}
+                    onPageChange={(newPage) => {
+                        setPage(newPage);
+                        // window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                />
             )}
         </div>
     );

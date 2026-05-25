@@ -11,9 +11,9 @@ import { EpisodesService } from "./episodes.service";
 
 @Controller("episodes")
 export class EpisodesController {
-  constructor(private readonly episodesService: EpisodesService) {}
+  constructor(private readonly episodesService: EpisodesService) { }
 
-  /* ➕ ADD EPISODE TO SERIES */
+  /* ADD EPISODE TO SERIES */
   @Post(":seriesId")
   create(
     @Param("seriesId") seriesId: string,
@@ -22,10 +22,19 @@ export class EpisodesController {
     return this.episodesService.create(seriesId, body);
   }
 
-  /* 📄 GET ALL EPISODES OF SERIES */
+  /* GET ALL EPISODES OF SERIES */
   @Get("series/:seriesId")
   findBySeries(@Param("seriesId") seriesId: string) {
     return this.episodesService.findBySeries(seriesId);
+  }
+
+  /* GET SINGLE EPISODE OF SERIES */
+  @Get("series/:seriesId/:episodeId")
+  findOneBySeries(
+    @Param("seriesId") seriesId: string,
+    @Param("episodeId") episodeId: string
+  ) {
+    return this.episodesService.findOneBySeries(seriesId, episodeId);
   }
 
   /* 🔍 GET ONE */

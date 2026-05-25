@@ -20,11 +20,11 @@ export function SeriesEpisodesGrid({ episodes, seriesId }: SeriesEpisodesGridPro
     >
       {episodes.map((episode) => (
         <motion.div
-          key={episode.id}
+          key={episode._id}
           variants={fadeUp}
           exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.15 } }}
         >
-          <Link href={`/series/${seriesId}/${episode.id}`} className="select-none group">
+          <Link href={`/series/${seriesId}/${episode._id}`} className="select-none group">
             <SeriesCard item={episode} />
           </Link>
         </motion.div>

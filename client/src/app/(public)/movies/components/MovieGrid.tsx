@@ -20,12 +20,12 @@ export function MovieGrid({ movies }: MovieGridProps) {
       <AnimatePresence mode="popLayout">
         {movies.map((movie) => (
           <motion.div
-            key={movie.id}
+            key={movie._id}
             layout
             variants={fadeUp}
             exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.15 } }}
           >
-            <Link href={`/movies/${movie.id}`} className="select-none group">
+            <Link href={`/movies/${movie._id}`} className="select-none group">
               <MovieCard item={movie} />
             </Link>
           </motion.div>

@@ -22,6 +22,9 @@ export class Series {
     coverPoster?: string;
 
     @Prop()
+    Rating?: number;
+
+    @Prop()
     thumbnailPoster?: string;
 
     @Prop({ type: [String], default: [] })
@@ -35,7 +38,6 @@ export class Series {
 
     @Prop({ default: 0 })
     totalEpisodes?: number;
-
 }
 
 export const SeriesSchema = SchemaFactory.createForClass(Series);

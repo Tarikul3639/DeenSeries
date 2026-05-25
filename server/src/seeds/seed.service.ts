@@ -5,6 +5,11 @@ import { Series } from "../database/schemas/series.schema";
 import { Episode } from "../database/schemas/episode.schema";
 import { Movie } from "../database/schemas/movie.schema";
 
+// Data
+import { MOVIES_SEED_DATA } from "./data/movies.data";
+import { SERIES_SEED_DATA } from "./data/series.data";
+import { EPISODES_SEED_DATA } from "./data/episodes.data";
+
 @Injectable()
 export class SeedService {
   constructor(
@@ -22,38 +27,29 @@ export class SeedService {
     await this.movieModel.deleteMany({});
 
     /* ---------------- SERIES ---------------- */
-    const series = await this.seriesModel.create({
-      title: "Gilani Series",
-      slug: "gilani-series",
-      description: "Spiritual journey of Sheikh Abdul Qadir Gilani",
-      genres: ["Spiritual", "History"],
-      releaseDate: "2025",
-    });
+    const series = await this.seriesModel.insertMany(SERIES_SEED_DATA);
 
     /* ---------------- EPISODES ---------------- */
-    const episodes = Array.from({ length: 5 }, (_, i) => ({
-      series: series._id,
-      title: `Episode ${i + 1}`,
-      episodeNumber: i + 1,
-      embed: "<iframe src='https://www.youtube.com/embed/dQw4w9WgXcQ'></iframe>",
-    }));
 
-    await this.episodeModel.insertMany(episodes);
+    const allEpisodesToInsert: any[] = [];
+
+    for (const item of EPISODES_SEED_DATA) {
+      const matchedSeries = series.find(s => s.title === item.seriesName);
+
+      if (matchedSeries) {
+        const formattedEpisodes = item.episodes.map(ep => ({
+          ...ep,
+          series: matchedSeries._id,
+        }));
+
+        allEpisodesToInsert.push(...formattedEpisodes);
+      }
+    }
+
+    await this.episodeModel.insertMany(allEpisodesToInsert);
 
     /* ---------------- MOVIES ---------------- */
-    await this.movieModel.create({
-      title: "Omar Movie",
-      slug: "omar-movie",
-      description: "Islamic historical drama",
-      tagline: "The Life of Umar ibn Al-Khattab (RA)",
-      embed: "<iframe src='https://www.youtube.com/embed/dQw4w9WgXcQ'></iframe>",
-      duration: "2h 30m",
-      genres: ["History", "Islamic"],
-      quality: "4K",
-      rating: "9.7",
-      releaseDate: "2024",
-      poster: "https://example.com/poster.jpg",
-    });
+    await this.movieModel.insertMany(MOVIES_SEED_DATA);
 
     console.log("✅ Seeding completed!");
   }

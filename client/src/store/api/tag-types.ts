@@ -1,5 +1,7 @@
 export const TAG_TYPES = {
+  FEATURED: "Featured",
   SERIES: "Series",
+  EPISODE: "Episode",
   MOVIE: "Movie",
   AUTH: "Auth",
 } as const;

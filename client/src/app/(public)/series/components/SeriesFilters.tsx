@@ -6,12 +6,14 @@ interface SeriesFiltersProps {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   onSearch: () => void;
+  onClear: () => void;
 }
 
 export function SeriesFilters({
   searchQuery,
   setSearchQuery,
   onSearch,
+  onClear,
 }: SeriesFiltersProps) {
   return (
     <div className="space-y-6">
@@ -46,7 +48,7 @@ export function SeriesFilters({
           {/* CLEAR BUTTON */}
           {searchQuery && (
             <button
-              onClick={() => setSearchQuery("")}
+              onClick={onClear}
               className="absolute right-20 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
             >
               <X className="h-4 w-4" />

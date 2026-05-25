@@ -1,16 +1,34 @@
 "use client";
-
-import Link from "next/link";
-
 export interface ItemProps {
-    id: string | number;
+    _id: string;
+
+    // Basic Info
     title: string;
+    slug: string;
     description?: string;
-    episodes?: number;
-    poster: string;
-    quality?: string;
-    rating?: number | string;
+    tagline?: string;
+
+    // Media
+    poster?: string;
+    thumbnail?: string;
+
+    // Video
+    embed?: string;
+
+    // Meta
+    duration?: string;
     releaseDate?: string;
+    genres?: string[];
+    rating?: string;
+    quality?: string;
+    totalEpisodes?: number;
+
+    // Status
+    isPublished: boolean;
+
+    // Timestamps
+    createdAt: string;
+    updatedAt: string;
 }
 
 interface MovieCardProps {
@@ -20,7 +38,7 @@ interface MovieCardProps {
 export const MovieCard = ({ item }: MovieCardProps) => {
     if (!item) return null;
 
-    const { id, title, poster, quality, rating, releaseDate, description, episodes } = item;
+    const { _id, title, poster, quality, rating, releaseDate, description, totalEpisodes } = item;
     return (
         <div className="flex flex-col gap-2">
 
@@ -62,6 +80,15 @@ export const MovieCard = ({ item }: MovieCardProps) => {
                     </div>
                 )}
 
+                {/* Total Episodes badge — top left */}
+                {totalEpisodes && (
+                    <div className="absolute top-2 left-2 z-10">
+                        <span className="bg-[#C82323] px-1.5 py-0.5 text-[11px] font-medium tracking-wide text-white rounded-xs">
+                            {totalEpisodes} Episodes
+                        </span>
+                    </div>
+                )}
+
                 {/* Rating — bottom right */}
                 <div className="absolute bottom-0 right-0 z-10 bg-black/90 px-2 py-1 flex items-center gap-1.5 rounded-tl-sm">
                     <svg
@@ -96,11 +123,11 @@ export const MovieCard = ({ item }: MovieCardProps) => {
                         {releaseDate}
                     </p>
                 )}
-                {episodes && (
+                {/* {totalEpisodes && (
                     <p className="text-xs text-muted-foreground">
-                        {episodes} Episodes
+                        {totalEpisodes} Episodes
                     </p>
-                )}
+                )} */}
             </div>
         </div>
     );
