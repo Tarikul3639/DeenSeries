@@ -5,7 +5,10 @@ import { HomeService } from "./home.service";
 import { FeaturedItemDto } from "./dto/home-response.dto";
 
 @ApiTags("Home")
-@Controller("home")
+@Controller({
+    path: "home",
+    version: "1",
+})
 export class HomeController {
     constructor(private readonly homeService: HomeService) { }
 

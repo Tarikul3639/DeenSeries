@@ -27,14 +27,14 @@ import { SeedModule } from './seeds/seed.module';
       validationSchema: envValidationSchema,
     }),
 
-    // ThrottlerModule.forRoot({
-    //   throttlers: [
-    //     {
-    //       ttl: 60000, // 60 sec
-    //       limit: 10,  // max 10 requests
-    //     },
-    //   ],
-    // }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000, // 60 sec
+          limit: 60,  // max 60 requests
+        },
+      ],
+    }),
 
     DatabaseModule,
     SeriesModule,
@@ -48,12 +48,12 @@ import { SeedModule } from './seeds/seed.module';
 
   controllers: [],
 
-  // providers: [
-  //   // Global rate limit guard
-  //   {
-  //     provide: APP_GUARD,
-  //     useClass: ThrottlerGuard,
-  //   },
-  // ],
+  providers: [
+    // Global rate limit guard
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}
