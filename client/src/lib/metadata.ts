@@ -46,7 +46,7 @@ export function createMetadata({
     description,
     path,
     keywords = [],
-    image = "/og-image.png",
+    image = "/og/default.png",
     noIndex = false,
     twitterCard = "summary_large_image",
     ogDescription,

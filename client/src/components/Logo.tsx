@@ -1,23 +1,47 @@
 import Link from "next/link";
 
-export const Logo = () => {
+export const Logo = ({ size = 49 }) => {
     return (
         <Link href="/" className="group flex items-center gap-3">
 
             {/* LOGO ICON */}
-            <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/15 bg-linear-to-br from-primary/15 via-background to-background shadow-sm transition-transform group-hover:scale-[1.05]">
+            <svg
+                width={size}
+                height={size}
+                viewBox="0 0 170 170"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <defs>
+                    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#4f6ef7" />
+                        <stop offset="100%" stopColor="#1a2fa8" />
+                    </linearGradient>
+                </defs>
 
-                {/* Arabic letter */}
-                <span className="text-4xl font-black text-primary leading-none">
+                <rect x="0" y="0" width="170" height="170" rx="38" fill="#0c39d8" />
+                <rect x="0" y="0" width="170" height="85" rx="38" fill="#ffffff" fillOpacity="0.095" />
+                <circle cx="138" cy="24" r="7" fill="#ffffff" fillOpacity="0.25" />
+                <circle cx="138" cy="24" r="3.5" fill="#ffffff" fillOpacity="0.5" />
+
+                <text
+                    fontFamily="Arial, sans-serif"
+                    fontWeight="900"
+                    fontSize="100"
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    x="85"
+                    y="75"
+                    fill="#ffffff"
+                >
                     د
-                </span>
-            </div>
+                </text>
+            </svg>
 
             {/* TEXT */}
-            <div className="leading-tight text-left">
+            <div className="text-left">
 
                 {/* top row */}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 -mt-1.5">
                     <span className="text-xl font-semibold tracking-tight text-foreground">
                         Deen<span className="text-primary">Series</span>
                     </span>

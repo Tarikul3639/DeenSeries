@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="170" height="170" viewBox="0 0 170 170"><metadata><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"><rdf:Description><dc:creator>RealFaviconGenerator</dc:creator><dc:source>https://realfavicongenerator.net</dc:source></rdf:Description></rdf:RDF></metadata><defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f6ef7"></stop>
+      <stop offset="100%" stop-color="#1a2fa8"></stop>
+    </linearGradient>
+  </defs><rect x="0" y="0" width="170" height="170" rx="38" fill="url(#g1)"></rect><rect x="0" y="0" width="170" height="85" rx="38" fill="#ffffff" fill-opacity="0.08"></rect><circle cx="138" cy="24" r="7" fill="#ffffff" fill-opacity="0.25"></circle><circle cx="138" cy="24" r="3.5" fill="#ffffff" fill-opacity="0.5"></circle><text font-family="Arial, sans-serif" font-weight="900" font-size="100" text-anchor="middle" dominant-baseline="central" x="85" y="75" fill="#ffffff">د</text></svg>
