@@ -39,7 +39,7 @@ export default function SeriesDetailsPage({ seriesId }: { seriesId: string }) {
       {/* EMPTY */}
       {!isLoading && !isError && episodes && episodes.length === 0 && (
         <div className="flex-1 flex items-center justify-center min-h-100">
-          <EmptyState onReset={() => {}} />
+          <EmptyState onReset={() => { }} />
         </div>
       )}
       {!isLoading && !isError && series && (
@@ -51,7 +51,6 @@ export default function SeriesDetailsPage({ seriesId }: { seriesId: string }) {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 space-y-6">
             <SeriesEpisodesHeader
               totalEpisodes={series?.totalEpisodes || 0}
-              season={series?.title || "1"}
             />
 
             <div className="group-wrapper">

@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Play, Calendar, Star, Tv, ChevronRight } from "lucide-react";
+import { Play, Calendar, Star, Tv, ChevronRight, ArrowLeft } from "lucide-react";
 import { Series } from "@/store/features/series/series.api";
 
 interface SeriesHeroProps {
@@ -35,13 +35,32 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
 
           {/* Right Column: Meta details and controls */}
           <div className="col-span-1 md:col-span-3 space-y-4">
+            <div className="w-full mx-auto max-w-6xl flex items-center">
+              <Link
+                href={`/series`}
+                className="group inline-flex items-center gap-2.5 text-xs font-medium text-zinc-500 transition-colors duration-200 hover:text-zinc-900"
+              >
+                <ArrowLeft className="size-3 sm:size-3.5 transform transition-all duration-300 cubic-bezier(0.16, 1, 0.3, 1) group-hover:-translate-x-1" />
+
+                <span className="relative flex w-20 sm:w-24 overflow-hidden py-0.5">
+                  {/* Sliding Modern Text Mask Layer */}
+                  <span className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-32 text-zinc-500">
+                    Back
+                  </span>
+                  <span className="absolute inset-0 inline-block -translate-x-full font-semibold whitespace-nowrap transition-transform duration-300 ease-out group-hover:translate-x-0 text-zinc-900">
+                    To Series
+                  </span>
+                </span>
+              </Link>
+            </div>
+
             {/* Breadcrumb Navigation */}
             <div className="flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
               <span>Library</span>
               <ChevronRight className="h-3 w-3" />
               <span>Series</span>
               <ChevronRight className="h-3 w-3" />
-              <span className="text-primary">{currentSeries.title}</span>
+              <span className="text-primary line-clamp-1">{currentSeries.title}</span>
             </div>
 
             {/* Title & Tagline */}

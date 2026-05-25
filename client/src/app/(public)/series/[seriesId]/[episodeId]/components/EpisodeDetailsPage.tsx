@@ -28,8 +28,8 @@ export default function EpisodeDetailsPage({ seriesId, episodeId }: { seriesId: 
         <main className="min-h-screen bg-zinc-50/50 text-zinc-800 pb-16">
 
             {/* 🔝 LIGHT ACCENT STICKY NAVIGATION */}
-            <div className="sticky top-0 z-50 w-full h-21 bg-linear-to-b from-white via-white/80 to-transparent pt-5 pb-4 px-4 sm:px-6 lg:px-8 backdrop-blur-md">
-                <div className="mx-auto max-w-6xl flex items-center">
+            <div className="sticky flex items-left top-0 z-50 w-full bg-linear-to-b from-white via-white/80 to-transparent px-4 backdrop-blur-md h-16.5 sm:h-20">
+                <div className="w-full mx-auto max-w-6xl flex items-center">
                     <Link
                         href={`/series/${data.series._id}`}
                         className="group inline-flex items-center gap-2.5 py-2 text-base font-medium text-zinc-500 transition-colors duration-200 hover:text-zinc-900"

@@ -143,7 +143,7 @@ export default function HomePage() {
         <div className="grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {moviesData?.data?.map((item: ItemProps) => (
             <div key={item._id}>
-              <Link href={`/player/${item._id}`} className="select-none group">
+              <Link href={`/movies/${item._id}`} className="select-none group">
                 <MovieCard item={item} />
               </Link>
             </div>

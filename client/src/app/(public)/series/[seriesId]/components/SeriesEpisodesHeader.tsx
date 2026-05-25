@@ -1,15 +1,13 @@
 "use client";
 
-import { Layers } from "lucide-react";
+import { Layers, Tv } from "lucide-react";
 
 interface SeriesEpisodesHeaderProps {
   totalEpisodes: number;
-  season?: string;
 }
 
 export function SeriesEpisodesHeader({
   totalEpisodes,
-  season = "Season 1",
 }: SeriesEpisodesHeaderProps) {
   return (
     <div className="relative flex items-center justify-between py-3">
@@ -27,21 +25,16 @@ export function SeriesEpisodesHeader({
           <h2 className="text-base sm:text-lg font-semibold tracking-tight">
             Episodes
           </h2>
-          <p className="text-[11px] text-muted-foreground">
+          <p className="text-[11px] text-muted-foreground line-clamp-1">
             Full list of available episodes
           </p>
         </div>
       </div>
 
       {/* RIGHT */}
-      <div className="flex items-center gap-2">
-        <span className="hidden sm:inline text-[11px] text-muted-foreground">
-          {totalEpisodes} Episodes
-        </span>
-
-        <span className="text-[11px] font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-sm border border-primary/20">
-          {season}
-        </span>
+      <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
+        <Tv className="size-4 -mt-0.5" />
+        <span>{totalEpisodes ?? 0} Episodes</span>
       </div>
     </div>
   );
