@@ -42,6 +42,7 @@ async function bootstrap() {
           connectSrc: [
             "'self'",
             "http://localhost:3000", // frontend
+            "https://deenseries.vercel.app", // frontend (production)
             "http://localhost:4000", // backend (if different port)
           ],
 
@@ -58,7 +59,7 @@ async function bootstrap() {
 
   // CORS configuration
   app.enableCors({
-    origin: "http://localhost:3000", // frontend URL
+    origin: process.env.FRONTEND_URL, // frontend URL
     credentials: true, // MUST for cookies
   });
 
