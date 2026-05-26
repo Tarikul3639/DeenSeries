@@ -9,10 +9,18 @@ import {
   TrendingUp,
   Sparkles,
   ArrowUpRight,
+  Plus,
 } from "lucide-react";
 
-import AddDropdown from "./components/AddDropdown";
 import { useGetDashboardQuery } from "@/store/features/admin/dashboard.api";
+
+/* shadcn dropdown */
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 export default function DashboardPage() {
   const { data, isLoading } = useGetDashboardQuery();
@@ -47,50 +55,84 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-12 max-w-7xl mx-auto px-1 py-4">
-      {/* HEADER SECTION */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-zinc-100 pb-6">
+    <div className="space-y-8 sm:space-y-12 max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
+
+      {/* HEADER */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-zinc-100 sm:pb-6">
+
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-900 flex items-center gap-2">
-            Dashboard{" "}
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 flex items-center gap-2">
+            Dashboard
             <Sparkles className="h-5 w-5 text-primary/80 animate-pulse" />
           </h1>
-          <p className="text-sm text-zinc-500 mt-1">
-            Welcome back 👋 Here is what&apos;s happening on your platform
-            today.
+
+          <p className="text-xs sm:text-sm text-zinc-500 mt-1">
+            Welcome back. Here is what's happening today.
           </p>
         </div>
 
-        <AddDropdown />
+        {/* ShadCN Dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="flex justify-center items-center max-sm:self-end max-w-32 px-4 py-2 rounded-sm bg-primary text-white text-sm cursor-pointer hover:bg-primary/90 transition">
+              <Plus className="size-4 sm:size-4.5 mr-1" />
+              Add New
+            </button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent
+            align="end"
+            className="w-40 rounded-sm border border-zinc-100 bg-white p-1"
+          >
+            <DropdownMenuItem
+              asChild
+              className="rounded-sm px-3 py-2 text-sm cursor-pointer hover:bg-zinc-100 focus:bg-zinc-100"
+            >
+              <Link href="/admin/series/create">
+                <Tv className="size-4 mr-1" />
+                Add Series
+              </Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem
+              asChild
+              className="rounded-sm px-3 py-2 text-sm cursor-pointer hover:bg-zinc-100 focus:bg-zinc-100"
+            >
+              <Link href="/admin/movies/create">
+                <Film className="size-4 mr-1" />
+                Add Movie
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
-      {/* STATS CARDS BLOCK */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* STATS */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {stats.map((item) => {
           const Icon = item.icon;
 
           return (
             <div
               key={item.label}
-              className="group relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-linear-to-br from-zinc-50/50 via-background to-background p-6 transition-all duration-300 hover:border-zinc-300 hover:bg-white active:scale-[0.99]"
+              className="group rounded-xl border border-zinc-200 bg-white p-4 sm:p-6 hover:border-zinc-300 transition"
             >
-              {/* Modern subtle top light beam */}
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                <span className="text-xs font-semibold uppercase text-zinc-400">
                   {item.label}
                 </span>
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-100 bg-zinc-50 text-zinc-600 transition-colors duration-300 group-hover:border-primary/20 group-hover:bg-primary/5 group-hover:text-primary">
-                  <Icon className="h-4.5 w-4.5" />
+
+                <div className="h-9 w-9 flex items-center justify-center rounded-md bg-zinc-50 border text-zinc-600 group-hover:text-primary group-hover:bg-primary/10 transition">
+                  <Icon className="h-4 w-4" />
                 </div>
               </div>
 
-              <div className="mt-4 flex items-baseline gap-2">
-                <h2 className="text-3xl font-bold tracking-tight text-zinc-900">
+              <div className="mt-3 flex items-center gap-2">
+                <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900">
                   {item.value}
                 </h2>
-                <span className="flex items-center gap-0.5 text-xs font-medium text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-sm">
+
+                <span className="text-xs text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-sm flex items-center gap-1">
                   <TrendingUp className="h-3 w-3" />
                   {item.growth}
                 </span>
@@ -100,12 +142,14 @@ export default function DashboardPage() {
         })}
       </div>
 
-      {/* QUICK ACTIONS SECTION */}
-      <div className="space-y-4">
-        <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-400">
-          Quick Management Tools
+      {/* QUICK ACTIONS */}
+      <div className="space-y-3">
+        <h4 className="text-xs font-bold uppercase text-zinc-400">
+          Quick Tools
         </h4>
-        <div className="grid gap-5 md:grid-cols-2">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
           <Link
             href="/admin/create?type=series"
             className="group relative overflow-hidden rounded-lg border border-zinc-200/80 bg-white p-6 transition-all duration-300 hover:border-zinc-300 hover:bg-zinc-50/30"
@@ -119,8 +163,8 @@ export default function DashboardPage() {
                   Create episodes and structure seasons dynamically
                 </p>
               </div>
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-50 border border-zinc-100 text-zinc-400 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300">
-                <ArrowUpRight className="h-4 w-4" />
+              <div className="flex p-2 items-center justify-center rounded-lg bg-zinc-50 border border-zinc-100 text-zinc-400 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300">
+                <ArrowUpRight className="size-4 sm:size-4.5" />
               </div>
             </div>
           </Link>
@@ -138,48 +182,39 @@ export default function DashboardPage() {
                   Upload streaming content sources and manage logs
                 </p>
               </div>
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-50 border border-zinc-100 text-zinc-400 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300">
-                <ArrowUpRight className="h-4 w-4" />
+              <div className="flex p-2 items-center justify-center rounded-lg bg-zinc-50 border border-zinc-100 text-zinc-400 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300">
+                <ArrowUpRight className="size-4 sm:size-4.5" />
               </div>
             </div>
           </Link>
+
         </div>
       </div>
 
-      {/* RECENT RECORDS TABLES */}
-      <div className="grid gap-6 lg:grid-cols-2">
-        {/* SERIES LIST PANEL */}
-        <div className="rounded-2xl border border-zinc-200/80 bg-white p-6">
-          <div className="mb-5 flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-bold text-zinc-900">Recent Series</h3>
-              <p className="text-xs text-zinc-400 mt-0.5">
-                Latest updated streaming series lists
-              </p>
-            </div>
+      {/* LISTS */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
 
-            <Link
-              href="/admin/series"
-              className="group flex items-center gap-1 text-xs font-semibold text-zinc-500 hover:text-primary transition-colors"
-            >
-              View directory
-              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+        {/* SERIES */}
+        <div className="rounded-xl border bg-white p-4 sm:p-6">
+          <div className="flex justify-between mb-4">
+            <h3 className="text-base font-semibold">Recent Series</h3>
+
+            <Link href="/admin/series" className="text-xs text-zinc-500">
+              View
             </Link>
           </div>
 
-          <div className="space-y-2.5">
+          <div className="space-y-2">
             {data?.recentSeries?.map((item) => (
               <div
                 key={item._id}
-                className="group flex items-center justify-between rounded-sm border border-zinc-100 bg-zinc-50/30 px-4 py-3 transition-all duration-200 hover:border-zinc-200 hover:bg-white"
+                className="flex justify-between items-center border rounded-sm px-3 py-2 hover:bg-zinc-50"
               >
-                <span className="text-sm font-medium text-zinc-700 group-hover:text-zinc-900 transition-colors">
-                  {item.title}
-                </span>
+                <span className="text-sm">{item.title}</span>
 
                 <Link
                   href={`/admin/series/${item._id}`}
-                  className="text-xs font-semibold text-zinc-400 hover:text-primary transition-colors bg-white border border-zinc-100 px-2.5 py-1 rounded-md hover:border-primary/20"
+                  className="text-xs text-primary"
                 >
                   Edit
                 </Link>
@@ -188,38 +223,27 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* MOVIES LIST PANEL */}
-        <div className="rounded-2xl border border-zinc-200/80 bg-white p-6">
-          <div className="mb-5 flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-bold text-zinc-900">Recent Movies</h3>
-              <p className="text-xs text-zinc-400 mt-0.5">
-                Standalone media assets recently published
-              </p>
-            </div>
+        {/* MOVIES */}
+        <div className="rounded-xl border bg-white p-4 sm:p-6">
+          <div className="flex justify-between mb-4">
+            <h3 className="text-base font-semibold">Recent Movies</h3>
 
-            <Link
-              href="/admin/movies"
-              className="group flex items-center gap-1 text-xs font-semibold text-zinc-500 hover:text-primary transition-colors"
-            >
-              View directory
-              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+            <Link href="/admin/movies" className="text-xs text-zinc-500">
+              View
             </Link>
           </div>
 
-          <div className="space-y-2.5">
+          <div className="space-y-2">
             {data?.recentMovies?.map((item) => (
               <div
                 key={item._id}
-                className="group flex items-center justify-between rounded-sm border border-zinc-100 bg-zinc-50/30 px-4 py-3 transition-all duration-200 hover:border-zinc-200 hover:bg-white"
+                className="flex justify-between items-center border rounded-sm px-3 py-2 hover:bg-zinc-50"
               >
-                <span className="text-sm font-medium text-zinc-700 group-hover:text-zinc-900 transition-colors">
-                  {item.title}
-                </span>
+                <span className="text-sm">{item.title}</span>
 
                 <Link
                   href={`/admin/movies/edit/${item._id}`}
-                  className="text-xs font-semibold text-zinc-400 hover:text-primary transition-colors bg-white border border-zinc-100 px-2.5 py-1 rounded-md hover:border-primary/20"
+                  className="text-xs text-primary"
                 >
                   Edit
                 </Link>
@@ -227,6 +251,7 @@ export default function DashboardPage() {
             ))}
           </div>
         </div>
+
       </div>
     </div>
   );

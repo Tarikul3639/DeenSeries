@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Movie, CreateMoviePayload } from "@/store/features/movies/movie.api";
-import { Loader2, Save} from "lucide-react";
+import { Loader2, Save } from "lucide-react";
 import { GenresInput } from "@/components/ui/GenresInput";
 
 /* ---------------- FORM TYPE ---------------- */
@@ -50,16 +50,14 @@ export default function MovieForm({
 
   /* ---------------- INPUT HANDLER ---------------- */
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value, type } = e.target;
 
     setForm((prev) => ({
       ...prev,
       [name]:
-        type === "checkbox"
-          ? (e.target as HTMLInputElement).checked
-          : value,
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
@@ -79,15 +77,63 @@ export default function MovieForm({
 
   return (
     <div className="space-y-6 rounded-2xl border bg-white p-6">
-
-      <Input label="Title" name="title" value={form.title} onChange={handleChange} />
-      <Input label="Tagline" name="tagline" value={form.tagline} onChange={handleChange} />
-      <Textarea label="Description" name="description" value={form.description} onChange={handleChange} />
-      <Input label="Poster URL" name="poster" value={form.poster} onChange={handleChange} />
-      <Input label="Thumbnail URL" name="thumbnail" value={form.thumbnail} onChange={handleChange} />
-      <Textarea label="Embed Code" name="embed" value={form.embed} onChange={handleChange} />
-      <Input label="Duration" name="duration" value={form.duration} onChange={handleChange} />
-      <Input label="Release Date" name="releaseDate" value={form.releaseDate} onChange={handleChange} />
+      <Input
+        label="Title"
+        name="title"
+        placeholder="Enter movie title"
+        value={form.title}
+        onChange={handleChange}
+      />
+      <Input
+        label="Tagline"
+        name="tagline"
+        placeholder="Enter movie tagline"
+        value={form.tagline}
+        onChange={handleChange}
+      />
+      <Textarea
+        label="Description"
+        name="description"
+        placeholder="Enter movie description"
+        value={form.description}
+        onChange={handleChange}
+      />
+      <Input
+        label="Poster URL"
+        name="poster"
+        placeholder="Enter poster image URL"
+        value={form.poster}
+        onChange={handleChange}
+      />
+      <Input
+        label="Thumbnail URL"
+        name="thumbnail"
+        placeholder="Enter thumbnail image URL"
+        value={form.thumbnail}
+        onChange={handleChange}
+      />
+      <Textarea
+        label="Embed Code"
+        name="embed"
+        placeholder="Enter video embed code or URL"
+        value={form.embed}
+        onChange={handleChange}
+      />
+      <Input
+        label="Duration"
+        name="duration"
+        placeholder="e.g. 2h 30m"
+        value={form.duration}
+        onChange={handleChange}
+      />
+      <Input
+        label="Release Date"
+        name="releaseDate"
+        type="date"
+        placeholder="Select release date"
+        value={form.releaseDate}
+        onChange={handleChange}
+      />
 
       <GenresInput
         label="Genres"
@@ -102,8 +148,24 @@ export default function MovieForm({
         placeholder="Type and press Enter"
       />
 
-      <Input label="Rating" name="rating" value={form.rating} onChange={handleChange} />
-      <Input label="Quality" name="quality" value={form.quality} onChange={handleChange} />
+      <Input
+        label="Rating"
+        name="rating"
+        type="number"
+        min={0}
+        max={10}
+        step={0.1}
+        placeholder="e.g. 8.5"
+        value={form.rating}
+        onChange={handleChange}
+      />
+      <Input
+        label="Quality"
+        name="quality"
+        placeholder="e.g. HD, FullHD, 4K"
+        value={form.quality}
+        onChange={handleChange}
+      />
 
       {/* PUBLISH */}
       <div className="flex items-center gap-2">
@@ -121,7 +183,11 @@ export default function MovieForm({
         disabled={loading}
         className="flex items-center justify-center gap-2 w-full rounded-sm bg-primary py-2 text-sm text-white"
       >
-        {loading ? <Loader2 className="animate-spin" /> : <Save className="h-4 w-4" />}
+        {loading ? (
+          <Loader2 className="animate-spin" />
+        ) : (
+          <Save className="h-4 w-4" />
+        )}
         {loading ? "Saving..." : "Save Movie"}
       </button>
     </div>

@@ -5,7 +5,7 @@ import { MovieFilters } from "./MovieFilters";
 import { MovieGrid } from "./MovieGrid";
 import { EmptyState } from "@/components/EmptyState";
 import { ErrorState } from "@/components/ErrorState";
-import { Loader2 } from "lucide-react";
+import { MovieGridSkeleton } from "@/components/ui/MovieGridSkeleton";
 
 // API Integration
 import { useGetMoviesQuery } from "@/store/features/movies/movie.api";
@@ -51,10 +51,7 @@ export default function AllMoviesPage() {
                 />
 
                 {isLoading && (
-                    <div className="flex-1 flex flex-col justify-center items-center min-h-100 gap-3">
-                        <Loader2 className="h-8 w-8 text-gray-500 animate-spin" />
-                        <p className="text-sm font-medium text-slate-500">Loading ...</p>
-                    </div>
+                    <MovieGridSkeleton count={12} />
                 )}
 
                 {isError && !isLoading && (

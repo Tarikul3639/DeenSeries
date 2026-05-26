@@ -50,7 +50,7 @@ export default function EditMoviePage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
+    <div className="mx-auto space-y-6 px-2 sm:px-4 py-4 sm:py-6">
       <div className="flex justify-between items-center">
         {/* 🔙 Back Button */}
         <BackLink
@@ -60,7 +60,7 @@ export default function EditMoviePage() {
           // weight={25}
         />
 
-        <h1 className="text-2xl font-semibold">Edit Movie</h1>
+        <h1 className="text-lg font-semibold">Edit Movie</h1>
       </div>
       <MovieForm
         initialData={data}

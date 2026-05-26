@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Play, Calendar, Star, Tv, ChevronRight, ArrowLeft } from "lucide-react";
 import { Series } from "@/store/features/series/series.api";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface SeriesHeroProps {
   currentSeries: Series;
@@ -12,13 +13,25 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
   return (
     <div className="relative w-full h-[55vh] sm:h-[65vh] md:h-[75vh] overflow-hidden border-b border-border/30">
       {/* Background Blurred Banner Image */}
+
       <div className="absolute inset-0 z-0">
-        <img
-          src={currentSeries.thumbnailPoster || "/placeholder.jpg"}
-          alt=""
-          className="w-full h-full object-cover scale-105 filter blur-xs brightness-[0.25]"
-        />
+
+        <Avatar className="w-full h-full rounded-none">
+
+          <AvatarImage
+            src={currentSeries.thumbnailPoster || undefined}
+            alt=""
+            className="w-full h-full rounded-none object-cover scale-105 blur-sm brightness-[0.25]"
+          />
+
+          <AvatarFallback className="w-full h-full flex items-center justify-center rounded-none bg-linear-to-br from-[#193cb8] to-black text-white text-4xl font-bold">
+          </AvatarFallback>
+
+        </Avatar>
+
+        {/* overlay gradient */}
         <div className="absolute inset-0 bg-linear-to-t from-background via-background/60 to-transparent" />
+
       </div>
 
       {/* Hero Content Area */}
@@ -26,11 +39,19 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
         <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-12 grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8 items-end">
           {/* Left Column: Sharp Verticle Thumbnail (Hidden on small mobile) */}
           <div className="hidden md:block md:col-span-1 aspect-4/5 w-full rounded-sm overflow-hidden border border-border/40 shadow-2xl">
-            <img
-              src={currentSeries.coverPoster || "/placeholder.jpg"}
-              alt={currentSeries.title}
-              className="w-full h-full object-cover"
-            />
+
+            <Avatar className="w-full h-full rounded-sm">
+              <AvatarImage
+                src={currentSeries.coverPoster || undefined}
+                alt={currentSeries.title}
+                className="w-full h-full object-cover"
+              />
+
+              <AvatarFallback className="flex items-center justify-center rounded-none bg-linear-to-br from-[#193cb8] via-[#0f2a80] to-black text-white text-3xl font-bold tracking-tight">
+                {currentSeries.title?.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+
           </div>
 
           {/* Right Column: Meta details and controls */}
@@ -123,7 +144,7 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
               <div className="pt-3 flex flex-wrap gap-3">
                 <Link
                   href={`/series/${currentSeries._id}/${firstEpisodeId}`}
-                  className="inline-flex items-center justify-center gap-2 rounded-sm bg-foreground text-background font-semibold px-5 py-2.5 text-xs hover:bg-foreground/90 transition-colors shadow-sm"
+                  className="inline-flex items-center justify-center gap-2 rounded-sm bg-primary text-background font-semibold px-5 py-2.5 text-xs hover:bg-primary/90 transition-colors shadow-sm"
                 >
                   <Play className="h-4 w-4 fill-current" />
                   <span>Watch Season 1 (Ep 1)</span>

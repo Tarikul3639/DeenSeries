@@ -3,10 +3,10 @@
 import { SeriesHero } from "./SeriesHero";
 import { SeriesEpisodesHeader } from "./SeriesEpisodesHeader";
 import { SeriesEpisodesGrid } from "./SeriesEpisodesGrid";
+import { SeriesDetailsSkeleton } from "./SeriesDetailsSkeleton";
 
 import { useGetEpisodesBySeriesQuery } from "@/store/features/episodes/episode.api";
 import { ErrorState } from "@/components/ErrorState";
-import { Loader2 } from "lucide-react";
 import { EmptyState } from "@/components/EmptyState";
 
 export default function SeriesDetailsPage({ seriesId }: { seriesId: string }) {
@@ -20,10 +20,7 @@ export default function SeriesDetailsPage({ seriesId }: { seriesId: string }) {
   return (
     <div className="min-h-screen bg-background text-foreground pb-16">
       {isLoading && (
-        <div className="flex-1 flex flex-col justify-center items-center min-h-100 gap-3">
-          <Loader2 className="h-8 w-8 text-gray-500 animate-spin" />
-          <p className="text-sm font-medium text-slate-500">Loading ...</p>
-        </div>
+        <SeriesDetailsSkeleton />
       )}
 
       {isError && !isLoading && (

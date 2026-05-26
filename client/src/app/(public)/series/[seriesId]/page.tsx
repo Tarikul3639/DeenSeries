@@ -76,7 +76,7 @@ export async function generateMetadata(
   }
 }
 
-/* 🔥 PAGE */
+/* PAGE */
 export default async function SeriesPage(
   { params }: { params: Promise<{ seriesId: string }> }
 ) {

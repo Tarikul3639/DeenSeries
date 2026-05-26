@@ -4,6 +4,7 @@ import { useState } from "react";
 import { SeriesFilters } from "./SeriesFilters";
 import { SeriesGrid } from "./SeriesGrid";
 import { EmptyState } from "@/components/EmptyState";
+import { MovieGridSkeleton } from "@/components/ui/MovieGridSkeleton";
 import { Loader2 } from "lucide-react";
 
 // API
@@ -41,10 +42,7 @@ export default function AllSeriesPage() {
         />
 
         {isLoading && (
-          <div className="flex-1 flex flex-col justify-center items-center min-h-100 gap-3">
-            <Loader2 className="h-8 w-8 text-gray-500 animate-spin" />
-            <p className="text-sm font-medium text-slate-500">Loading ...</p>
-          </div>
+          <MovieGridSkeleton count={12} />
         )}
 
         {isError && !isLoading && (

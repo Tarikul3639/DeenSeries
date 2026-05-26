@@ -3,23 +3,20 @@
 import Link from "next/link";
 import { ArrowLeft, Play, Tv, Sparkles, Layers, Info } from "lucide-react";
 import { useGetEpisodeBySeriesQuery } from "@/store/features/episodes/episode.api"
+import { EpisodeDetailsSkeleton } from "./EpisodeDetailsSkeleton";
 
 
 export default function EpisodeDetailsPage({ seriesId, episodeId }: { seriesId: string; episodeId: string }) {
     const { data, isLoading, isError, error, refetch } = useGetEpisodeBySeriesQuery({ seriesId, episodeId })
 
+    if (isLoading) {
+        return <EpisodeDetailsSkeleton />;
+    }
+
     if (!data) {
         return (
             <div className="flex min-h-[50vh] items-center justify-center font-medium text-zinc-400 tracking-tight text-xs">
                 Episode not found
-            </div>
-        );
-    }
-
-    if (isLoading && !data) {
-        return (
-            <div className="flex min-h-[50vh] items-center justify-center font-medium text-zinc-400 tracking-tight text-xs">
-                Loading...
             </div>
         );
     }

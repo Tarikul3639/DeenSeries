@@ -3,6 +3,7 @@
 import Link from "next/link";
 import FeaturedBanner from "./FeaturedBanner";
 import { MovieCard, ItemProps } from "@/components/MovieCard";
+import { MovieGridSkeleton } from "../../../components/ui/MovieGridSkeleton";
 import { SectionHeader } from "./SectionHeader";
 
 // API
@@ -12,7 +13,7 @@ import { useGetFeaturedQuery } from "@/store/features/home/home.api";
 
 import { ErrorState } from "@/components/ErrorState";
 import { EmptyState } from "@/components/EmptyState";
-import { Loader2 } from "lucide-react";
+import { FeaturedBannerSkeleton } from "./FeaturedBannerSkeleton";
 
 export default function HomePage() {
   const {
@@ -43,14 +44,7 @@ export default function HomePage() {
       <div className="mx-auto max-w-7xl px-4 py-4 sm:py-10 text-center">
 
         {/* Featured Banner */}
-        {featuredLoading && !featuredError && (
-          <div className="flex-1 flex flex-col justify-center items-center min-h-100 gap-3">
-            <Loader2 className="h-8 w-8 text-gray-500 animate-spin" />
-            <p className="text-sm font-medium text-slate-500">
-              Loading featured content...
-            </p>
-          </div>
-        )}
+        {featuredLoading && <FeaturedBannerSkeleton />}
 
         {isFeaturedError && !featuredLoading && (
           <div className="flex-1 flex items-center justify-center min-h-100">
@@ -77,12 +71,7 @@ export default function HomePage() {
       <div className="max-w-7xl mx-auto px-4 space-y-3 sm:space-y-6 pb-10">
         <SectionHeader title="Trending Series" seeAllHref="/series" />
 
-        {seriesLoading && (
-          <div className="flex-1 flex flex-col justify-center items-center min-h-100 gap-3">
-            <Loader2 className="h-8 w-8 text-gray-500 animate-spin" />
-            <p className="text-sm font-medium text-slate-500">Loading ...</p>
-          </div>
-        )}
+        {seriesLoading && <MovieGridSkeleton count={10} />}
 
         {/* Pass custom paths seamlessly */}
         {isSeriesError && !seriesLoading && (
@@ -115,12 +104,7 @@ export default function HomePage() {
 
         <SectionHeader title="New Movies" seeAllHref="/movies" />
 
-        {moviesLoading && (
-          <div className="flex-1 flex flex-col justify-center items-center min-h-100 gap-3">
-            <Loader2 className="h-8 w-8 text-gray-500 animate-spin" />
-            <p className="text-sm font-medium text-slate-500">Loading ...</p>
-          </div>
-        )}
+        {moviesLoading && <MovieGridSkeleton count={10} />}
 
         {isMoviesError && !moviesLoading && (
           <div className="flex-1 flex items-center justify-center min-h-100">

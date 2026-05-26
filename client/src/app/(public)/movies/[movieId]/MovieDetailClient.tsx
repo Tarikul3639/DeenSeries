@@ -1,8 +1,6 @@
 "use client";
 
-import Link from "next/link";
 import {
-  ArrowLeft,
   Sparkles,
   Layers,
   Tv,
@@ -10,6 +8,7 @@ import {
   Film,
 } from "lucide-react";
 import { BackLink } from "@/components/ui/BackLink";
+import { MovieDetailSkeleton } from "./MovieDetailSkeleton";
 
 // API
 import { useGetMovieByIdQuery } from "@/store/features/movies/movie.api";
@@ -22,7 +21,7 @@ export default function MovieDetailClient({ movieId }: {movieId: string;}) {
 
   /* LOADING */
   if (isLoading) {
-    return <p className="text-center py-20">Loading...</p>;
+    return <MovieDetailSkeleton />;
   }
 
   /* ERROR */
@@ -33,7 +32,7 @@ export default function MovieDetailClient({ movieId }: {movieId: string;}) {
   return (
     <main className="min-h-screen bg-zinc-50/50 text-zinc-800 pb-16">
 
-      {/* 🔝 NAV */}
+      {/* NAV */}
       <div className="sticky flex items-left top-0 z-50 w-full bg-linear-to-b from-white via-white/80 to-transparent px-4 backdrop-blur-md h-16.5 sm:h-20">
         <div className="w-full mx-auto max-w-6xl flex items-center">
           <BackLink
@@ -44,7 +43,7 @@ export default function MovieDetailClient({ movieId }: {movieId: string;}) {
         </div>
       </div>
 
-      {/* 🎬 MAIN */}
+      {/* MAIN */}
       <div className="mx-auto max-w-6xl px-4 mt-2 space-y-6">
 
         {/* PLAYER */}

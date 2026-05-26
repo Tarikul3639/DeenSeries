@@ -2,6 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import {
+    Avatar,
+    AvatarImage,
+    AvatarFallback,
+} from "@/components/ui/avatar";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Play } from "lucide-react";
 import { FeaturedItem } from "@/store/features/home/home.api";
@@ -46,12 +51,33 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                     exit="exit"
                     className="absolute inset-0 h-full w-full"
                 >
-                    <img
-                        src={current.image}
-                        alt={current.title}
-                        className="h-full w-full object-cover object-center"
-                    />
-                    {/* Dark gradient for text readability */}
+                    {/* Avatar instead of img */}
+                    <Avatar className="h-full w-full rounded-none">
+                        <AvatarImage
+                            src={current.image || undefined}
+                            alt={current.title}
+                            className="h-full w-full object-cover object-center rounded-none"
+                        />
+
+                        {/* fallback (same dark theme) */}
+                        <AvatarFallback className="flex items-center rounded-none justify-center bg-linear-to-br from-[#193cb8] via-[#0f2a80] to-black text-white">
+                            <div className="text-center space-y-1">
+
+                                {/* Big Initial */}
+                                <p className="text-4xl sm:text-5xl font-bold tracking-tight">
+                                    {current.title?.slice(0, 1).toUpperCase()}
+                                </p>
+
+                                {/* Sub text */}
+                                <p className="text-[10px] sm:text-xs opacity-70 uppercase tracking-widest">
+                                    Featured
+                                </p>
+
+                            </div>
+                        </AvatarFallback>
+                    </Avatar>
+
+                    {/* Overlay SAME */}
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
                 </motion.div>
             </AnimatePresence>

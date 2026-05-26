@@ -170,7 +170,7 @@ export default function AdminSeriesPage() {
                           e.stopPropagation();
                           handleDelete(item._id);
                         }}
-                        className="rounded-lg p-2 text-red-500 hover:bg-red-50 transition"
+                        className="rounded-lg p-2 text-red-500 hover:bg-red-100 transition"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
