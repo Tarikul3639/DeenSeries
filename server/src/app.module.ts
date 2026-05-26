@@ -8,6 +8,7 @@ import { SeriesModule } from './modules/series/series.module';
 import { EpisodesModule } from './modules/episodes/episodes.module';
 import { MoviesModule } from './modules/movies/movies.module';
 import { HomeModule } from './modules/home/home.module';
+import { DashboardModule } from "./modules/admin/dashboard.module";
 
 // _-_-_-_ Auth _-_-_-
 import { AuthModule } from './modules/auth/auth.module';
@@ -44,6 +45,7 @@ import { SeedModule } from './seeds/seed.module';
     MediaModule,
     SeedModule,
     HomeModule,
+    DashboardModule,
   ],
 
   controllers: [],

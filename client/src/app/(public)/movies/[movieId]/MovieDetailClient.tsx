@@ -9,6 +9,7 @@ import {
   Info,
   Film,
 } from "lucide-react";
+import { BackLink } from "@/components/ui/BackLink";
 
 // API
 import { useGetMovieByIdQuery } from "@/store/features/movies/movie.api";
@@ -35,21 +36,11 @@ export default function MovieDetailClient({ movieId }: {movieId: string;}) {
       {/* 🔝 NAV */}
       <div className="sticky flex items-left top-0 z-50 w-full bg-linear-to-b from-white via-white/80 to-transparent px-4 backdrop-blur-md h-16.5 sm:h-20">
         <div className="w-full mx-auto max-w-6xl flex items-center">
-          <Link
+          <BackLink
             href="/movies"
-            className="group inline-flex items-center gap-2.5 text-base font-medium text-zinc-500 hover:text-zinc-900 transition"
-          >
-            <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-all duration-300" />
-
-            <span className="relative flex w-24 overflow-hidden">
-              <span className="group-hover:translate-x-24 transition-all duration-300">
-                Back
-              </span>
-              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-0 font-semibold transition-all duration-300">
-                To Movies
-              </span>
-            </span>
-          </Link>
+            label="Back"
+            hoverLabel="To Movies"
+          />
         </div>
       </div>
 

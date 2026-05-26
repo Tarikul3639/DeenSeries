@@ -1,21 +1,22 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { isValidObjectId, Model } from "mongoose";
-import { Movie } from "../../database/schemas/movie.schema";
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { isValidObjectId, Model } from 'mongoose';
+import { Movie } from '../../database/schemas/movie.schema';
+import { UpdateMovieDto } from './dto/update-movie.dto';
+import { CreateMovieDto } from './dto/create-movie.dto';
 
 @Injectable()
 export class MoviesService {
-  constructor(
-    @InjectModel(Movie.name) private movieModel: Model<Movie>
-  ) { }
+  constructor(@InjectModel(Movie.name) private movieModel: Model<Movie>) { }
 
   /* CREATE */
-  async create(data: any) {
+  async create(data: CreateMovieDto) {
+    console.log(data);
     return this.movieModel.create(data);
   }
 
   /* GET ALL (PAGINATION + FILTER) */
-  async findAll(page = 1, limit = 10, search = "") {
+  async findAll(page = 1, limit = 10, search = '') {
     // console.log("Page: ", page, " Limit: ", limit, " Search: ", search);
     const skip = (page - 1) * limit;
 
@@ -24,15 +25,15 @@ export class MoviesService {
 
     if (search?.trim()) {
       filter.$or = [
-        { title: { $regex: search, $options: "i" } },
-        { description: { $regex: search, $options: "i" } },
+        { title: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
       ];
     }
 
     const [data, total] = await Promise.all([
       this.movieModel
         .find(filter)
-        .sort({ createdAt: -1 })
+        .sort({ createdAt: -1, _id: -1 })
         .skip(skip)
         .limit(limit),
 
@@ -57,7 +58,7 @@ export class MoviesService {
     const movie = await this.movieModel.findById(id);
 
     if (!movie) {
-      throw new NotFoundException("Movie not found");
+      throw new NotFoundException('Movie not found');
     }
 
     return movie;
@@ -68,7 +69,7 @@ export class MoviesService {
     const movie = await this.movieModel.findOne({ slug });
 
     if (!movie) {
-      throw new NotFoundException("Movie not found");
+      throw new NotFoundException('Movie not found');
     }
 
     return movie;
@@ -91,22 +92,25 @@ export class MoviesService {
     }
 
     if (!movie) {
-      throw new NotFoundException("Movie not found");
+      throw new NotFoundException('Movie not found');
     }
 
     return movie;
   }
 
   /* UPDATE */
-  async update(id: string, data: any) {
-    const updated = await this.movieModel.findByIdAndUpdate(
-      id,
-      data,
-      { new: true }
-    );
+  async update(id: string, data: UpdateMovieDto) {
+    if (typeof data !== 'object' || Array.isArray(data) || data === null) {
+      throw new NotFoundException('Invalid update data');
+    }
+
+    const updated = await this.movieModel.findByIdAndUpdate(id, data, {
+      returnDocument: 'after',
+      runValidators: true,
+    });
 
     if (!updated) {
-      throw new NotFoundException("Movie not found");
+      throw new NotFoundException('Movie not found');
     }
 
     return updated;
@@ -117,9 +121,9 @@ export class MoviesService {
     const deleted = await this.movieModel.findByIdAndDelete(id);
 
     if (!deleted) {
-      throw new NotFoundException("Movie not found");
+      throw new NotFoundException('Movie not found');
     }
 
-    return { message: "Movie deleted successfully" };
+    return { message: 'Movie deleted successfully' };
   }
 }

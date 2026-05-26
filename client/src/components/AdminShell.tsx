@@ -72,18 +72,18 @@ function SidebarLink({
 
                 <button
                     onClick={() => setOpen(!open)}
-                    className="w-full flex items-center gap-3 rounded-sm px-3.5 py-2 text-xs md:text-sm text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 transition"
+                    className="w-full flex items-center gap-3 rounded-sm px-3.5 py-2 sm:py-2.5 text-xs md:text-sm lg:text-base text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 transition"
                 >
-                    <Icon className="h-4 w-4" />
+                    <Icon className="size-4 md:size-4.5" />
                     <span className="flex-1 text-left">{item.label}</span>
                     <ChevronRight
-                        className={`h-3 w-3 transition ${open ? "rotate-90" : ""
+                        className={`size-4 md:size-4.5 transition ${open ? "rotate-90" : ""
                             }`}
                     />
                 </button>
 
                 {open && (
-                    <div className="ml-6 space-y-1">
+                    <div className="ml-6 space-y-0.5">
                         {item.children.map((child: any) => (
                             <Link
                                 key={child.href}
@@ -106,13 +106,13 @@ function SidebarLink({
             href={item.href}
             onClick={onClick}
             className={[
-                "group flex items-center gap-3 rounded-sm px-3.5 py-2 text-xs md:text-sm font-medium transition-all duration-200",
+                "group flex items-center gap-3 rounded-sm px-3.5 py-2 sm:py-2.5 text-xs md:text-sm lg:text-base font-medium",
                 active
                     ? "bg-primary text-primary-foreground shadow-xs shadow-primary/10 font-semibold"
-                    : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900",
+                    : "text-zinc-500 hover:bg-zinc-200/60 hover:text-zinc-900",
             ].join(" ")}
         >
-            <Icon className="h-4 w-4" />
+            <Icon className="size-4 md:size-4.5" />
             <span className="flex-1">{item.label}</span>
         </Link>
     );
@@ -228,12 +228,12 @@ export default function AdminShell({
             </div>
 
             {/* 💻 DESKTOP COMPACT SIDEBAR */}
-            <aside className="fixed left-0 top-14 hidden h-[calc(100vh-3.5rem)] w-64 border-r border-zinc-200/60 bg-white/50 px-4 py-6 md:block">
+            <aside className="fixed left-0 top-14 hidden h-[calc(100vh-3.5rem)] w-70 border-r border-zinc-200/60 bg-white/50 px-4 py-6 md:block">
 
                 {/* Helper Context Dashboard Banner Box */}
                 <div className="mb-5 rounded-sm border border-zinc-200/60 bg-zinc-50/50 p-3.5">
-                    <p className="text-xs md:text-sm font-bold tracking-tight text-zinc-900">Console Hub</p>
-                    <p className="mt-0.5 text-xs leading-relaxed text-zinc-400">
+                    <p className="text-sm md:text-base font-bold tracking-tight text-zinc-900">Console Hub</p>
+                    <p className="mt-0.5 text-xs sm:text-sm leading-relaxed text-zinc-400">
                         Realtime operations matrix for core media streams.
                     </p>
                 </div>
@@ -251,7 +251,7 @@ export default function AdminShell({
 
             {/* ⚙️ CORE ADMINISTRATIVE WORKSPACE GRID */}
             <main className="pt-14 md:pl-64">
-                <div className="min-h-[calc(100vh-3.5rem)] p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto">
+                <div className="min-h-[calc(100vh-3.5rem)] p-4 sm:p-6 lg:p-8 mx-auto">
                     {children}
                 </div>
             </main>

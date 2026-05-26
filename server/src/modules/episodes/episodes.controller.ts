@@ -8,6 +8,9 @@ import {
   Delete,
 } from "@nestjs/common";
 import { EpisodesService } from "./episodes.service";
+// import { EpisodeResponseDto } from "./dto/episode-response.dto";
+import { UpdateEpisodeDto } from "./dto/update-episode.dto";
+import { CreateEpisodeDto } from "./dto/create-episode.dto";
 
 @Controller("episodes")
 export class EpisodesController {
@@ -17,7 +20,7 @@ export class EpisodesController {
   @Post(":seriesId")
   create(
     @Param("seriesId") seriesId: string,
-    @Body() body: any
+    @Body() body: CreateEpisodeDto
   ) {
     return this.episodesService.create(seriesId, body);
   }
@@ -37,21 +40,21 @@ export class EpisodesController {
     return this.episodesService.findOneBySeries(seriesId, episodeId);
   }
 
-  /* 🔍 GET ONE */
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.episodesService.findOne(id);
+  /* GET ONE */
+  @Get(":episodeId")
+  findOne(@Param("episodeId") episodeId: string) {
+    return this.episodesService.findOne(episodeId);
   }
 
-  /* ✏️ UPDATE */
-  @Patch(":id")
-  update(@Param("id") id: string, @Body() body: any) {
-    return this.episodesService.update(id, body);
+  /* UPDATE */
+  @Patch(":episodeId")
+  update(@Param("episodeId") episodeId: string, @Body() body: UpdateEpisodeDto) {
+    return this.episodesService.update(episodeId, body);
   }
 
-  /* ❌ DELETE */
-  @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.episodesService.remove(id);
+  /* DELETE */
+  @Delete(":episodeId")
+  remove(@Param("episodeId") episodeId: string) {
+    return this.episodesService.remove(episodeId);
   }
 }

@@ -10,7 +10,7 @@ export class Episode {
   @Prop({ type: Types.ObjectId, ref: "Series", required: true })
   series!: Types.ObjectId;
 
-  @Prop({ required: true })
+  @Prop({ unique: true })
   slug!: string;
 
   /* BASIC INFO */
@@ -59,9 +59,12 @@ EpisodeSchema.index({ series: 1, episodeNumber: 1 }, { unique: true });
 // Mongoose middleware to auto-generate slug from title before saving
 EpisodeSchema.pre("save", function () {
   if (this.isModified("title") || this.isModified("episodeNumber")) {
-    this.slug = `${this.title
+    const base = this.title
       .toLowerCase()
-      .replace(/ /g, "-")
-      .replace(/[^\w-]+/g, "")}-ep-${this.episodeNumber}`;
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "");
+
+    this.slug = `${base}-ep-${this.episodeNumber}`;
   }
 });

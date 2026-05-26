@@ -2,62 +2,88 @@
 
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { BackLink } from "@/components/ui/BackLink";
+
 import SeriesForm from "../../components/SeriesForm";
 
-/* DEMO LOAD */
-const getSeries = (id: string) => ({
-  title: "Gilani Series",
-  description: "Spiritual journey...",
-  poster: "",
-  year: "2025",
-});
+import {
+  useGetSeriesQuery,
+  useUpdateSeriesMutation,
+} from "@/store/features/series/series.api";
+
+import { toast } from "sonner";
 
 export default function EditSeriesPage() {
   const { seriesId } = useParams();
   const router = useRouter();
 
-  const handleSubmit = (data: any) => {
-    console.log("UPDATED SERIES:", seriesId, data);
+  /* GET SERIES (from list) */
+  const { data, isLoading } = useGetSeriesQuery({
+    page: 1,
+    limit: 50, // temporary workaround
+  });
 
-    alert("Series updated");
+  const series = data?.data?.find((s) => s._id === seriesId);
 
-    router.push("/admin/series");
+  /* UPDATE */
+  const [updateSeries, { isLoading: updating }] =
+    useUpdateSeriesMutation();
+
+  const handleSubmit = async (formData: any) => {
+    try {
+      toast.promise(updateSeries({
+        seriesId: seriesId as string,
+        data: formData,
+      }).unwrap(), {
+        loading: "Updating series...",
+        success: "Series updated successfully",
+        description: `Name: ${formData.title}`,
+        error: (err: any) =>
+          err?.data?.message || err?.message || "Update failed",
+      });
+
+      // router.push("/admin/series");
+    } catch (err: any) {
+      toast.error("Update failed", {
+        description:
+          err.data?.message || err.message || "An error occurred",
+      });
+    }
+
   };
 
+  /* LOADING */
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  /* NOT FOUND */
+  if (!series) {
+    return <p>Series not found</p>;
+  }
+
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
+    <div className="sm:px-4 py-4 mx-auto space-y-6">
 
-      {/* 🔙 HEADER */}
+      {/* HEADER */}
       <div className="flex items-center justify-between">
-        
-        <Link
+        <BackLink
           href="/admin/series"
-          className="flex items-center gap-2 text-sm text-zinc-500 hover:text-primary transition"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to series
-        </Link>
+          label="Back"
+          hoverLabel="To Admin Series"
+          weight={150}
+        />
 
-        <h1 className="text-lg font-semibold hidden sm:block">
-          Edit Series
-        </h1>
-      </div>
-
-      {/* TITLE */}
-      <div>
-        <h1 className="text-2xl font-semibold sm:hidden">
-          Edit Series
-        </h1>
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm sm:text-base text-zinc-500 line-clamp-1">
           Update series information
         </p>
       </div>
 
       {/* FORM */}
       <SeriesForm
-        initialData={getSeries(seriesId as string)}
+        initialData={series}
         onSubmit={handleSubmit}
+        loading={updating}
       />
     </div>
   );

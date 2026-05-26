@@ -1,4 +1,5 @@
-import { IsString, IsOptional, IsArray } from "class-validator";
+import { IsString, IsOptional, IsArray, Max, Min, IsNumber, IsBoolean } from "class-validator";
+import { Type } from "class-transformer";
 
 export class CreateMovieDto {
   @IsString()
@@ -36,10 +37,17 @@ export class CreateMovieDto {
   genres?: string[];
 
   @IsOptional()
-  @IsString()
-  rating?: string;
+  @Type(() => Number)
+  @IsNumber()
+  @Min(0)
+  @Max(10)
+  rating?: number;
 
   @IsOptional()
   @IsString()
   quality?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isPublished?: boolean;
 }

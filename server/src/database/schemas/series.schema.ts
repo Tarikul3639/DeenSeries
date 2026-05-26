@@ -9,7 +9,7 @@ export class Series {
     @Prop({ required: true })
     title!: string;
 
-    @Prop({ required: true, unique: true })
+    @Prop({ unique: true })
     slug!: string;
 
     @Prop()

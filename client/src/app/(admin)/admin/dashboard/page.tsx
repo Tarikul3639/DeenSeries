@@ -5,7 +5,6 @@ import {
   Tv,
   Film,
   Layers,
-  Plus,
   ArrowRight,
   TrendingUp,
   Sparkles,
@@ -13,45 +12,56 @@ import {
 } from "lucide-react";
 
 import AddDropdown from "./components/AddDropdown";
-
-/* DEMO DATA */
-const stats = [
-  {
-    label: "Total Series",
-    value: "12",
-    icon: Tv,
-    growth: "+12%",
-  },
-  {
-    label: "Total Movies",
-    value: "8",
-    icon: Film,
-    growth: "+5%",
-  },
-  {
-    label: "Total Episodes",
-    value: "124",
-    icon: Layers,
-    growth: "+18%",
-  },
-];
+import { useGetDashboardQuery } from "@/store/features/admin/dashboard.api";
 
 export default function DashboardPage() {
+  const { data, isLoading } = useGetDashboardQuery();
+
+  const stats = [
+    {
+      label: "Total Series",
+      value: data?.stats.totalSeries || 0,
+      icon: Tv,
+      growth: "+--",
+    },
+    {
+      label: "Total Movies",
+      value: data?.stats.totalMovies || 0,
+      icon: Film,
+      growth: "+--",
+    },
+    {
+      label: "Total Episodes",
+      value: data?.stats.totalEpisodes || 0,
+      icon: Layers,
+      growth: "+--",
+    },
+  ];
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Sparkles className="h-8 w-8 text-primary/80 animate-pulse" />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-12 max-w-7xl mx-auto px-1 py-4">
-
       {/* HEADER SECTION */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-zinc-100 pb-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-zinc-900 flex items-center gap-2">
-            Dashboard <Sparkles className="h-5 w-5 text-primary/80 animate-pulse" />
+            Dashboard{" "}
+            <Sparkles className="h-5 w-5 text-primary/80 animate-pulse" />
           </h1>
           <p className="text-sm text-zinc-500 mt-1">
-            Welcome back 👋 Here is what&apos;s happening on your platform today.
+            Welcome back 👋 Here is what&apos;s happening on your platform
+            today.
           </p>
         </div>
 
-        <AddDropdown/>
+        <AddDropdown />
       </div>
 
       {/* STATS CARDS BLOCK */}
@@ -92,9 +102,10 @@ export default function DashboardPage() {
 
       {/* QUICK ACTIONS SECTION */}
       <div className="space-y-4">
-        <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Quick Management Tools</h4>
+        <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-400">
+          Quick Management Tools
+        </h4>
         <div className="grid gap-5 md:grid-cols-2">
-          
           <Link
             href="/admin/create?type=series"
             className="group relative overflow-hidden rounded-lg border border-zinc-200/80 bg-white p-6 transition-all duration-300 hover:border-zinc-300 hover:bg-zinc-50/30"
@@ -137,13 +148,14 @@ export default function DashboardPage() {
 
       {/* RECENT RECORDS TABLES */}
       <div className="grid gap-6 lg:grid-cols-2">
-
         {/* SERIES LIST PANEL */}
         <div className="rounded-2xl border border-zinc-200/80 bg-white p-6">
           <div className="mb-5 flex items-center justify-between">
             <div>
               <h3 className="text-lg font-bold text-zinc-900">Recent Series</h3>
-              <p className="text-xs text-zinc-400 mt-0.5">Latest updated streaming series lists</p>
+              <p className="text-xs text-zinc-400 mt-0.5">
+                Latest updated streaming series lists
+              </p>
             </div>
 
             <Link
@@ -156,17 +168,17 @@ export default function DashboardPage() {
           </div>
 
           <div className="space-y-2.5">
-            {["Gilani Series", "Ertugrul", "Osman"].map((item) => (
+            {data?.recentSeries?.map((item) => (
               <div
-                key={item}
+                key={item._id}
                 className="group flex items-center justify-between rounded-sm border border-zinc-100 bg-zinc-50/30 px-4 py-3 transition-all duration-200 hover:border-zinc-200 hover:bg-white"
               >
                 <span className="text-sm font-medium text-zinc-700 group-hover:text-zinc-900 transition-colors">
-                  {item}
+                  {item.title}
                 </span>
 
                 <Link
-                  href="#"
+                  href={`/admin/series/${item._id}`}
                   className="text-xs font-semibold text-zinc-400 hover:text-primary transition-colors bg-white border border-zinc-100 px-2.5 py-1 rounded-md hover:border-primary/20"
                 >
                   Edit
@@ -181,7 +193,9 @@ export default function DashboardPage() {
           <div className="mb-5 flex items-center justify-between">
             <div>
               <h3 className="text-lg font-bold text-zinc-900">Recent Movies</h3>
-              <p className="text-xs text-zinc-400 mt-0.5">Standalone media assets recently published</p>
+              <p className="text-xs text-zinc-400 mt-0.5">
+                Standalone media assets recently published
+              </p>
             </div>
 
             <Link
@@ -194,17 +208,17 @@ export default function DashboardPage() {
           </div>
 
           <div className="space-y-2.5">
-            {["Omar Movie", "Conquest 1453"].map((item) => (
+            {data?.recentMovies?.map((item) => (
               <div
-                key={item}
+                key={item._id}
                 className="group flex items-center justify-between rounded-sm border border-zinc-100 bg-zinc-50/30 px-4 py-3 transition-all duration-200 hover:border-zinc-200 hover:bg-white"
               >
                 <span className="text-sm font-medium text-zinc-700 group-hover:text-zinc-900 transition-colors">
-                  {item}
+                  {item.title}
                 </span>
 
                 <Link
-                  href="#"
+                  href={`/admin/movies/edit/${item._id}`}
                   className="text-xs font-semibold text-zinc-400 hover:text-primary transition-colors bg-white border border-zinc-100 px-2.5 py-1 rounded-md hover:border-primary/20"
                 >
                   Edit
@@ -213,7 +227,6 @@ export default function DashboardPage() {
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );

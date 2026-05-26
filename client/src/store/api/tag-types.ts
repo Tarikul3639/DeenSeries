@@ -1,3 +1,4 @@
+/* TAG TYPES */
 export const TAG_TYPES = {
   FEATURED: "Featured",
   SERIES: "Series",

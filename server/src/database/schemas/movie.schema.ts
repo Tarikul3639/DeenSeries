@@ -5,50 +5,54 @@ export type MovieDocument = Movie & Document;
 
 @Schema({ timestamps: true })
 export class Movie {
-  
-  /* BASIC INFO */
-  @Prop({ required: true })
-  title!: string;
 
-  @Prop({ required: true, unique: true })
-  slug!: string;
+    /* BASIC INFO */
+    @Prop({ required: true })
+    title!: string;
 
-  @Prop()
-  description?: string;
+    @Prop({ unique: true })
+    slug?: string;
 
-  @Prop()
-  tagline?: string;
+    @Prop()
+    description?: string;
 
-  /* MEDIA */
-  @Prop()
-  poster?: string;
+    @Prop()
+    tagline?: string;
 
-  @Prop()
-  thumbnail?: string;
+    /* MEDIA */
+    @Prop()
+    poster?: string;
 
-  /* VIDEO */
-  @Prop({ required: true })
-  embed!: string;
+    @Prop()
+    thumbnail?: string;
 
-  /* META */
-  @Prop()
-  duration!: string;
+    /* VIDEO */
+    @Prop({ required: true })
+    embed!: string;
 
-  @Prop()
-  releaseDate?: string;
+    /* META */
+    @Prop()
+    duration!: string;
 
-  @Prop({ type: [String], default: [] })
-  genres?: string[];
+    @Prop()
+    releaseDate?: string;
 
-  @Prop()
-  rating?: string;
+    @Prop({ type: [String], default: [] })
+    genres?: string[];
 
-  @Prop({ default: "HD" })
-  quality?: string;
+    @Prop({
+        type: Number,
+        min: 0,
+        max: 10,
+    })
+    rating?: number;
 
-  /* STATUS */
-  @Prop({ default: true })
-  isPublished?: boolean;
+    @Prop({ default: "HD" })
+    quality?: string;
+
+    /* STATUS */
+    @Prop({ default: true })
+    isPublished?: boolean;
 
 }
 

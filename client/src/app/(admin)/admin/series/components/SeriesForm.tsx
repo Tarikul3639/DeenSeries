@@ -1,87 +1,193 @@
 "use client";
 
 import { useState } from "react";
+import { GenresInput } from "@/components/ui/GenresInput";
+import { Series } from "@/store/features/series/series.api";
+import { Loader2, Save } from "lucide-react";
 
-export default function SeriesForm({
-  initialData,
-  onSubmit,
-}: any) {
-  const [form, setForm] = useState(
-    initialData || {
-      title: "",
-      description: "",
-      poster: "",
-      year: "",
-    }
-  );
+interface Props {
+  initialData?: Partial<Series>;
+  onSubmit: (data: Omit<Series, "_id" | "createdAt" | "updatedAt" | "slug">) => void;
+  loading?: boolean;
+}
 
-  const handleChange = (e: any) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
+  const [form, setForm] = useState({
+    title: initialData?.title || "",
+    tagline: initialData?.tagline || "",
+    description: initialData?.description || "",
+    coverPoster: initialData?.coverPoster || "",
+    thumbnailPoster: initialData?.thumbnailPoster || "",
+    genres: initialData?.genres || [],
+    releaseDate: initialData?.releaseDate || "",
+    totalEpisodes: initialData?.totalEpisodes || 0,
+    rating: initialData?.rating ?? 0,
+    isPublished: initialData?.isPublished ?? true,
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value, type } = e.target;
+
+    setForm({
+      ...form,
+      [name]:
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
+    });
+  };
+
+  const handleSubmit = () => {
+    onSubmit({
+      ...form,
+      totalEpisodes: Number(form.totalEpisodes),
+      rating: form.rating === 0 ? undefined : Number(form.rating),
+    });
   };
 
   return (
-    <div className="space-y-6 rounded-2xl border bg-white p-6">
-
+    <div className="space-y-5 rounded-2xl border bg-white p-6">
       {/* TITLE */}
-      <div>
-        <label className="text-sm font-medium">
-          Series Title
-        </label>
-        <input
-          name="title"
-          value={form.title}
-          onChange={handleChange}
-          className="mt-1 w-full rounded-xl border px-4 py-2 text-sm"
-        />
-      </div>
+      <Input
+        label="Title"
+        name="title"
+        placeholder="Name of the series"
+        value={form.title}
+        onChange={handleChange}
+      />
+
+      {/* TAGLINE */}
+      <Input
+        label="Tagline"
+        name="tagline"
+        placeholder="Short catchy phrase about the series"
+        value={form.tagline}
+        onChange={handleChange}
+      />
 
       {/* DESCRIPTION */}
-      <div>
-        <label className="text-sm font-medium">
-          Description
-        </label>
-        <textarea
-          name="description"
-          value={form.description}
-          onChange={handleChange}
-          rows={4}
-          className="mt-1 w-full rounded-xl border px-4 py-2 text-sm"
-        />
-      </div>
+      <Textarea
+        label="Description"
+        name="description"
+        placeholder="Brief summary of the series"
+        value={form.description}
+        onChange={handleChange}
+      />
 
-      {/* POSTER */}
-      <div>
-        <label className="text-sm font-medium">
-          Poster URL
-        </label>
+      {/* COVER */}
+      <Input
+        label="Cover Poster"
+        name="coverPoster"
+        placeholder="URL to the main poster image"
+        value={form.coverPoster}
+        onChange={handleChange}
+      />
+
+      {/* THUMBNAIL */}
+      <Input
+        label="Thumbnail Poster"
+        name="thumbnailPoster"
+        placeholder="Optional - used for smaller displays"
+        value={form.thumbnailPoster}
+        onChange={handleChange}
+      />
+
+      {/* GENRES */}
+      <GenresInput
+        label="Genres"
+        value={form.genres}
+        onChange={(genres) =>
+          setForm((prev) => ({
+            ...prev,
+            genres,
+          }))
+        }
+      />
+
+      {/* RELEASE DATE */}
+      <Input
+        label="Release Date"
+        name="releaseDate"
+        placeholder="YYYY-MM-DD"
+        value={form.releaseDate}
+        onChange={handleChange}
+      />
+
+      {/* TOTAL EPISODES */}
+      <Input
+        label="Total Episodes"
+        name="totalEpisodes"
+        type="number"
+        placeholder="e.g. 24"
+        value={form.totalEpisodes}
+        onChange={handleChange}
+      />
+
+      {/* RATING */}
+      <Input
+        label="Rating (0 - 10)"
+        name="rating"
+        type="number"
+        placeholder="e.g. 8.5"
+        min={0}
+        max={10}
+        step={0.1}
+        value={form.rating}
+        onChange={handleChange}
+      />
+
+      {/* STATUS */}
+      <div className="flex items-center gap-2 pt-2">
         <input
-          name="poster"
-          value={form.poster}
+          type="checkbox"
+          name="isPublished"
+          checked={form.isPublished}
           onChange={handleChange}
-          className="mt-1 w-full rounded-xl border px-4 py-2 text-sm"
+          className="h-4 w-4"
         />
+        <label className="text-sm font-medium">Published</label>
       </div>
 
-      {/* YEAR */}
-      <div>
-        <label className="text-sm font-medium">
-          Release Year
-        </label>
-        <input
-          name="year"
-          value={form.year}
-          onChange={handleChange}
-          className="mt-1 w-full rounded-xl border px-4 py-2 text-sm"
-        />
-      </div>
-
+      {/* SUBMIT */}
       <button
-        onClick={() => onSubmit(form)}
-        className="w-full rounded-xl bg-primary py-2 text-sm text-white"
+        onClick={handleSubmit}
+        disabled={loading}
+        className="flex justify-center items-center gap-2 w-full rounded-sm bg-primary py-2 text-sm text-white hover:opacity-90 transition"
       >
-        Save Series
+        {loading ? (
+          <Loader2 className="size-4 sm:size-4.5 animate-spin" />
+        ) : (
+          <Save className="size-4 sm:size-4.5" />
+        )}
+        {loading ? "Saving..." : "Save Series"}
       </button>
+    </div>
+  );
+}
 
+/* INPUT COMPONENT */
+function Input({ label, ...props }: any) {
+  return (
+    <div>
+      <label className="text-sm font-medium">{label}</label>
+      <input
+        {...props}
+        className="mt-1 w-full rounded-sm border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20"
+      />
+    </div>
+  );
+}
+
+/* TEXTAREA COMPONENT */
+function Textarea({ label, ...props }: any) {
+  return (
+    <div>
+      <label className="text-sm font-medium">{label}</label>
+      <textarea
+        {...props}
+        rows={4}
+        className="mt-1 w-full rounded-sm border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20"
+      />
     </div>
   );
 }

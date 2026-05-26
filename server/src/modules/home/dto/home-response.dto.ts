@@ -36,5 +36,5 @@ export class FeaturedItemDto {
     example: "omar-series",
     description: "SEO friendly slug",
   })
-  slug!: string;
+  slug?: string;
 }

@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Episode } from '../../database/schemas/episode.schema';
 import { Series } from '../../database/schemas/series.schema';
+import { CreateEpisodeDto } from './dto/create-episode.dto';
+import { UpdateEpisodeDto } from './dto/update-episode.dto';
 
 @Injectable()
 export class EpisodesService {
@@ -11,37 +13,38 @@ export class EpisodesService {
     @InjectModel(Series.name) private seriesModel: Model<Series>,
   ) { }
 
-  /* ➕ ADD EPISODE */
-  async create(seriesId: string, data: any) {
-    const series = await this.seriesModel.findById(seriesId);
+  /* ADD EPISODE */
+  async create(seriesId: string, data: CreateEpisodeDto) {
+    const seriesObjectId = new Types.ObjectId(seriesId);
+    const series = await this.seriesModel.findById(seriesObjectId);
     if (!series) throw new NotFoundException('Series not found');
 
     const episode = await this.episodeModel.create({
       ...data,
-      series: seriesId,
+      series: seriesObjectId,
     });
 
-    // optional: update totalEpisodes
-    await this.seriesModel.findByIdAndUpdate(seriesId, {
-      $inc: { totalEpisodes: 1 },
-    });
+    if (!episode) {
+      throw new NotFoundException('Failed to create episode');
+    }
 
     return episode;
   }
 
   /* GET ALL EPISODES OF SERIES */
   async findBySeries(seriesId: string) {
-    const series = await this.seriesModel.findById(seriesId);
+    const seriesObjectId = new Types.ObjectId(seriesId);
+    const series = await this.seriesModel.findById(seriesObjectId);
 
     if (!series) {
       throw new NotFoundException('Series not found');
     }
 
     const episodes = await this.episodeModel
-      .find({ series: new Types.ObjectId(seriesId) })
+      .find({ series: seriesObjectId })
       .sort({ episodeNumber: 1 });
 
-    console.log(episodes);
+    // console.log(episodes);
 
     return {
       episode: episodes.map((ep) => ({
@@ -54,7 +57,7 @@ export class EpisodesService {
 
   /* GET SINGLE EPISODE OF SERIES */
   async findOneBySeries(seriesId: string, episodeId: string) {
-    console.log("Series: ", seriesId, "Episode: ", episodeId);
+    // console.log("Series: ", seriesId, "Episode: ", episodeId);
     const objectEpisodeId = new Types.ObjectId(episodeId);
     const objectSeriesId = new Types.ObjectId(seriesId);
     const series = await this.seriesModel.findById(objectSeriesId);
@@ -81,9 +84,9 @@ export class EpisodesService {
     };
   }
 
-  /* 🔍 GET SINGLE EPISODE */
-  async findOne(id: string) {
-    const episode = await this.episodeModel.findById(id).populate('series');
+  /* GET SINGLE EPISODE */
+  async findOne(episodeId: string) {
+    const episode = await this.episodeModel.findById(episodeId).populate('series');
 
     if (!episode) throw new NotFoundException('Episode not found');
 
@@ -91,23 +94,18 @@ export class EpisodesService {
   }
 
   /* UPDATE */
-  async update(id: string, data: any) {
-    return this.episodeModel.findByIdAndUpdate(id, data, {
+  async update(episodeId: string, data: UpdateEpisodeDto) {
+    return this.episodeModel.findByIdAndUpdate(episodeId, data, {
       new: true,
     });
   }
 
   /* DELETE */
-  async remove(id: string) {
-    const episode = await this.episodeModel.findByIdAndDelete(id);
-
+  async remove(episodeId: string) {
+    const episodeObjectId = new Types.ObjectId(episodeId);
+    if (!episodeObjectId) throw new NotFoundException('Episode not found');
+    const episode = await this.episodeModel.findByIdAndDelete(episodeObjectId);
     if (!episode) throw new NotFoundException('Episode not found');
-
-    // optional: decrease count
-    await this.seriesModel.findByIdAndUpdate(episode.series, {
-      $inc: { totalEpisodes: -1 },
-    });
-
     return episode;
   }
 }

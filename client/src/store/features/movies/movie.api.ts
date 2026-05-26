@@ -25,7 +25,7 @@ export interface Movie {
   duration: string;
   releaseDate?: string;
   genres: string[];
-  rating?: string;
+  rating?: number;
   quality: string;
 
   // Status
@@ -93,16 +93,20 @@ export const movieApi = baseApi.injectEndpoints({
       providesTags: (result, error, movieId) => [{ type: TAG_TYPES.MOVIE, id: movieId }],
     }),
 
-    // createMovie: builder.mutation<Movie, CreateMoviePayload>({
-    //   query: (data) => ({ url: "/movies", method: "POST", data }),
-    //   invalidatesTags: [{ type: TAG_TYPES.MOVIE, id: "LIST" }],
-    // }),
+    createMovie: builder.mutation<Movie, CreateMoviePayload>({
+      query: (data) => ({
+        url: "/movies",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: [{ type: TAG_TYPES.MOVIE, id: "LIST" }],
+    }),
 
     updateMovie: builder.mutation<Movie, UpdateMoviePayload>({
       query: ({ movieId, data }) => ({
         url: `/movies/${movieId}`,
         method: "PATCH",
-        data,
+        body: data,
       }),
       invalidatesTags: (result, error, arg) => [
         { type: TAG_TYPES.MOVIE, id: arg.movieId },
@@ -128,7 +132,7 @@ export const movieApi = baseApi.injectEndpoints({
 export const {
   useGetMoviesQuery,
   useGetMovieByIdQuery,
-  // useCreateMovieMutation,
+  useCreateMovieMutation,
   useUpdateMovieMutation,
   useDeleteMovieMutation,
 } = movieApi;

@@ -83,11 +83,10 @@ export function Pagination({
           <button
             key={`page-${p}`}
             onClick={() => onPageChange(p as number)}
-            className={`px-3 py-1.5 text-sm font-medium rounded-md border min-w-9 transition-all cursor-pointer ${
-              p === page
-                ? "bg-primary border-primary text-white shadow-sm"
-                : "bg-white border-gray-200 text-gray-700 hover:bg-gray-100"
-            }`}
+            className={`px-3 py-1.5 text-sm font-medium rounded-md border min-w-9 transition-all cursor-pointer ${p === page
+              ? "bg-primary border-primary text-white shadow-sm"
+              : "bg-white border-gray-200 text-gray-700 hover:bg-gray-100"
+              }`}
           >
             {p}
           </button>
@@ -105,3 +104,16 @@ export function Pagination({
     </div>
   );
 }
+
+/* USAGE EXAMPLE:
+{data && data?.totalPages > 1 && (
+      <Pagination
+          page={page}
+          totalPages={data.totalPages}
+          onPageChange={(newPage) => {
+              setPage(newPage);
+              // window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+      />
+  )}
+*/

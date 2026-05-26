@@ -2,25 +2,47 @@
 
 import { useRouter } from "next/navigation";
 import SeriesForm from "../components/SeriesForm";
+import { BackLink } from "@/components/ui/BackLink";
+import { toast } from "sonner";
+
+import { Series, useCreateSeriesMutation } from "@/store/features/series/series.api";
 
 export default function CreateSeriesPage() {
   const router = useRouter();
+  const [createSeries, { isLoading }] = useCreateSeriesMutation();
 
-  const handleSubmit = (data: any) => {
-    console.log("NEW SERIES:", data);
+  const handleSubmit = async (data: Omit<Series, "_id" | "createdAt" | "updatedAt" | "slug">) => {
+    try {
+      toast.promise(createSeries(data).unwrap(), {
+        loading: "Creating series...",
+        success: "Series created successfully",
+        error: (err: any) =>
+          err?.data?.message || err?.message || "Creation failed",
+      });
 
-    alert("Series created");
-
-    router.push("/admin/series");
+      router.push("/admin/series");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
-      <h1 className="text-2xl font-semibold">
-        Add New Series
-      </h1>
+    <div className="sm:px-4 py-4 mx-auto space-y-6">
+      {/* HEADER */}
+      <div className="flex items-center justify-between">
+        <BackLink
+          href="/admin/series"
+          label="Back"
+          hoverLabel="To Admin Series"
+          weight={150}
+        />
 
-      <SeriesForm onSubmit={handleSubmit} />
+        <p className="text-sm sm:text-base text-zinc-500 line-clamp-1">
+          Update series information
+        </p>
+      </div>
+
+      <SeriesForm onSubmit={handleSubmit} loading={isLoading} />
     </div>
   );
 }

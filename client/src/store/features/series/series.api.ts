@@ -10,6 +10,7 @@ export interface Series {
   slug: string;
   description?: string;
   tagline?: string;
+  rating?: number;
 
   /* MEDIA */
   coverPoster?: string;
@@ -50,7 +51,7 @@ export type GetSeriesParams = {
 export type CreateSeriesPayload = Partial<Series>;
 
 export type UpdateSeriesPayload = {
-  id: string;
+  seriesId: string;
   data: Partial<Series>;
 };
 
@@ -85,7 +86,7 @@ export const seriesApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: "/series",
         method: "POST",
-        data,
+        body: data,
       }),
 
       invalidatesTags: [{ type: TAG_TYPES.SERIES, id: "LIST" }],
@@ -93,27 +94,27 @@ export const seriesApi = baseApi.injectEndpoints({
 
     /* UPDATE SERIES */
     updateSeries: builder.mutation<Series, UpdateSeriesPayload>({
-      query: ({ id, data }) => ({
-        url: `/series/${id}`,
+      query: ({ seriesId, data }) => ({
+        url: `/series/${seriesId}`,
         method: "PATCH",
-        data,
+        body: data,
       }),
 
       invalidatesTags: (result, error, arg) => [
-        { type: TAG_TYPES.SERIES, id: arg.id },
+        { type: TAG_TYPES.SERIES, id: arg.seriesId },
         { type: TAG_TYPES.SERIES, id: "LIST" },
       ],
     }),
 
     /* DELETE SERIES */
     deleteSeries: builder.mutation<void, string>({
-      query: (id) => ({
-        url: `/series/${id}`,
+      query: (seriesId) => ({
+        url: `/series/${seriesId}`,
         method: "DELETE",
       }),
 
-      invalidatesTags: (result, error, id) => [
-        { type: TAG_TYPES.SERIES, id },
+      invalidatesTags: (result, error, seriesId) => [
+        { type: TAG_TYPES.SERIES, id: seriesId },
         { type: TAG_TYPES.SERIES, id: "LIST" },
       ],
     }),

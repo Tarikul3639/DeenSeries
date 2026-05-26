@@ -5,6 +5,6 @@ export interface MovieCardProps {
     duration: string;
     genres: string[];
     year: string | number;
-    rating?: number | string;
+    rating?: number;
     description?: string;
 }
