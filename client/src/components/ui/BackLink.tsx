@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface BackLinkProps {
     href: string;
@@ -18,9 +19,26 @@ export const BackLink = ({
     className = "",
     weight = 150,
 }: BackLinkProps) => {
+    const router = useRouter();
+
+    const handleBack = () => {
+        /*
+          If browser history exists:
+          -> go back naturally
+    
+          Otherwise:
+          -> fallback route
+        */
+
+        if (window.history.length > 1) {
+            router.back();
+        } else if (href) {
+            router.replace(href);
+        }
+    };
     return (
-        <Link
-            href={href}
+        <button
+            onClick={handleBack}
             className={`group inline-flex items-center gap-2.5 text-base font-medium text-zinc-500 hover:text-zinc-900 transition ${className}`}
         >
             <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-all duration-300" />
@@ -40,14 +58,13 @@ export const BackLink = ({
                     {hoverLabel}
                 </span>
             </span>
-        </Link>
+        </button>
     );
 }
 
 /* USAGE EXAMPLE */
 /*
     <BackLink 
-    href="/admin/movies" 
     label="Back" 
     hoverLabel="To Admin Movies" 
     />

@@ -1,56 +1,94 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+
 import { Series } from "../database/schemas/series.schema";
 import { Episode } from "../database/schemas/episode.schema";
 import { Movie } from "../database/schemas/movie.schema";
 
-// Data
+/* DATA */
 import { MOVIES_SEED_DATA } from "./data/movies.data";
-import { SERIES_SEED_DATA } from "./data/series.data";
-import { EPISODES_SEED_DATA } from "./data/episodes.data";
+
+import { ABDUL_QADER_GILANI_S1 } from "./data/abdul-qader-gilani-s1.data";
+import { ABDUL_QADER_GILANI_S2 } from "./data/abdul-qader-gilani-s2.data";
 
 @Injectable()
 export class SeedService {
   constructor(
-    @InjectModel(Series.name) private seriesModel: Model<Series>,
-    @InjectModel(Episode.name) private episodeModel: Model<Episode>,
-    @InjectModel(Movie.name) private movieModel: Model<Movie>,
-  ) { }
+    @InjectModel(Series.name)
+    private readonly seriesModel: Model<Series>,
+
+    @InjectModel(Episode.name)
+    private readonly episodeModel: Model<Episode>,
+
+    @InjectModel(Movie.name)
+    private readonly movieModel: Model<Movie>,
+  ) {}
 
   async seed() {
-    console.log("🌱 Seeding database...");
+    console.log("🌱 Starting database seeding...");
 
-    // Clear existing data
-    await this.seriesModel.deleteMany({});
-    await this.episodeModel.deleteMany({});
-    await this.movieModel.deleteMany({});
+    /* -------------------------------- */
+    /* CLEAR All DATABASE BEFORE SEEDING */
+    /* -------------------------------- */
 
-    /* ---------------- SERIES ---------------- */
-    const series = await this.seriesModel.insertMany(SERIES_SEED_DATA);
+    await Promise.all([
+      this.seriesModel.deleteMany({}),
+      this.episodeModel.deleteMany({}),
+      this.movieModel.deleteMany({}),
+    ]);
 
-    /* ---------------- EPISODES ---------------- */
+    console.log("🗑 Existing data cleared");
 
-    const allEpisodesToInsert: any[] = [];
+    /* -------------------------------- */
+    /* SERIES DATA FILES */
+    /* -------------------------------- */
 
-    for (const item of EPISODES_SEED_DATA) {
-      const matchedSeries = series.find(s => s.title === item.seriesName);
+    const SERIES_COLLECTIONS = [
+      ABDUL_QADER_GILANI_S1,
+      ABDUL_QADER_GILANI_S2,
+    ];
 
-      if (matchedSeries) {
-        const formattedEpisodes = item.episodes.map(ep => ({
-          ...ep,
-          series: matchedSeries._id,
-        }));
+    /* -------------------------------- */
+    /* INSERT SERIES + EPISODES */
+    /* -------------------------------- */
 
-        allEpisodesToInsert.push(...formattedEpisodes);
-      }
+    for (const item of SERIES_COLLECTIONS) {
+      /* CREATE SERIES */
+
+      const createdSeries = await this.seriesModel.create({
+        ...item.series,
+      });
+
+      console.log(`📺 Series created: ${createdSeries.title}`);
+
+      /* CREATE EPISODES */
+
+      const formattedEpisodes = item.episodes.map((episode) => ({
+        ...episode,
+
+        series: createdSeries._id,
+      }));
+
+      await this.episodeModel.insertMany(formattedEpisodes);
+
+      console.log(
+        `🎬 ${formattedEpisodes.length} episodes added for ${createdSeries.title}`
+      );
     }
 
-    await this.episodeModel.insertMany(allEpisodesToInsert);
+    /* -------------------------------- */
+    /* MOVIES */
+    /* -------------------------------- */
 
-    /* ---------------- MOVIES ---------------- */
-    await this.movieModel.insertMany(MOVIES_SEED_DATA);
+    if (MOVIES_SEED_DATA.length) {
+      await this.movieModel.insertMany(MOVIES_SEED_DATA);
 
-    console.log("✅ Seeding completed!");
+      console.log(
+        `🎥 ${MOVIES_SEED_DATA.length} movies inserted`
+      );
+    }
+
+    console.log("✅ Database seeding completed successfully!");
   }
 }

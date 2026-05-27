@@ -39,6 +39,7 @@ export default function MovieDetailClient({ movieId }: {movieId: string;}) {
             href="/movies"
             label="Back"
             hoverLabel="To Movies"
+            weight={85}
           />
         </div>
       </div>

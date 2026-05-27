@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, Play, Tv, Sparkles, Layers, Info } from "lucide-react";
+import { BackLink } from "@/components/ui/BackLink";
 import { useGetEpisodeBySeriesQuery } from "@/store/features/episodes/episode.api"
 import { EpisodeDetailsSkeleton } from "./EpisodeDetailsSkeleton";
 
@@ -24,28 +25,18 @@ export default function EpisodeDetailsPage({ seriesId, episodeId }: { seriesId: 
     return (
         <main className="min-h-screen bg-zinc-50/50 text-zinc-800 pb-16">
 
-            {/* 🔝 LIGHT ACCENT STICKY NAVIGATION */}
+            {/* LIGHT ACCENT STICKY NAVIGATION */}
             <div className="sticky flex items-left top-0 z-50 w-full bg-linear-to-b from-white via-white/80 to-transparent px-4 backdrop-blur-md h-16.5 sm:h-20">
                 <div className="w-full mx-auto max-w-6xl flex items-center">
-                    <Link
-                        href={`/series/${data.series._id}`}
-                        className="group inline-flex items-center gap-2.5 py-2 text-base font-medium text-zinc-500 transition-colors duration-200 hover:text-zinc-900"
-                    >
-                        <ArrowLeft className="h-5 w-5 transform transition-all duration-300 cubic-bezier(0.16, 1, 0.3, 1) group-hover:-translate-x-1" />
-
-                        <span className="relative flex w-20 sm:w-24 overflow-hidden py-0.5">
-                            {/* Sliding Modern Text Mask Layer */}
-                            <span className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-32 text-zinc-500">
-                                Back
-                            </span>
-                            <span className="absolute inset-0 inline-block -translate-x-full font-semibold whitespace-nowrap transition-transform duration-300 ease-out group-hover:translate-x-0 text-zinc-900">
-                                To Series
-                            </span>
-                        </span>
-                    </Link>
+                    <BackLink
+                        href={`/series/${seriesId}`}
+                        label="Back"
+                        hoverLabel="To Series"
+                        weight={80}
+                    />
                 </div>
-            </div>
-
+             </div>
+    
             {/* MAIN STREAMING GRID CONTAINER */}
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-1 space-y-6">
 
