@@ -1,8 +1,18 @@
-import { IsString, IsOptional, IsArray } from "class-validator";
+import {
+  IsArray,
+  IsBoolean,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from "class-validator";
 
 export class CreateSeriesDto {
   @IsString()
   title!: string;
+
+  @IsOptional()
+  @IsString()
+  slug?: string;
 
   @IsOptional()
   @IsString()
@@ -17,6 +27,10 @@ export class CreateSeriesDto {
   coverPoster?: string;
 
   @IsOptional()
+  @IsNumber()
+  rating?: number;
+
+  @IsOptional()
   @IsString()
   thumbnailPoster?: string;
 
@@ -27,4 +41,12 @@ export class CreateSeriesDto {
   @IsOptional()
   @IsString()
   releaseDate?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isPublished?: boolean;
+
+  @IsOptional()
+  @IsNumber()
+  totalEpisodes?: number;
 }

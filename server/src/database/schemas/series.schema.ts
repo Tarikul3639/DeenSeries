@@ -22,7 +22,7 @@ export class Series {
     coverPoster?: string;
 
     @Prop()
-    Rating?: number;
+    rating?: number;
 
     @Prop()
     thumbnailPoster?: string;
