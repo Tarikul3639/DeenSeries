@@ -9,7 +9,7 @@ export async function generateMetadata(
 
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/episodes/series/${seriesId}/${episodeId}`,
+            `${process.env.BACKEND_API_URL}/episodes/series/${seriesId}/${episodeId}`,
             { cache: "no-store" }
         );
 

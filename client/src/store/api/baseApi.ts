@@ -6,7 +6,7 @@ export const baseApi = createApi({
 
   // Base query configuration using fetchBaseQuery, which is a lightweight wrapper around fetch
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1", // Base URL for all API requests
+    baseUrl: process.env.NEXT_PUBLIC_API_PROXY || "/api/v1",
 
     // All requests will include credentials (like cookies) for authentication
     credentials: "include",

@@ -8,7 +8,7 @@ export async function generateMetadata(
   const { movieId } = await params;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/movies/${movieId}`,
+    `${process.env.BACKEND_API_URL}/movies/${movieId}`,
     { cache: "no-store" }
   );
 
