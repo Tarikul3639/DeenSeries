@@ -38,7 +38,7 @@ export default function CreateSeriesPage() {
         />
 
         <p className="text-sm sm:text-base text-zinc-500 line-clamp-1">
-          Update series information
+          Create a new series
         </p>
       </div>
 

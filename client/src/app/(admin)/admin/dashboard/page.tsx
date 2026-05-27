@@ -151,7 +151,7 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
           <Link
-            href="/admin/create?type=series"
+            href="/admin/series/create"
             className="group relative overflow-hidden rounded-lg border border-zinc-200/80 bg-white p-6 transition-all duration-300 hover:border-zinc-300 hover:bg-zinc-50/30"
           >
             <div className="flex items-center justify-between">
@@ -170,7 +170,7 @@ export default function DashboardPage() {
           </Link>
 
           <Link
-            href="/admin/create?type=movie"
+            href="/admin/movies/create"
             className="group relative overflow-hidden rounded-lg border border-zinc-200/80 bg-white p-6 transition-all duration-300 hover:border-zinc-300 hover:bg-zinc-50/30"
           >
             <div className="flex items-center justify-between">
