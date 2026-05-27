@@ -33,9 +33,9 @@ export default function AdminLoginPage() {
 
   return (
     <main className="h-dvh bg-zinc-50/60 text-zinc-800 flex items-center justify-center px-8">
-      <div className="w-full max-w-sm space-y-6">
+      <div className="w-full -mt-32 max-w-sm space-y-6">
 
-        {/* 🎬 HEADER PLATFORM BRANDING */}
+        {/* HEADER PLATFORM BRANDING */}
         <div className="text-center space-y-2">
           <div className="flex h-10 sm:h-12 mx-auto w-10 sm:w-12 items-center justify-center rounded-sm bg-primary/10 text-primary">
             <Shield className="size-6 sm:size-8" />
