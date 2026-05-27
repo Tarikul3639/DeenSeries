@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { GenresInput } from "@/components/ui/GenresInput";
+import ImageUploader from "@/components/ui/ImageUploader";
 import { Series } from "@/store/features/series/series.api";
 import { Loader2, Save } from "lucide-react";
 
@@ -29,7 +30,6 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value, type } = e.target;
-
     setForm({
       ...form,
       [name]:
@@ -47,7 +47,6 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
 
   return (
     <div className="space-y-5 rounded-2xl border bg-white p-6">
-      {/* TITLE */}
       <Input
         label="Title"
         name="title"
@@ -55,8 +54,6 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
         value={form.title}
         onChange={handleChange}
       />
-
-      {/* TAGLINE */}
       <Input
         label="Tagline"
         name="tagline"
@@ -64,8 +61,6 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
         value={form.tagline}
         onChange={handleChange}
       />
-
-      {/* DESCRIPTION */}
       <Textarea
         label="Description"
         name="description"
@@ -74,37 +69,27 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
         onChange={handleChange}
       />
 
-      {/* COVER */}
-      <Input
+      {/* 🔥 COVER POSTER */}
+      <ImageUploader
         label="Cover Poster"
-        name="coverPoster"
-        placeholder="URL to the main poster image"
+        hint="Recommended: 300 × 450 px (2:3 ratio)"
         value={form.coverPoster}
-        onChange={handleChange}
+        onChange={(url) => setForm((prev) => ({ ...prev, coverPoster: url }))}
       />
 
-      {/* THUMBNAIL */}
-      <Input
+      {/* 🔥 THUMBNAIL POSTER */}
+      <ImageUploader
         label="Thumbnail Poster"
-        name="thumbnailPoster"
-        placeholder="Optional - used for smaller displays"
+        hint="Recommended: 1280 × 720 px (16:9 ratio)"
         value={form.thumbnailPoster}
-        onChange={handleChange}
+        onChange={(url) => setForm((prev) => ({ ...prev, thumbnailPoster: url }))}
       />
 
-      {/* GENRES */}
       <GenresInput
         label="Genres"
         value={form.genres}
-        onChange={(genres) =>
-          setForm((prev) => ({
-            ...prev,
-            genres,
-          }))
-        }
+        onChange={(genres) => setForm((prev) => ({ ...prev, genres }))}
       />
-
-      {/* RELEASE DATE */}
       <Input
         label="Release Date"
         name="releaseDate"
@@ -112,8 +97,6 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
         value={form.releaseDate}
         onChange={handleChange}
       />
-
-      {/* TOTAL EPISODES */}
       <Input
         label="Total Episodes"
         name="totalEpisodes"
@@ -122,8 +105,6 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
         value={form.totalEpisodes}
         onChange={handleChange}
       />
-
-      {/* RATING */}
       <Input
         label="Rating (0 - 10)"
         name="rating"
@@ -136,7 +117,6 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
         onChange={handleChange}
       />
 
-      {/* STATUS */}
       <div className="flex items-center gap-2 pt-2">
         <input
           type="checkbox"
@@ -148,11 +128,10 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
         <label className="text-sm font-medium">Published</label>
       </div>
 
-      {/* SUBMIT */}
       <button
         onClick={handleSubmit}
         disabled={loading}
-        className="flex justify-center items-center gap-2 w-full rounded-sm bg-primary py-2 text-sm text-white hover:opacity-90 transition"
+        className="flex justify-center items-center gap-2 w-full rounded-sm bg-primary py-2 text-sm text-white hover:opacity-90 transition disabled:opacity-60"
       >
         {loading ? (
           <Loader2 className="size-4 sm:size-4.5 animate-spin" />
@@ -165,7 +144,6 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
   );
 }
 
-/* INPUT COMPONENT */
 function Input({ label, ...props }: any) {
   return (
     <div>
@@ -178,7 +156,6 @@ function Input({ label, ...props }: any) {
   );
 }
 
-/* TEXTAREA COMPONENT */
 function Textarea({ label, ...props }: any) {
   return (
     <div>

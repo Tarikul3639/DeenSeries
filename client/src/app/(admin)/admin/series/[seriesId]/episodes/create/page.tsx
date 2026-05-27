@@ -29,8 +29,8 @@ export default function CreateEpisodePage() {
     };
 
     return (
-        <div className="max-w-3xl mx-auto space-y-6">
-            <div className="flex justify-between items-center">
+        <div className="max-w-3xl mx-auto space-y-6 px-2 sm:px-4 py-4">
+            <div className="flex justify-between items-center px-2 sm:px-4">
                 <BackLink href={`/admin/series/${seriesId}/episodes`} hoverLabel="Back to Episodes" />
                 <h1 className="text-xl font-semibold">Create Episode</h1>
             </div>

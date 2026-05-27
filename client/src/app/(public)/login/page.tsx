@@ -3,13 +3,16 @@
 import React, { useState } from "react";
 import { ArrowRight, Lock, Eye, EyeOff, Loader2, Shield } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useLoginMutation } from "@/store/features/auth/auth.api";
+import { toast } from "sonner";
 
 export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const [error, setError] = useState("");
+
+  const [login, { isLoading }] = useLoginMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,17 +22,12 @@ export default function AdminLoginPage() {
     }
 
     setError("");
-    setIsLoading(true);
 
     try {
-      console.log("Authenticating administrator access token...", password);
-      // Simulated response delay profile
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-      router.push("admin/dashboard");
+      await login({ password }).unwrap();
+      router.replace("admin/dashboard");
     } catch (err) {
-      setError("Invalid administrative token code");
-    } finally {
-      setIsLoading(false);
+      toast.error("Invalid administrative token code");
     }
   };
 

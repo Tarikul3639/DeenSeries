@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, PlayCircle } from "lucide-react";
+import { Menu, X, PlayCircle, Shield } from "lucide-react";
 import { useResponsive } from "@/hooks/useResponsive";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { Logo } from "./Logo";
@@ -27,6 +27,7 @@ export default function Navbar() {
   const { isMobile } = useResponsive();
   const ref = useClickOutside<HTMLDivElement>({
     onClose: () => setOpen(false),
+    closeOnScroll: true,
   });
 
   useEffect(() => {
@@ -70,7 +71,7 @@ export default function Navbar() {
 
           <Link
             href="/login"
-            className={`flex items-center rounded-md border px-3 py-2 text-xs sm:text-sm transition ${pathname === "/login"
+            className={`hidden md:flex items-center rounded-md border px-3 py-2 text-xs sm:text-sm transition ${pathname === "/login"
               ? "bg-primary text-primary-foreground"
               : "text-muted-foreground hover:bg-muted hover:text-foreground border-border"
               }`}
@@ -100,7 +101,7 @@ export default function Navbar() {
             className="border-t border-border/60 bg-background/90 backdrop-blur-2xl md:hidden"
           >
             <div className="mx-auto max-w-7xl px-3 py-3 sm:px-6">
-              <div className="rounded-xl border border-border/60 bg-background/70 p-2 shadow-sm">
+              <div className="rounded-xl space-y-1 border border-border/60 bg-background/70 p-2 shadow-sm">
 
                 {navItems.map((item) => {
                   const active =
@@ -112,7 +113,7 @@ export default function Navbar() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className={`block rounded-lg px-3 py-2 text-sm transition ${active
+                      className={`block rounded-lg px-3 py-3 text-sm transition ${active
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground"
                         }`}
@@ -124,10 +125,13 @@ export default function Navbar() {
 
                 <Link
                   href="/login"
-                  className="mt-2 flex items-center justify-center gap-2 rounded-lg border border-border/60 bg-muted/60 px-3 py-2 text-sm text-foreground transition hover:bg-muted"
+                  className="mt-2 flex items-center justify-center gap-2 rounded-full border border-border/80 bg-background px-3 py-2 text-sm font-medium text-foreground transition-all duration-200 hover:bg-muted/40"
                 >
-                  <PlayCircle className="h-4 w-4" />
-                  Admin Login
+                  <div className="flex items-center justify-center rounded-md bg-primary/8 p-1.5">
+                    <Shield className="size-3.5 text-primary" />
+                  </div>
+
+                  <span>Admin Login</span>
                 </Link>
 
               </div>
