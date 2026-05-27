@@ -269,8 +269,8 @@ export default function AdminShell({
             </aside>
 
             {/* ⚙️ CORE ADMINISTRATIVE WORKSPACE GRID */}
-            <main className="pt-14 md:pl-64">
-                <div className="min-h-[calc(100vh-3.5rem)] p-4 sm:p-6 lg:p-8 mx-auto">
+            <main className="pt-14 md:pl-70">
+                <div className="min-h-[calc(100vh-3.5rem)] mx-auto">
                     {children}
                 </div>
             </main>

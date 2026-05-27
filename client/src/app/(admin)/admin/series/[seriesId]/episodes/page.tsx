@@ -39,7 +39,7 @@ export default function SeriesEpisodesPage() {
     const episodes = data?.episode || [];
 
     return (
-        <div className="space-y-6">
+        <div className="min-h-screen flex flex-col space-y-6 bg-muted/30 px-4 py-6">
 
             {/* HERO SAME */}
             {series && (

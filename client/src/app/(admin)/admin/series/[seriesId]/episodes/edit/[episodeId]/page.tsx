@@ -46,7 +46,7 @@ export default function EditEpisodePage() {
     if (isLoading) return <p>Loading...</p>;
 
     return (
-        <div className="max-w-3xl mx-auto space-y-6">
+        <div className="min-h-screen flex flex-col space-y-6 bg-muted/30 px-4 py-6">
             <div className="flex justify-between items-center">
                 <BackLink href={`/admin/series/${seriesId}/episodes`} hoverLabel="Back to Episodes" />
                 <h1 className="text-xl font-semibold">Edit Episode</h1>

@@ -35,7 +35,7 @@ export default function MoviesPage() {
   const movies = data?.data || [];
 
   return (
-    <div className="space-y-6">
+    <div className="min-h-screen flex flex-col space-y-6 bg-muted/30 px-4 py-6">
       {/* HEADER */}
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-semibold">Movies</h1>

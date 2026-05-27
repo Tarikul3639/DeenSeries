@@ -32,7 +32,7 @@ export default function AdminLayout({
     if (!isAuth) return null;
 
     return (
-        <div className="flex min-h-screen flex-col bg-zinc-50">
+        <div className="flex min-h-screen flex-col bg-zinc-50 mt-4">
             <AdminShell>
                 {/* MAIN CONTENT */}
                 <main className="flex-1">{children}</main>

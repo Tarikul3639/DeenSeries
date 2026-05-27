@@ -57,7 +57,7 @@ export default function AdminSeriesPage() {
   return (
     <div className="min-h-screen flex flex-col space-y-6 bg-muted/30 px-4 py-6">
       {/* HEADER */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between justify-center">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">
             Series Management
@@ -69,7 +69,7 @@ export default function AdminSeriesPage() {
 
         <Link
           href="/admin/series/create"
-          className="flex items-center gap-2 rounded-sm bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:shadow-md hover:scale-[1.02] transition-all"
+          className="flex items-center justify-center max-sm:self-end gap-2 rounded-sm bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:shadow-md hover:scale-[1.02] transition-all"
         >
           <Plus className="h-4 w-4" />
           Add Series
@@ -88,15 +88,15 @@ export default function AdminSeriesPage() {
       </div>
 
       {/* TABLE */}
-      <div className="overflow-hidden rounded-xl border bg-white min-h-100">
+      <div className="overflow-x-auto rounded-xl border bg-white min-h-100">
         <table className="w-full border-collapse">
           {/* HEAD */}
           <thead className="bg-muted/40 text-xs uppercase text-muted-foreground">
             <tr>
-              <th className="text-left px-6 py-3 w-[50%]">Series</th>
-              <th className="text-left px-4 py-3 w-[15%]">Episodes</th>
-              <th className="text-left px-4 py-3 w-[15%]">Year</th>
-              <th className="text-right px-6 py-3 w-[20%]">Actions</th>
+              <th className="text-left px-6 py-3">Series</th>
+              <th className="text-left px-4 py-3">Episodes</th>
+              <th className="text-left px-4 py-3">Year</th>
+              <th className="text-right px-6 py-3 ">Actions</th>
             </tr>
           </thead>
 
@@ -125,10 +125,10 @@ export default function AdminSeriesPage() {
                   className="hover:bg-muted transition"
                 >
                   {/* SERIES (WIDE COLUMN) */}
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 min-w-62.5">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary shadow-sm">
-                        <Tv className="h-5 w-5" />
+                      <div className="flex p-3 items-center justify-center rounded-lg bg-primary/10 text-primary shadow-sm">
+                        <Tv className="size-5 sm:size-5.5" />
                       </div>
 
                       <div>

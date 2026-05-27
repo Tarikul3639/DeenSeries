@@ -27,7 +27,7 @@ export default function CreateSeriesPage() {
   };
 
   return (
-    <div className="sm:px-4 py-4 mx-auto space-y-6">
+    <div className="min-h-screen flex flex-col space-y-6 bg-muted/30 px-4 py-6">
       {/* HEADER */}
       <div className="flex items-center justify-between">
         <BackLink
