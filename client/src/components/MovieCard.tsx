@@ -101,12 +101,19 @@ export const MovieCard = ({ item }: MovieCardProps) => {
 
                 {/* Rating */}
                 <div className="absolute bottom-0 right-0 z-10 bg-black/90 px-2 py-1 flex items-center gap-1.5 rounded-tl-sm">
-                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-[#FFD700]">
-                        <path d="M10.788 3.21c.448-1.077 1.976-1.077..." />
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="h-4 w-4 text-[#FFD700]"
+                    >
+                        <path d="M12 2l2.9 6.26 6.9.59-5.2 4.5 1.56 6.65L12 16.9 5.84 20l1.56-6.65-5.2-4.5 6.9-.59L12 2z" />
                     </svg>
-                    <span className="text-xs font-semibold text-zinc-100">
-                        {rating?.toFixed(2) || "N/A"}
-                    </span>
+
+                    {rating && (
+                        <span className="text-xs font-semibold text-zinc-100">
+                            {rating?.toFixed(2)}
+                        </span>
+                    )}
                 </div>
             </div>
 

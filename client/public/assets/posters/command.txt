@@ -1,0 +1,9 @@
+mkdir -p posters
+cd posters
+
+for s in 1 2; do
+  for e in $(seq 1 10); do
+    wget -q --show-progress \
+    "https://www.smtvurdu.site/assets/posters/gilani_s${s}e${e}.jpg"
+  done
+done
