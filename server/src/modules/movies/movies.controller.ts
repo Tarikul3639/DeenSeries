@@ -7,7 +7,9 @@ import {
   Patch,
   Delete,
   Query,
+  UseGuards,
 } from "@nestjs/common";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { MoviesService } from "./movies.service";
 import { CreateMovieDto } from "./dto/create-movie.dto";
 import { UpdateMovieDto } from "./dto/update-movie.dto";
@@ -19,6 +21,7 @@ export class MoviesController {
 
   /* CREATE */
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(@Body() body: CreateMovieDto) {
     return this.moviesService.create(body);
   }
@@ -44,12 +47,14 @@ export class MoviesController {
 
   /* UPDATE */
   @Patch(":id")
+  @UseGuards(JwtAuthGuard)
   update(@Param("id") id: string, @Body() body: UpdateMovieDto) {
     return this.moviesService.update(id, body);
   }
 
   /* DELETE */
   @Delete(":id")
+  @UseGuards(JwtAuthGuard)
   remove(@Param("id") id: string) {
     return this.moviesService.remove(id);
   }

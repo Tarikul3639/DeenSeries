@@ -6,7 +6,9 @@ import {
   Body,
   Patch,
   Delete,
+  UseGuards,
 } from "@nestjs/common";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { EpisodesService } from "./episodes.service";
 // import { EpisodeResponseDto } from "./dto/episode-response.dto";
 import { UpdateEpisodeDto } from "./dto/update-episode.dto";
@@ -18,6 +20,7 @@ export class EpisodesController {
 
   /* ADD EPISODE TO SERIES */
   @Post(":seriesId")
+  @UseGuards(JwtAuthGuard)
   create(
     @Param("seriesId") seriesId: string,
     @Body() body: CreateEpisodeDto
@@ -48,12 +51,14 @@ export class EpisodesController {
 
   /* UPDATE */
   @Patch(":episodeId")
+  @UseGuards(JwtAuthGuard)
   update(@Param("episodeId") episodeId: string, @Body() body: UpdateEpisodeDto) {
     return this.episodesService.update(episodeId, body);
   }
 
   /* DELETE */
   @Delete(":episodeId")
+  @UseGuards(JwtAuthGuard)
   remove(@Param("episodeId") episodeId: string) {
     return this.episodesService.remove(episodeId);
   }

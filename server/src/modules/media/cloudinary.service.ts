@@ -4,29 +4,38 @@ import { v2 as cloudinary } from "cloudinary";
 
 @Injectable()
 export class CloudinaryService {
-  constructor(private config: ConfigService) {}
+  constructor(private config: ConfigService) {
+    cloudinary.config({
+      cloud_name: this.config.get("CLOUDINARY_CLOUD_NAME"),
+      api_key: this.config.get("CLOUDINARY_API_KEY"),
+      api_secret: this.config.get("CLOUDINARY_API_SECRET"),
+    });
+  }
 
   generateSignature() {
-    const timestamp = Math.round(new Date().getTime() / 1000);
+    const timestamp = Math.round(Date.now() / 1000);
+
+    const params = {
+      timestamp,
+      folder: "deen-series", // cleaner naming
+    };
 
     const signature = cloudinary.utils.api_sign_request(
-      {
-        timestamp,
-        folder: "deenseries",
-      },
-      this.config.get<string>("CLOUDINARY_API_SECRET")! 
+      params,
+      this.config.get<string>("CLOUDINARY_API_SECRET")!
     );
 
     return {
-      timestamp,
+      ...params,
       signature,
       cloud_name: this.config.get("CLOUDINARY_CLOUD_NAME"),
       api_key: this.config.get("CLOUDINARY_API_KEY"),
-      folder: "deenseries",
     };
   }
 
   async deleteFile(publicId: string) {
-    return cloudinary.uploader.destroy(publicId);
+    return cloudinary.uploader.destroy(publicId, {
+      resource_type: "image", // or "video" if needed
+    });
   }
 }

@@ -1,19 +1,26 @@
-import { Controller, Get, Delete, Query } from "@nestjs/common";
+import { Controller, Get, Delete, Query, BadRequestException, UseGuards } from "@nestjs/common";
 import { CloudinaryService } from "./cloudinary.service";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 
 @Controller("media")
 export class MediaController {
-  constructor(private cloudinary: CloudinaryService) {}
+  constructor(private cloudinary: CloudinaryService) { }
 
-  /* 🔑 GET SIGNATURE */
+  /* GET SIGNATURE */
   @Get("signature")
+  @UseGuards(JwtAuthGuard)
   getSignature() {
     return this.cloudinary.generateSignature();
   }
 
-  /* ❌ DELETE FILE */
+  /* DELETE FILE */
   @Delete()
-  delete(@Query("public_id") publicId: string) {
+  @UseGuards(JwtAuthGuard)
+  delete(@Query("publicId") publicId: string) {
+    if (!publicId) {
+      throw new BadRequestException("publicId is required");
+    }
+
     return this.cloudinary.deleteFile(publicId);
   }
 }

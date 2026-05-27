@@ -7,7 +7,9 @@ import {
   Patch,
   Delete,
   Query,
+  UseGuards,
 } from "@nestjs/common";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { SeriesService } from "./series.service";
 import { GetSeriesQueryDto } from "./dto/get-series-query.dto";
 import { CreateSeriesDto } from "./dto/create-series.dto";
@@ -19,6 +21,7 @@ export class SeriesController {
 
   /* CREATE */
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(@Body() body: CreateSeriesDto) {
     return this.seriesService.create(body);
   }
@@ -40,12 +43,14 @@ export class SeriesController {
 
   /* UPDATE */
   @Patch(":id")
+  @UseGuards(JwtAuthGuard)
   update(@Param("id") id: string, @Body() body: UpdateSeriesDto) {
     return this.seriesService.update(id, body);
   }
 
   /* DELETE */
   @Delete(":id")
+  @UseGuards(JwtAuthGuard)
   remove(@Param("id") id: string) {
     return this.seriesService.remove(id);
   }

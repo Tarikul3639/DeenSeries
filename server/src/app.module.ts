@@ -15,7 +15,6 @@ import { AuthModule } from './modules/auth/auth.module';
 
 // _-_-_-_ Media _-_-_-
 import { MediaModule } from './modules/media/media.module';
-import { CloudinaryService } from './modules/media/cloudinary.service';
 
 // _-_-_-_ Seed _-_-_-
 import { SeedModule } from './seeds/seed.module';

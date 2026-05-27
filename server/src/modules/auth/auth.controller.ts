@@ -1,27 +1,50 @@
-import { Controller, Post, Body } from "@nestjs/common";
+import { Controller, Post, Body, Res } from "@nestjs/common";
+import type { Response } from "express";
 import { AuthService } from "./auth.service";
-
 import { LoginDto } from "./dto/login.dto";
-import { RefreshDto } from "./dto/refresh.dto";
 
-import { ApiOperation, ApiResponse, ApiTags, } from "@nestjs/swagger";
- 
-@ApiTags("Authentication")
 @Controller("auth")
 export class AuthController {
   constructor(private auth: AuthService) {}
 
   @Post("login")
-  @ApiOperation({ summary: "User login" })
-  @ApiResponse({ status: 200, description: "Login successful" })
-  login(@Body() body: LoginDto) {
-    return this.auth.login(body.password);
+  async login(@Body() body: LoginDto, @Res({ passthrough: true }) res: Response) {
+    const tokens = await this.auth.login(body.password);
+
+    res.cookie("access_token", tokens.access_token, {
+      httpOnly: true,
+      secure: false, // production → true
+      sameSite: "lax",
+    });
+
+    res.cookie("refresh_token", tokens.refresh_token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+    });
+
+    return { success: true };
   }
 
   @Post("refresh")
-  @ApiOperation({ summary: "Refresh access token" })
-  @ApiResponse({ status: 200, description: "Token refreshed successfully" })
-  refresh(@Body() body: RefreshDto) {
-    return this.auth.refresh(body.refresh_token);
+  async refresh(@Body() body: { refresh_token: string }, @Res({ passthrough: true }) res: Response) {
+    const result = await this.auth.refresh(body.refresh_token);
+
+    res.cookie("access_token", result.access_token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+    });
+
+    return { success: true };
+  }
+
+  @Post("logout")
+  logout(@Res({ passthrough: true }) res: Response) {
+    console.log("Logging out...");
+    res.clearCookie("access_token");
+    res.clearCookie("refresh_token");
+
+    return { success: true };
   }
 }
