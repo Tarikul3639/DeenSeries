@@ -4,9 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Logo } from "@/components/Logo";
-import { toast } from "sonner";
-import { useLogoutMutation } from "@/store/features/auth/auth.api";
-
 import {
     LayoutDashboard,
     Tv,
@@ -23,16 +20,14 @@ type NavItem = {
     label: string;
     href: string;
     icon: React.ComponentType<{ className?: string }>;
-    children?: { label: string; href: string }[]; // for dropdowns
-    disabled?: boolean; // for disabled items
 };
 
-const navItems: NavItem[] = [
+const navItems = [
     { label: "Overview", href: "/admin/dashboard", icon: LayoutDashboard },
     { label: "Series", href: "/admin/series", icon: Tv },
     { label: "Movies", href: "/admin/movies", icon: Film },
 
-    // Special dropdown
+    // 👇 special dropdown
     {
         label: "Add New",
         href: "#",
@@ -43,7 +38,7 @@ const navItems: NavItem[] = [
         ],
     },
 
-    // Disabled
+    // 👇 disabled
     {
         label: "Settings",
         href: "/admin/settings",
@@ -56,15 +51,11 @@ function SidebarLink({
     item,
     active,
     onClick,
-}: {
-    item: NavItem;
-    active: boolean;
-    onClick: () => void;
-}) {
+}: any) {
     const Icon = item.icon;
     const [open, setOpen] = useState(false);
 
-    // Disabled
+    // 🔒 Disabled
     if (item.disabled) {
         return (
             <div className="flex items-center gap-3 rounded-sm px-3.5 py-2 text-xs md:text-sm text-zinc-400 cursor-not-allowed opacity-60">
@@ -74,7 +65,7 @@ function SidebarLink({
         );
     }
 
-    // Dropdown (Add New)
+    // 📂 Dropdown (Add New)
     if (item.children) {
         return (
             <div className="space-y-1">
@@ -109,7 +100,7 @@ function SidebarLink({
         );
     }
 
-    // Normal Link
+    // 🧱 Normal Link
     return (
         <Link
             href={item.href}
@@ -135,7 +126,6 @@ export default function AdminShell({
     const [open, setOpen] = useState(false);
     const pathname = usePathname();
     const router = useRouter();
-    const [logout] = useLogoutMutation();
 
     const activePath = useMemo(() => pathname, [pathname]);
 
@@ -143,17 +133,9 @@ export default function AdminShell({
         setOpen(false);
     }, [pathname]);
 
-    const handleLogout = async () => {
-        try {
-            toast.promise(logout().unwrap(), {
-                loading: "Logging out...",
-                success: "Logged out successfully!",
-                error: "Failed to log out. Please try again.",
-            });
-            router.push("/login");
-        } catch (error) {
-            console.error("Logout failed:", error);
-        }
+    const handleLogout = () => {
+        localStorage.removeItem("admin-auth");
+        router.push("/login");
     };
 
     return (
@@ -261,7 +243,6 @@ export default function AdminShell({
                         <SidebarLink
                             key={item.href}
                             item={item}
-                            onClick={() => { }}
                             active={activePath === item.href}
                         />
                     ))}

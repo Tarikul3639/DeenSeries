@@ -42,7 +42,6 @@ export const MovieCard = ({ item }: MovieCardProps) => {
 
     const {
         title,
-        thumbnail,
         poster,
         quality,
         rating,
@@ -56,11 +55,11 @@ export const MovieCard = ({ item }: MovieCardProps) => {
             {/* Poster Container */}
             <div className="relative aspect-4/5 w-full overflow-hidden rounded-md bg-zinc-900 shadow-md">
                 {/* Avatar instead of img */}
-                <Avatar className="h-full w-full rounded-none">
+                <Avatar className="h-full w-full rounded-md">
                     <AvatarImage
-                        src={thumbnail || poster || '/placeholder.png'}
+                        src={poster || undefined}
                         alt={title}
-                        className="h-full w-full rounded-none object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
 
                     {/* Same style fallback */}

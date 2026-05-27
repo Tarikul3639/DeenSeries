@@ -15,10 +15,10 @@ export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     /* LOGIN */
     login: builder.mutation<AuthResponse, LoginPayload>({
-      query: (loginData) => ({
+      query: (data) => ({
         url: "/auth/login",
         method: "POST",
-        body: loginData,
+        data,
       }),
       invalidatesTags: [TAG_TYPES.AUTH],
     }),

@@ -96,7 +96,7 @@ export default function MoviesPage() {
                       {/* Avatar */}
                       <Avatar className="h-12 w-10 rounded-sm">
                         <AvatarImage
-                          src={m.thumbnail || m.poster || "./placeholder.jpg"}
+                          src={m.thumbnail || m.poster || ""}
                           alt={m.title}
                           className="object-cover rounded-none"
                         />
