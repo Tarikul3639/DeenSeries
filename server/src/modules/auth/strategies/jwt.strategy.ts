@@ -17,13 +17,19 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (req) => req?.cookies?.access_token,
+      ]),
+
+      ignoreExpiration: false,
+
       secretOrKey: secret,
     });
   }
 
   async validate(payload: JwtPayload) {
-    console.log("Payload: ", payload);
+    console.log("Payload:", payload);
+
     return payload;
   }
 }

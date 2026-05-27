@@ -10,15 +10,6 @@ export const baseApi = createApi({
 
     // All requests will include credentials (like cookies) for authentication
     credentials: "include",
-
-    // Every request will automatically include the token from localStorage (if it exists)
-    prepareHeaders: (headers) => {
-      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
   }),
 
   tagTypes: Object.values(TAG_TYPES),

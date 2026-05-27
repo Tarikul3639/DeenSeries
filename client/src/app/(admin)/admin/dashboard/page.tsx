@@ -213,7 +213,7 @@ export default function DashboardPage() {
                 <span className="text-sm">{item.title}</span>
 
                 <Link
-                  href={`/admin/series/${item._id}`}
+                  href={`/admin/series/edit/${item._id}`}
                   className="text-xs text-primary"
                 >
                   Edit
