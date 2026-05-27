@@ -24,7 +24,7 @@ export class CreateSeriesDto {
 
   @IsOptional()
   @IsString()
-  coverPoster?: string;
+  poster?: string;
 
   @IsOptional()
   @IsNumber()
@@ -32,7 +32,7 @@ export class CreateSeriesDto {
 
   @IsOptional()
   @IsString()
-  thumbnailPoster?: string;
+  thumbnail?: string;
 
   @IsOptional()
   @IsArray()

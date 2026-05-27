@@ -36,7 +36,7 @@ export class HomeService {
             id: item._id.toString(),
             title: item.title,
             description: item.description,
-            image: item.coverPoster || item.thumbnailPoster || "",
+            image: item.poster || item.thumbnail || "",
             type: "series" as const,
             slug: item.slug,
         }));

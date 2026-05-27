@@ -19,13 +19,13 @@ export class Series {
     tagline?: string;
 
     @Prop()
-    coverPoster?: string;
+    poster?: string;
 
     @Prop()
     rating?: number;
 
     @Prop()
-    thumbnailPoster?: string;
+    thumbnail?: string;
 
     @Prop({ type: [String], default: [] })
     genres?: string[];

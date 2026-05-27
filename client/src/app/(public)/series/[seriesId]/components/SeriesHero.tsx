@@ -19,9 +19,9 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
         <Avatar className="w-full h-full rounded-none">
 
           <AvatarImage
-            src={currentSeries.thumbnailPoster || undefined}
+            src={currentSeries.poster || currentSeries.thumbnail || undefined}
             alt=""
-            className="w-full h-full rounded-none object-cover scale-105 blur-sm brightness-[0.25]"
+            className="w-full h-full rounded-none object-cover scale-105 blur-sm brightness-75"
           />
 
           <AvatarFallback className="w-full h-full flex items-center justify-center rounded-none bg-linear-to-br from-[#193cb8] to-black text-white text-4xl font-bold">
@@ -38,13 +38,13 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
       <div className="absolute inset-0 z-10 flex items-end">
         <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-12 grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8 items-end">
           {/* Left Column: Sharp Verticle Thumbnail (Hidden on small mobile) */}
-          <div className="hidden md:block md:col-span-1 aspect-4/5 w-full rounded-sm overflow-hidden border border-border/40 shadow-2xl">
+          <div className="hidden md:block md:col-span-1 aspect-4/5 w-full rounded-xl overflow-hidden border border-border/40 shadow-2xl">
 
-            <Avatar className="w-full h-full rounded-sm">
+            <Avatar className="w-full h-full rounded-xl overflow-hidden">
               <AvatarImage
-                src={currentSeries.coverPoster || undefined}
+                src={currentSeries.thumbnail || currentSeries.poster || undefined}
                 alt={currentSeries.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full rounded-xl object-cover"
               />
 
               <AvatarFallback className="flex items-center justify-center rounded-none bg-linear-to-br from-[#193cb8] via-[#0f2a80] to-black text-white text-3xl font-bold tracking-tight">
@@ -59,16 +59,16 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
             <div className="w-full mx-auto max-w-6xl flex items-center">
               <Link
                 href={`/series`}
-                className="group inline-flex items-center gap-2.5 text-xs font-medium text-zinc-500 transition-colors duration-200 hover:text-zinc-900"
+                className="group inline-flex items-center gap-2.5 text-xs font-medium text-zinc-700 transition-colors duration-200 hover:text-zinc-900"
               >
                 <ArrowLeft className="size-3 sm:size-3.5 transform transition-all duration-300 cubic-bezier(0.16, 1, 0.3, 1) group-hover:-translate-x-1" />
 
                 <span className="relative flex w-20 sm:w-24 overflow-hidden py-0.5">
                   {/* Sliding Modern Text Mask Layer */}
-                  <span className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-32 text-zinc-500">
+                  <span className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-32">
                     Back
                   </span>
-                  <span className="absolute inset-0 inline-block -translate-x-full font-semibold whitespace-nowrap transition-transform duration-300 ease-out group-hover:translate-x-0 text-zinc-900">
+                  <span className="absolute inset-0 inline-block -translate-x-full font-semibold whitespace-nowrap transition-transform duration-300 ease-out group-hover:translate-x-0">
                     To Series
                   </span>
                 </span>
@@ -76,7 +76,7 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
             </div>
 
             {/* Breadcrumb Navigation */}
-            <div className="flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
+            <div className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider">
               <span>Library</span>
               <ChevronRight className="h-3 w-3" />
               <span>Series</span>

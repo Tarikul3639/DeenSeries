@@ -17,8 +17,8 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
     title: initialData?.title || "",
     tagline: initialData?.tagline || "",
     description: initialData?.description || "",
-    coverPoster: initialData?.coverPoster || "",
-    thumbnailPoster: initialData?.thumbnailPoster || "",
+    poster: initialData?.poster || "",
+    thumbnail: initialData?.thumbnail || "",
     genres: initialData?.genres || [],
     releaseDate: initialData?.releaseDate || "",
     totalEpisodes: initialData?.totalEpisodes || 0,
@@ -73,16 +73,16 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
       <ImageUploader
         label="Cover Poster"
         hint="Recommended: 300 × 450 px (2:3 ratio)"
-        value={form.coverPoster}
-        onChange={(url) => setForm((prev) => ({ ...prev, coverPoster: url }))}
+        value={form.poster}
+        onChange={(url) => setForm((prev) => ({ ...prev, poster: url }))}
       />
 
       {/* 🔥 THUMBNAIL POSTER */}
       <ImageUploader
         label="Thumbnail Poster"
         hint="Recommended: 1280 × 720 px (16:9 ratio)"
-        value={form.thumbnailPoster}
-        onChange={(url) => setForm((prev) => ({ ...prev, thumbnailPoster: url }))}
+        value={form.thumbnail}
+        onChange={(url) => setForm((prev) => ({ ...prev, thumbnail: url }))}
       />
 
       <GenresInput

@@ -52,7 +52,7 @@ export async function generateMetadata(
 
         const image =
             episode?.thumbnail ||
-            series?.coverPoster ||
+            series?.poster ||
             "/og-image.png";
 
         const url = `${process.env.NEXT_PUBLIC_SITE_URL}/series/${seriesId}/${episodeId}`;

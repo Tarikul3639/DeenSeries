@@ -13,8 +13,8 @@ export interface Series {
   rating?: number;
 
   /* MEDIA */
-  coverPoster?: string;
-  thumbnailPoster?: string;
+  poster?: string;
+  thumbnail?: string;
 
   /* META */
   genres?: string[];

@@ -45,7 +45,7 @@ export default function SeriesEpisodesPage() {
             {series && (
                 <div className="relative rounded-xl overflow-hidden border">
                     <img
-                        src={series.coverPoster || "/placeholder.jpg"}
+                        src={series.poster || "/placeholder.jpg"}
                         alt={series.title}
                         className="w-full h-56 object-cover"
                     />

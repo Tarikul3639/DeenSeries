@@ -6,7 +6,7 @@ export interface ItemProps {
 
     // Basic Info
     title: string;
-    slug: string;
+    slug?: string;
     description?: string;
     tagline?: string;
 
@@ -51,6 +51,13 @@ export const MovieCard = ({ item }: MovieCardProps) => {
         totalEpisodes,
     } = item;
 
+    const displayImage =
+        thumbnail && !poster
+            ? thumbnail
+            : poster || thumbnail || undefined;
+
+            console.log(displayImage);
+
     return (
         <div className="group flex flex-col gap-2">
             {/* Poster Container */}
@@ -58,7 +65,7 @@ export const MovieCard = ({ item }: MovieCardProps) => {
                 {/* Avatar instead of img */}
                 <Avatar className="h-full w-full rounded-none">
                     <AvatarImage
-                        src={thumbnail || poster || '/placeholder.png'}
+                        src={displayImage}
                         alt={title}
                         className="h-full w-full rounded-none object-cover transition-transform duration-500 group-hover:scale-105"
                     />

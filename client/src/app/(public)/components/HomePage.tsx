@@ -7,7 +7,7 @@ import { MovieGridSkeleton } from "../../../components/ui/MovieGridSkeleton";
 import { SectionHeader } from "./SectionHeader";
 
 // API
-import { useGetSeriesQuery } from "@/store/features/series/series.api";
+import { useGetSeriesQuery, Series } from "@/store/features/series/series.api";
 import { useGetMoviesQuery } from "@/store/features/movies/movie.api";
 import { useGetFeaturedQuery } from "@/store/features/home/home.api";
 
@@ -93,7 +93,7 @@ export default function HomePage() {
 
         {/* Scroll Row */}
         <div className="grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {seriesData?.data?.map((item: ItemProps) => (
+          {seriesData?.data?.map((item: Series) => (
             <div key={item._id}>
               <Link href={`/series/${item._id}`} className="select-none group">
                 <MovieCard item={item} />
