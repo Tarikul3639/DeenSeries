@@ -7,3 +7,62 @@ for s in 1 2; do
     "https://www.smtvurdu.site/assets/posters/gilani_s${s}e${e}.jpg"
   done
 done
+
+
+
+// Sina
+
+for s in 1 2 3; do
+  for e in $(seq 1 10); do
+    wget -q --show-progress \
+    "https://www.smtvurdu.site/assets/posters/sina_s${s}e${e}.jpg"
+  done
+done
+
+
+// Barbarosa
+
+for s in 1; do
+  for e in $(seq 1 48); do
+    wget -q --show-progress \
+    "https://www.smtvurdu.site/assets/posters/barbarossa_s${s}e${e}.jpg"
+  done
+done
+
+// Fatih
+
+for s in 1; do
+  for e in $(seq 1 48); do
+    wget -q --show-progress \
+    "https://www.smtvurdu.site/assets/posters/mehmet_fatih_s${s}e${e}.jpg"
+  done
+done
+
+// Hayreddin
+
+for s in 1; do
+  for e in $(seq 1 20); do
+    wget -q --show-progress \
+    "https://www.smtvurdu.site/assets/posters/barbaros_hayreddin_s${s}e${e}.jpg"
+  done
+done
+
+// Rumi
+
+for s in 2 3; do
+  for e in $(seq 1 10); do
+    wget -q --show-progress \
+    "https://www.smtvurdu.site/assets/posters/rumi_s${s}e${e}.jpg"
+  done
+done
+
+// Rumi S1
+
+s=1
+
+for e in $(seq 1 10); do
+  url="https://www.smtvurdu.site/assets/posters/rumi_e${e}.jpg"
+  out="rumi_s${s}e${e}.jpg"
+
+  wget -q --show-progress -O "$out" "$url" || echo "Failed: $url"
+done

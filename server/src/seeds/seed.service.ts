@@ -11,6 +11,15 @@ import { MOVIES_SEED_DATA } from "./data/movies.data";
 
 import { ABDUL_QADER_GILANI_S1 } from "./data/abdul-qader-gilani-s1.data";
 import { ABDUL_QADER_GILANI_S2 } from "./data/abdul-qader-gilani-s2.data";
+import { SINA_S1 } from "./data/sina-s1.data";
+import { SINA_S2 } from "./data/sina-s2.data";
+import { SINA_S3 } from "./data/sina-s3.data";
+import { BARBAROSSA_S1 } from "./data/barbarossa-s1.data";
+import { HAYREDDIN_S1 } from "./data/hayreddin-s1.data";
+import { FATIH_S1 } from "./data/fatih-s1.data";
+import { RUMI_S1 } from "./data/rumi-s1.data";
+import { RUMI_S2 } from "./data/rumi-s2.data";
+import { RUMI_S3 } from "./data/rumi-s3.data";
 
 @Injectable()
 export class SeedService {
@@ -32,21 +41,30 @@ export class SeedService {
     /* CLEAR All DATABASE BEFORE SEEDING */
     /* -------------------------------- */
 
-    await Promise.all([
-      this.seriesModel.deleteMany({}),
-      this.episodeModel.deleteMany({}),
-      this.movieModel.deleteMany({}),
-    ]);
+    // await Promise.all([
+    //   this.seriesModel.deleteMany({}),
+    //   this.episodeModel.deleteMany({}),
+    //   this.movieModel.deleteMany({}),
+    // ]);
 
-    console.log("🗑 Existing data cleared");
+    // console.log("🗑 Existing data cleared");
 
     /* -------------------------------- */
     /* SERIES DATA FILES */
     /* -------------------------------- */
 
     const SERIES_COLLECTIONS = [
-      ABDUL_QADER_GILANI_S1,
-      ABDUL_QADER_GILANI_S2,
+      // ABDUL_QADER_GILANI_S1,
+      // ABDUL_QADER_GILANI_S2,
+      // SINA_S1,
+      // SINA_S2,
+      // SINA_S3,
+      // BARBAROSSA_S1,
+      FATIH_S1,
+      RUMI_S1,
+      RUMI_S2,
+      RUMI_S3,
+      HAYREDDIN_S1,
     ];
 
     /* -------------------------------- */
@@ -81,13 +99,13 @@ export class SeedService {
     /* MOVIES */
     /* -------------------------------- */
 
-    if (MOVIES_SEED_DATA.length) {
-      await this.movieModel.insertMany(MOVIES_SEED_DATA);
+    // if (MOVIES_SEED_DATA.length) {
+    //   await this.movieModel.insertMany(MOVIES_SEED_DATA);
 
-      console.log(
-        `🎥 ${MOVIES_SEED_DATA.length} movies inserted`
-      );
-    }
+    //   console.log(
+    //     `🎥 ${MOVIES_SEED_DATA.length} movies inserted`
+    //   );
+    // }
 
     console.log("✅ Database seeding completed successfully!");
   }
