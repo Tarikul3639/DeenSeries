@@ -24,6 +24,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
 
+  verification: {
+    google: "wX9p5QSBg-V35tiEQef35nhxekmLe0tuCjPcXo04Yxo",
+  },
+
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,

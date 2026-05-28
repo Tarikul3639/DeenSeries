@@ -31,7 +31,7 @@ import { SeedModule } from './seeds/seed.module';
       throttlers: [
         {
           ttl: 60000, // 60 sec
-          limit: 60,  // max 60 requests
+          limit: 20,  // max 20 requests
         },
       ],
     }),

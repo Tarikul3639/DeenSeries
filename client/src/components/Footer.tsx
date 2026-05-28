@@ -91,7 +91,6 @@ export default function Footer() {
           </div>
 
           {/* Newsletter */}
-          {/* Newsletter */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-foreground">
               Stay Updated
