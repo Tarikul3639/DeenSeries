@@ -14,7 +14,7 @@ export const metadata = createMetadata({
     "halal movies online",
     "Islamic streaming platform",
   ],
-  image: "/movies-og-image.png",
+  image: "/og/movies.png",
 });
 
 export default function MoviesPage() {

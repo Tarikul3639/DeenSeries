@@ -29,14 +29,14 @@ export async function generateMetadata(
     openGraph: {
       title: movie?.title,
       description: movie?.description,
-      images: [movie?.poster || "/og-image.png"],
+      images: [movie?.poster || "/og/movies.png"],
     },
 
     twitter: {
       card: "summary_large_image",
       title: movie?.title,
       description: movie?.description,
-      images: [movie?.poster || "/og-image.png"],
+      images: [movie?.poster || "/og/movies.png"],
     },
   };
 }

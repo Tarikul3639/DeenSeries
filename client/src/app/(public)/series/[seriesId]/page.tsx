@@ -53,7 +53,7 @@ export async function generateMetadata(
         title: response.series.title,
         description: response.series.description,
         images: [
-          response.series.poster || "/og-image.png",
+          response.series.poster || "/og/series.png",
         ],
       },
 
@@ -62,7 +62,7 @@ export async function generateMetadata(
         title: response.series.title,
         description: response.series.description,
         images: [
-          response.series.poster || "/og-image.png",
+          response.series.poster || "/og/series.png",
         ],
       },
     };

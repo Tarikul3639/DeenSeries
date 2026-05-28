@@ -8,7 +8,7 @@ export const metadata: Metadata = createMetadata({
     "Explore Islamic series including historical stories of Salahuddin, Ertugrul, and more. Watch meaningful content on DeenSeries.",
 
   path: "/series",
-  image: "/series-og-image.png",
+  image: "/og/series.png",
 
   keywords: [
     "Islamic series",

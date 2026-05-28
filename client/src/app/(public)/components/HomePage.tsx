@@ -41,7 +41,7 @@ export default function HomePage() {
 
   return (
     <main className="bg-background text-foreground">
-      <div className="mx-auto max-w-7xl px-4 py-4 sm:py-10 text-center">
+      <div className="mx-auto max-w-7xl px-2 sm:px-4 py-4 sm:py-10 text-center">
 
         {/* Featured Banner */}
         {featuredLoading && <FeaturedBannerSkeleton />}
@@ -68,7 +68,7 @@ export default function HomePage() {
         )}
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 space-y-3 sm:space-y-6 pb-10">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 space-y-3 sm:space-y-6 pb-10">
         <SectionHeader title="Trending Series" seeAllHref="/series" />
 
         {seriesLoading && <MovieGridSkeleton count={10} />}

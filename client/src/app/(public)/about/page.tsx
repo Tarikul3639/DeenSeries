@@ -9,7 +9,7 @@ export const metadata = createMetadata({
   description:
     "Learn about DeenSeries — a modern Islamic streaming platform to watch series and movies with a clean and distraction-free experience.",
   path: "/about",
-  image: "/about-og-image.png",
+  image: "/og/about.png",
   keywords: [
     "about DeenSeries",
     "Islamic streaming platform",

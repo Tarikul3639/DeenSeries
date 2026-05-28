@@ -33,7 +33,7 @@ export default function AllMoviesPage() {
     // console.log("API Response:", { data, isLoading, isError, error });
 
     return (
-        <div className="min-h-screen flex flex-col justify-between py-8 px-4 bg-slate-50/50">
+        <div className="min-h-screen flex flex-col justify-between py-8 px-2 sm:px-4 bg-slate-50/50">
             <div className="w-full mx-auto max-w-7xl space-y-6 flex-1 flex flex-col">
                 {/* Search & Filter Header bar */}
                 <MovieFilters
