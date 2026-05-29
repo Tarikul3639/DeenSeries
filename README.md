@@ -1,152 +1,211 @@
-# 🚀 ✅ FULL README.md
+# DeenSeries
 
-```md
-# 🕌 DeenSeries
+A modern full-stack streaming platform for Islamic movies and series built with Next.js, NestJS, MongoDB, and TypeScript.
 
-A modern fullstack platform to stream Islamic series and movies with a clean, distraction-free experience.
+## Live Demo
 
-## ✨ Features
+https://deenseries.vercel.app
 
-### 🎬 Public Platform
-- Browse Islamic series & movies
-- Watch episodes with embedded player
-- Clean, minimal UI (no login required)
-- Responsive design (mobile-first)
+## Screenshots
 
-### 🛠️ Admin Panel
-- Secure admin login (JWT auth)
-- Create / Edit / Delete Series
-- Manage Episodes dynamically
-- Upload media via Cloudinary
-- Movie management system
-- Modern dashboard UI
+### Responsive Mockup
 
-## 🔐 Security
+![DeenSeries Mockup](./image/Mockup.png)
 
-- JWT Authentication (Access + Refresh Token)
-- Password hashing (bcrypt)
-- Rate limiting (brute-force protection)
-- Helmet security headers
-- DTO validation (class-validator)
-- Secure Cloudinary upload (signature-based)
+### Series Listing
 
-## 🧱 Tech Stack
+![All Series](./image/All_Series.png)
 
-### 🖥️ Frontend (Next.js)
-- Next.js App Router
-- Tailwind CSS
-- Framer Motion
-- Lucide Icons
+### Video Player
 
-### ⚙️ Backend (NestJS)
-- NestJS (Modular architecture)
-- MongoDB + Mongoose
-- JWT Authentication
-- Cloudinary Integration
-- Swagger API Docs
+![Player](./image/Player.png)
 
-## 📁 Project Structure
+---
 
-client/   → Next.js frontend
-server/   → NestJS backend
+## Features
 
+### Public Features
+
+* Browse Islamic Movies & Series
+* Episode-Based Streaming
+* Responsive Design (Mobile & Desktop)
+* Dynamic SEO Metadata
+* XML Sitemap & Robots.txt
+* Optimized Image Loading
+* Fast Navigation with App Router
+
+### Admin Features
+
+* Secure JWT Authentication
+* Movies Management
+* Series Management
+* Episode Management
+* Cloudinary Image Upload
+* Cloudinary Image Deletion
+* Publish / Unpublish Content
+* Reusable Admin Forms
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* Next.js 15 (App Router)
+* TypeScript
+* Redux Toolkit
+* RTK Query
+* Tailwind CSS
+
+### Backend
+
+* NestJS
+* MongoDB
+* Mongoose
+* JWT Authentication
+* Cookie-Based Authentication
+
+### Media
+
+* Cloudinary
+
+### Deployment
+
+* Vercel
+
+---
+
+## Project Structure
+
+```bash
+client/
+server/
 ```
 
-## ⚙️ Environment Variables
+### Frontend
 
-### 🔹 Backend (.env)
-
+```bash
+client/src
+├── app
+├── components
+├── hooks
+├── lib
+├── store
+└── types
 ```
 
-MONGO_URI=
-ADMIN_PASSWORD_HASH=
+### Backend
+
+```bash
+server/src
+├── modules
+├── database
+├── seeds
+└── common
+```
+
+---
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your-username/deenseries.git
+cd deenseries
+```
+
+### Frontend
+
+```bash
+cd client
+
+npm install
+
+npm run dev
+```
+
+### Backend
+
+```bash
+cd server
+
+npm install
+
+npm run start:dev
+```
+
+---
+
+## Environment Variables
+
+### Frontend
+
+```env
+NEXT_PUBLIC_SITE_URL=
+NEXT_PUBLIC_SITE_NAME=
+
+NEXT_PUBLIC_API_PROXY=
+
+BACKEND_API_URL=
+```
+
+### Backend
+
+```env
+PORT=
+
+MONGODB_URI=
 
 JWT_ACCESS_SECRET=
-JWT_ACCESS_EXPIRES_IN=10m
-
 JWT_REFRESH_SECRET=
-JWT_REFRESH_EXPIRES_IN=7d
+
+JWT_ACCESS_EXPIRES_IN=
+JWT_REFRESH_EXPIRES_IN=
+
+ADMIN_PASSWORD_HASH=
 
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
-
-````
-
-## 🚀 Getting Started
-
-### 1️⃣ Clone repo
-
-```bash
-git clone https://github.com/tarikul3639/deenseries.git
-cd deenseries
-````
-
-### 2️⃣ Setup Backend
-
-```bash
-cd server
-npm install
-npm run start:dev
 ```
 
-### 3️⃣ Setup Frontend
+---
 
-```bash
-cd client
-npm install
-npm run dev
-```
+## SEO
 
-## 🌱 Seed Database
+* Dynamic Metadata
+* Open Graph Support
+* XML Sitemap
+* Robots.txt
+* Search Engine Friendly URLs
 
-```bash
-npm run seed
-```
+---
 
-## 🔗 API Docs
+## Future Improvements
 
-Swagger available at:
+* Search System
+* Watch History
+* User Accounts
+* Favorites / Bookmarks
+* Multi-Language Support
+* Analytics Dashboard
 
-```
-http://localhost:3000/api
-```
+---
 
-## 📸 Media Upload
+## Author
 
-* Direct upload from frontend
-* Cloudinary signed upload
-* Secure & scalable
+**Tarikul Islam**
 
+Full Stack Developer specializing in Next.js, NestJS, TypeScript, and MongoDB.
 
-## 🔮 Future Improvements
+### Connect With Me
 
-* User accounts & profiles
-* Watch history / continue watching
-* Favorites / watchlist
-* Search & filtering
-* Analytics dashboard
+* Portfolio: https://tarikul.vercel.app
+* LinkedIn: https://www.linkedin.com/in/tarikul-islam
+* GitHub: https://github.com/tarikul3639
 
-## 🤝 Contributing
+---
 
-Pull requests are welcome. For major changes, open an issue first.
+If you found this project helpful, please consider giving it a ⭐ on GitHub.
 
-
-## 📄 License
-
-MIT License
-
-## 👨‍💻 Author
-
-Built with ❤️ by Tarikul
-
-````
-
-# 🔥 Bonus (optional but powerful)
-
-👉 GitHub-এ add করো:
-
-```md
-## 🌍 Live Demo
-https://your-site.com
-````
