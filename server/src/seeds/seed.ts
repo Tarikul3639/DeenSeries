@@ -10,7 +10,7 @@ async function runSeed() {
 
   await app.close();
 
-  console.log("🌱 Seed script finished");
+  // console.log("🌱 Seed script finished");
 }
 
 runSeed();

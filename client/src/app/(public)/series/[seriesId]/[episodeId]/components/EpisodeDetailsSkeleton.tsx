@@ -14,24 +14,28 @@ export const EpisodeDetailsSkeleton = () => {
       {/* MAIN */}
       <div className="mx-auto max-w-6xl px-4 mt-1 space-y-6">
 
-        {/* 🎬 PLAYER */}
-        <div className="relative w-full aspect-video overflow-hidden rounded-sm bg-zinc-200 border border-zinc-200">
-
-          {/* shimmer */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-y-0 w-[200%] bg-linear-to-r from-transparent via-white/60 to-transparent animate-[shimmer_1.2s_linear_infinite]" />
-          </div>
-
+        {/* Mobile title */}
+        <div className="md:hidden space-y-2">
+          <div className="h-3 w-24 bg-zinc-200 rounded" />
+          <div className="h-6 w-3/4 bg-zinc-300 rounded" />
+          <div className="h-3 w-40 bg-zinc-200 rounded" />
         </div>
 
-        {/* GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-2">
+        {/* YouTube-style grid: player+synopsis left, card right */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
 
-          {/* LEFT */}
+          {/* LEFT: Player + Title + Synopsis */}
           <div className="md:col-span-2 space-y-4">
 
-            {/* Title */}
-            <div className="space-y-2">
+            {/* Player */}
+            <div className="relative w-full aspect-video overflow-hidden rounded-sm bg-zinc-200 border border-zinc-200">
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute inset-y-0 w-[200%] bg-linear-to-r from-transparent via-white/60 to-transparent animate-[shimmer_1.2s_linear_infinite]" />
+              </div>
+            </div>
+
+            {/* Title (md+) */}
+            <div className="hidden md:block space-y-2">
               <div className="h-3 w-24 bg-zinc-200 rounded" />
               <div className="h-6 w-3/4 bg-zinc-300 rounded" />
               <div className="h-3 w-40 bg-zinc-200 rounded" />
@@ -39,7 +43,7 @@ export const EpisodeDetailsSkeleton = () => {
 
             <div className="h-px bg-zinc-200" />
 
-            {/* Description */}
+            {/* Synopsis */}
             <div className="space-y-2">
               <div className="h-3 w-32 bg-zinc-200 rounded" />
               <div className="space-y-1">
@@ -52,7 +56,7 @@ export const EpisodeDetailsSkeleton = () => {
           </div>
 
           {/* RIGHT SIDEBAR */}
-          <div className="bg-white border border-zinc-200 p-5 rounded-sm space-y-4">
+          <div className="md:col-span-1 md:sticky md:top-24 bg-white border border-zinc-200 p-5 rounded-sm space-y-4 self-start">
 
             {/* Title */}
             <div className="space-y-2">
@@ -74,12 +78,10 @@ export const EpisodeDetailsSkeleton = () => {
                 <div className="h-3 w-16 bg-zinc-200 rounded" />
                 <div className="h-3 w-10 bg-zinc-300 rounded" />
               </div>
-
               <div className="flex justify-between">
                 <div className="h-3 w-16 bg-zinc-200 rounded" />
                 <div className="h-3 w-10 bg-zinc-300 rounded" />
               </div>
-
               <div className="flex justify-between">
                 <div className="h-3 w-16 bg-zinc-200 rounded" />
                 <div className="h-3 w-10 bg-zinc-300 rounded" />

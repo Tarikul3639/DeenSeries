@@ -11,7 +11,7 @@ export default function CreateMoviePage() {
   const [createMovie, { isLoading }] = useCreateMovieMutation();
 
   const handleSubmit = async (data: CreateMoviePayload) => {
-    console.log("Submitting Movie Data:", data);
+    // console.log("Submitting Movie Data:", data);
     try {
       await createMovie(data).unwrap();
       router.push("/admin/movies");

@@ -56,7 +56,7 @@ export const MovieCard = ({ item }: MovieCardProps) => {
             ? thumbnail
             : poster || thumbnail || undefined;
 
-            console.log(displayImage);
+            // console.log(displayImage);
 
     return (
         <div className="group flex flex-col gap-2">

@@ -35,7 +35,7 @@ export class SeedService {
   ) {}
 
   async seed() {
-    console.log("🌱 Starting database seeding...");
+    // console.log("🌱 Starting database seeding...");
 
     /* -------------------------------- */
     /* CLEAR All DATABASE BEFORE SEEDING */
@@ -78,7 +78,7 @@ export class SeedService {
         ...item.series,
       });
 
-      console.log(`📺 Series created: ${createdSeries.title}`);
+      // console.log(`📺 Series created: ${createdSeries.title}`);
 
       /* CREATE EPISODES */
 
@@ -107,6 +107,6 @@ export class SeedService {
     //   );
     // }
 
-    console.log("✅ Database seeding completed successfully!");
+    // console.log("✅ Database seeding completed successfully!");
   }
 }

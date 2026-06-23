@@ -12,7 +12,7 @@ export async function generateMetadata(
     { cache: "no-store" }
   );
 
-  console.log("res: ", res);
+  // console.log("res: ", res);
 
   if (!res.ok) {
     return {

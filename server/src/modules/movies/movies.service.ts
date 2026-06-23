@@ -11,7 +11,7 @@ export class MoviesService {
 
   /* CREATE */
   async create(data: CreateMovieDto) {
-    console.log(data);
+    // console.log(data);
     return this.movieModel.create(data);
   }
 

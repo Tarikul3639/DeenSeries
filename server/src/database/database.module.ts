@@ -10,7 +10,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
             useFactory: async (configService: ConfigService) => ({
                 uri: configService.get<string>('MONGO_URI'), // Use the MONGO_URI from environment variables
                 onConnectionCreate: (connection) => {
-                    console.log('✅ MongoDB connection established');
+                    // console.log('✅ MongoDB connection established');
                     connection.on('error', (err) => {
                         console.error('❌ MongoDB connection error:', err);
                     });
