@@ -22,7 +22,7 @@ export function MovieFilters({
           <h1 className="text-xl font-bold tracking-tight sm:text-2xl lg:text-3xl">
             All Movies
           </h1>
-          <p className="text-sm text-muted-foreground mt-1 sm:line-clamp-1">
+          <p className="text-sm text-muted-foreground mt-1 line-clamp-2 sm:line-clamp-1">
             Explore our collection of meaningful Islamic movies, carefully curated for a distraction-free viewing experience.
           </p>
         </div>

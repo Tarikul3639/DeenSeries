@@ -41,7 +41,7 @@ export default function HomePage() {
 
   return (
     <main className="bg-background text-foreground">
-      <div className="mx-auto max-w-7xl px-1 sm:px-4 py-4 sm:py-10 text-center">
+      <div className="mx-auto max-w-7xl px-1 sm:px-4 py-2 sm:py-4 text-center">
 
         {/* Featured Banner */}
         {featuredLoading && <FeaturedBannerSkeleton />}

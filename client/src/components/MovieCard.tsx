@@ -61,7 +61,7 @@ export const MovieCard = ({ item }: MovieCardProps) => {
     return (
         <div className="group flex flex-col gap-2">
             {/* Poster Container */}
-            <div className="relative aspect-4/5 w-full overflow-hidden rounded-md bg-zinc-900 shadow-md">
+            <div className="relative aspect-4/5 w-full overflow-hidden rounded-sm bg-zinc-900 shadow-sm">
                 {/* Avatar instead of img */}
                 <Avatar className="h-full w-full rounded-none">
                     <AvatarImage

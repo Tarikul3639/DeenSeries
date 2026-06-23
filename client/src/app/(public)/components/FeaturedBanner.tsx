@@ -108,12 +108,13 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
             {/* Content */}
             <div className="absolute inset-0 z-10 flex items-end pb-8 pt-4 px-4 sm:px-8 lg:px-12">
                 <div className="max-w-2xl text-left w-full">
+
                     <motion.h1
                         key={`title-${index}`}
                         variants={textVariants}
                         initial="hidden"
                         animate="visible"
-                        className="text-sm sm:text-base md:text-lg lg:text-2xl font-bold text-white tracking-tight drop-shadow-md"
+                        className="text-xl sm:text-2xl font-bold text-white md:text-4xl lg:text-5xl tracking-tight drop-shadow-md"
                     >
                         {current.title}
                     </motion.h1>
@@ -123,7 +124,7 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                         variants={textVariants}
                         initial="hidden"
                         animate="visible"
-                        className="mt-2 sm:mt-3 text-[10px] sm:text-[11px] md:text-xs lg:text-sm text-gray-200 line-clamp-2 max-w-md sm:max-w-none"
+                        className="mt-2 sm:mt-4 text-xs sm:text-sm lg:text-base xl:text-xl text-gray-200 line-clamp-2 max-w-md sm:max-w-none"
                     >
                         {current.description || "No description available."}
                     </motion.p>
@@ -133,7 +134,7 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                         variants={textVariants}
                         initial="hidden"
                         animate="visible"
-                        className="mt-3 sm:mt-5 flex gap-2 sm:gap-3 text-[10px] sm:text-[11px] md:text-xs font-medium"
+                        className="mt-3 sm:mt-6 flex gap-2 sm:gap-4 text-[10px] sm:text-xs md:text-sm font-medium"
                     >
                         <Link
                             href={
@@ -141,15 +142,15 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                                     ? `/series/${current.id}`
                                     : `/movies/${current.id}`
                             }
-                            className="flex items-center justify-center gap-1.5 rounded-sm bg-primary px-3 py-1.5 sm:px-4 sm:py-2 text-primary-foreground hover:opacity-90 transition-opacity active:scale-95 hover:bg-primary/90 cursor-pointer z-20"
+                            className="flex items-center justify-center gap-1.5 rounded bg-primary px-3 py-1.5 sm:px-6 sm:py-3 font-semibold text-primary-foreground hover:opacity-90 transition-opacity active:scale-95"
                         >
-                            <Play className="size-2.5 sm:size-3 md:size-4 fill-current" />
+                            <Play className="size-2.5 sm:size-3.5 md:size-4 fill-current" />
                             Watch Now
                         </Link>
 
                         <Link
                             href="/series"
-                            className="rounded-sm border border-white/30 px-3 py-1.5 sm:px-4 sm:py-2 text-white hover:bg-white/10 transition-colors active:scale-95"
+                            className="rounded border border-white/30 px-3 py-1.5 sm:px-6 sm:py-3 text-white hover:bg-white/10 transition-colors active:scale-95"
                         >
                             Browse
                         </Link>
@@ -163,9 +164,7 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                     <button
                         key={i}
                         onClick={() => setIndex(i)}
-                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
-                            i === index ? "w-4 sm:w-6 bg-white" : "w-1.5 sm:w-2 bg-white/40"
-                        }`}
+                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${i === index ? "w-4 sm:w-6 bg-white" : "w-1.5 sm:w-2 bg-white/40"}`}
                         aria-label={`Go to slide ${i + 1}`}
                     />
                 ))}

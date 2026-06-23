@@ -17,9 +17,9 @@ export function SeriesEpisodesHeader({
 
       {/* LEFT */}
       <div className="flex items-center gap-3">
-        <div className="flex items-center justify-center w-8 h-8 rounded-sm bg-primary/10 border border-primary/20">
+        {/* <div className="flex items-center justify-center w-8 h-8 rounded-sm bg-primary/10 border border-primary/20">
           <Layers className="h-4 w-4 text-primary" />
-        </div>
+        </div> */}
 
         <div className="flex flex-col leading-tight">
           <h2 className="text-base sm:text-lg font-semibold tracking-tight">

@@ -24,7 +24,7 @@ export default function AllSeriesPage() {
 
 
   return (
-    <div className="min-h-screen bg-background text-foreground py-8 px-2 sm:px-4 lg:px-8">
+    <div className="min-h-screen bg-background text-foreground py-2 sm:py-4 px-1 sm:px-2 lg:px-4">
       <div className="mx-auto max-w-7xl space-y-6">
         {/* FILTERS */}
         <SeriesFilters
