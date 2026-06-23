@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import {
     Avatar,
@@ -22,8 +22,12 @@ const textVariants: Variants = {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
+const SWIPE_THRESHOLD = 50;
+
 export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
     const [index, setIndex] = useState(0);
+    const touchStartX = useRef<number | null>(null);
+    const touchEndX = useRef<number | null>(null);
 
     useEffect(() => {
         if (!items.length) return;
@@ -35,13 +39,41 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
         return () => clearInterval(interval);
     }, [items.length]);
 
+    const prev = () => setIndex((p) => (p - 1 + items.length) % items.length);
+    const next = () => setIndex((p) => (p + 1) % items.length);
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.changedTouches[0].clientX;
+        touchEndX.current = null;
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        touchEndX.current = e.changedTouches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+        if (touchStartX.current === null || touchEndX.current === null) return;
+
+        const delta = touchStartX.current - touchEndX.current;
+
+        if (Math.abs(delta) >= SWIPE_THRESHOLD) {
+            delta > 0 ? next() : prev();
+        }
+
+        touchStartX.current = null;
+        touchEndX.current = null;
+    };
+
     const current = items[index];
 
     return (
         <section
-            className="relative h-[45vh] w-full overflow-hidden rounded-2xl bg-black"
+            className="relative h-[45vh] w-full overflow-hidden rounded-sm bg-black"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
         >
-            {/* Background Image - Absolute Positioning with Overlay */}
+            {/* Background Image */}
             <AnimatePresence mode="popLayout">
                 <motion.div
                     key={index}
@@ -51,70 +83,57 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                     exit="exit"
                     className="absolute inset-0 h-full w-full"
                 >
-                    {/* Avatar instead of img */}
                     <Avatar className="h-full w-full rounded-none">
                         <AvatarImage
                             src={current.image || undefined}
                             alt={current.title}
                             className="h-full w-full object-cover object-center rounded-none"
                         />
-
-                        {/* fallback (same dark theme) */}
                         <AvatarFallback className="flex items-center rounded-none justify-center bg-linear-to-br from-[#193cb8] via-[#0f2a80] to-black text-white">
                             <div className="text-center space-y-1">
-
-                                {/* Big Initial */}
                                 <p className="text-4xl sm:text-5xl font-bold tracking-tight">
                                     {current.title?.slice(0, 1).toUpperCase()}
                                 </p>
-
-                                {/* Sub text */}
                                 <p className="text-[10px] sm:text-xs opacity-70 uppercase tracking-widest">
                                     Featured
                                 </p>
-
                             </div>
                         </AvatarFallback>
                     </Avatar>
 
-                    {/* Overlay SAME */}
                     <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent" />
                 </motion.div>
             </AnimatePresence>
 
-            {/* Content Container - Responsive Padding and Width */}
+            {/* Content */}
             <div className="absolute inset-0 z-10 flex items-end pb-8 pt-4 px-4 sm:px-8 lg:px-12">
                 <div className="max-w-2xl text-left w-full">
-
-                    {/* Title */}
                     <motion.h1
                         key={`title-${index}`}
                         variants={textVariants}
                         initial="hidden"
                         animate="visible"
-                        className="text-xl sm:text-2xl font-bold text-white md:text-4xl lg:text-5xl tracking-tight drop-shadow-md"
+                        className="text-sm sm:text-base md:text-lg lg:text-2xl font-bold text-white tracking-tight drop-shadow-md"
                     >
                         {current.title}
                     </motion.h1>
 
-                    {/* Description */}
                     <motion.p
                         key={`desc-${index}`}
                         variants={textVariants}
                         initial="hidden"
                         animate="visible"
-                        className="mt-2 sm:mt-4 text-xs sm:text-sm lg:text-base xl:text-xl text-gray-200 line-clamp-2 max-w-md sm:max-w-none"
+                        className="mt-2 sm:mt-3 text-[10px] sm:text-[11px] md:text-xs lg:text-sm text-gray-200 line-clamp-2 max-w-md sm:max-w-none"
                     >
                         {current.description || "No description available."}
                     </motion.p>
 
-                    {/* Buttons */}
                     <motion.div
                         key={`btns-${index}`}
                         variants={textVariants}
                         initial="hidden"
                         animate="visible"
-                        className="mt-4 sm:mt-6 flex gap-3 sm:gap-4 text-[11px] sm:text-xs md:text-sm font-medium"
+                        className="mt-3 sm:mt-5 flex gap-2 sm:gap-3 text-[10px] sm:text-[11px] md:text-xs font-medium"
                     >
                         <Link
                             href={
@@ -122,15 +141,15 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                                     ? `/series/${current.id}`
                                     : `/movies/${current.id}`
                             }
-                            className="flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 sm:px-6 sm:py-3 font-semibold text-primary-foreground hover:opacity-90 transition-opacity active:scale-95"
+                            className="flex items-center justify-center gap-1.5 rounded-sm bg-primary px-3 py-1.5 sm:px-4 sm:py-2 text-primary-foreground hover:opacity-90 transition-opacity active:scale-95 hover:bg-primary/90 cursor-pointer z-20"
                         >
-                            <Play className="size-3 sm:size-3.5 md:size-4 fill-current" />
+                            <Play className="size-2.5 sm:size-3 md:size-4 fill-current" />
                             Watch Now
                         </Link>
 
                         <Link
                             href="/series"
-                            className="rounded-md border border-white/30 px-4 py-2 sm:px-6 sm:py-3 text-white hover:bg-white/10 transition-colors active:scale-95"
+                            className="rounded-sm border border-white/30 px-3 py-1.5 sm:px-4 sm:py-2 text-white hover:bg-white/10 transition-colors active:scale-95"
                         >
                             Browse
                         </Link>
@@ -138,14 +157,15 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                 </div>
             </div>
 
-            {/* Dots Pagination */}
+            {/* Dots */}
             <div className="absolute bottom-4 right-4 sm:left-1/2 sm:right-auto z-20 flex sm:-translate-x-1/2 gap-1.5 sm:gap-2 bg-black/20 backdrop-blur-xs px-2 py-1 rounded-full">
                 {items.map((_, i) => (
                     <button
                         key={i}
                         onClick={() => setIndex(i)}
-                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${i === index ? "w-4 sm:w-6 bg-white" : "w-1.5 sm:w-2 bg-white/40"
-                            }`}
+                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
+                            i === index ? "w-4 sm:w-6 bg-white" : "w-1.5 sm:w-2 bg-white/40"
+                        }`}
                         aria-label={`Go to slide ${i + 1}`}
                     />
                 ))}

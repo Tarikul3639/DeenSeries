@@ -14,13 +14,6 @@ export const EpisodeDetailsSkeleton = () => {
       {/* MAIN */}
       <div className="mx-auto max-w-6xl px-4 mt-1 space-y-6">
 
-        {/* Mobile title */}
-        <div className="md:hidden space-y-2">
-          <div className="h-3 w-24 bg-zinc-200 rounded" />
-          <div className="h-6 w-3/4 bg-zinc-300 rounded" />
-          <div className="h-3 w-40 bg-zinc-200 rounded" />
-        </div>
-
         {/* YouTube-style grid: player+synopsis left, card right */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
 
@@ -35,7 +28,7 @@ export const EpisodeDetailsSkeleton = () => {
             </div>
 
             {/* Title (md+) */}
-            <div className="hidden md:block space-y-2">
+            <div className="space-y-2">
               <div className="h-3 w-24 bg-zinc-200 rounded" />
               <div className="h-6 w-3/4 bg-zinc-300 rounded" />
               <div className="h-3 w-40 bg-zinc-200 rounded" />

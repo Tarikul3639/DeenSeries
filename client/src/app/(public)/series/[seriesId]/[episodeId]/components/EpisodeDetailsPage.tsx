@@ -50,27 +50,13 @@ export default function EpisodeDetailsPage({
             </div>
 
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-1 space-y-6">
-
-                {/* Mobile title */}
-                <div className="md:hidden space-y-1">
-                    <span className="text-[10px] font-bold tracking-widest uppercase text-amber-600 block">
-                        Now Playing
-                    </span>
-                    <h1 className="text-xl font-bold tracking-tight sm:text-2xl text-zinc-900">
-                        {data.episode.title}
-                    </h1>
-                    <span className="text-xs font-semibold text-zinc-400 block">
-                        {data.series.title} • Season 1
-                    </span>
-                </div>
-
                 {/* YouTube-style: Video + Sidebar side by side on md+ */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
 
                     {/* Left: Video Player (takes 2 cols) */}
                     <div className="md:col-span-2 space-y-4">
                         {/* Theater Player */}
-                        <div className="relative w-full aspect-video overflow-hidden bg-black rounded-sm border border-zinc-200 shadow-md">
+                        <div className="-mx-4.5 sm:mx-0 w-auto relative aspect-video overflow-hidden bg-black rounded-sm border border-zinc-200 shadow-md">
                             {isEmbedLoading && (
                                 <div className="absolute inset-0 z-10 flex items-center justify-center bg-black">
                                     <div className="flex flex-col items-center gap-3">
