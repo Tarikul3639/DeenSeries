@@ -1,5 +1,4 @@
-import type { Metadata } from "next";
-
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -8,7 +7,10 @@ import Providers from "./providers";
 import { siteConfig } from "@/lib/metadata";
 
 /* FONTS */
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,10 +23,11 @@ const geistMono = Geist_Mono({
 });
 
 /* VIEWPORT */
-export const viewport = {
+export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: "#0a0a0a",
 };
 
 /* METADATA */
@@ -89,13 +92,23 @@ export const metadata: Metadata = {
   },
 
   manifest: "/manifest.json",
+
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: siteConfig.name,
+  },
+
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html
       lang="en"
@@ -106,9 +119,22 @@ export default function RootLayout({
         inter.variable,
         "font-sans"
       )}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        <Providers>{children}</Providers>
+      <body className="min-h-dvh bg-background text-foreground">
+        <Providers>
+          <div
+            className="flex min-h-dvh flex-col"
+            style={{
+              paddingTop: "env(safe-area-inset-top)",
+              paddingBottom: "env(safe-area-inset-bottom)",
+              paddingLeft: "env(safe-area-inset-left)",
+              paddingRight: "env(safe-area-inset-right)",
+            }}
+          >
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );

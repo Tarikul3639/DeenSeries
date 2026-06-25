@@ -3,31 +3,6 @@
 @import "shadcn/tailwind.css";
 
 /* =========================================================
-   BASE LAYER
-   ========================================================= */
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-
-  html {
-    @apply font-sans;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-
-  button:not(:disabled),
-  [role="button"]:not(:disabled) {
-    cursor: pointer;
-  }
-}
-
-/* =========================================================
    GLOBAL FALLBACKS
    - Always available, even before JS/theme state hydrates
    - Keep radius + a default accent so primary/ring never break
