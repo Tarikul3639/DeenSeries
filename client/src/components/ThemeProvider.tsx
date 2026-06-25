@@ -9,24 +9,17 @@ import {
   type ReactNode,
 } from "react";
 
-export type ThemeName =
-  | "white"
-  | "dark"
-  | "blue"
-  | "green"
-  | "purple"
-  | "amber"
-  | "rose";
+// ─── Types ──────────────────────────────────────────────
+export type Mode = "light" | "dark";
+export type Accent = "blue" | "green" | "purple" | "amber" | "rose";
 
-export interface ThemeOption {
-  name: ThemeName;
+export interface AccentOption {
+  name: Accent;
   label: string;
   color: string; // CSS color for the swatch
 }
 
-export const themes: ThemeOption[] = [
-  { name: "white", label: "Light", color: "#ffffff" },
-  { name: "dark", label: "Dark", color: "#1a1a1a" },
+export const accents: AccentOption[] = [
   { name: "blue", label: "Blue", color: "#2563eb" },
   { name: "green", label: "Green", color: "#16a34a" },
   { name: "purple", label: "Purple", color: "#7c3aed" },
@@ -34,38 +27,60 @@ export const themes: ThemeOption[] = [
   { name: "rose", label: "Rose", color: "#e11d48" },
 ];
 
+// ─── Context ────────────────────────────────────────────
 interface ThemeContextValue {
-  theme: ThemeName;
-  setTheme: (theme: ThemeName) => void;
+  mode: Mode;
+  accent: Accent;
+  setMode: (mode: Mode) => void;
+  setAccent: (accent: Accent) => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: "white",
-  setTheme: () => {},
+  mode: "light",
+  accent: "blue",
+  setMode: () => {},
+  setAccent: () => {},
 });
 
-const STORAGE_KEY = "deenseries-theme";
+const MODE_KEY = "deenseries-mode";
+const ACCENT_KEY = "deenseries-accent";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeName>("white");
+  const [mode, setModeState] = useState<Mode>("light");
+  const [accent, setAccentState] = useState<Accent>("blue");
 
   // On mount, read from localStorage
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY) as ThemeName | null;
-    if (stored && themes.some((t) => t.name === stored)) {
-      setThemeState(stored);
-      document.documentElement.setAttribute("data-theme", stored);
+    const storedMode = localStorage.getItem(MODE_KEY) as Mode | null;
+    const storedAccent = localStorage.getItem(ACCENT_KEY) as Accent | null;
+
+    if (storedMode === "light" || storedMode === "dark") {
+      setModeState(storedMode);
+      document.documentElement.setAttribute("data-mode", storedMode);
+    }
+    if (
+      storedAccent &&
+      accents.some((a) => a.name === storedAccent)
+    ) {
+      setAccentState(storedAccent);
+      document.documentElement.setAttribute("data-accent", storedAccent);
     }
   }, []);
 
-  const setTheme = useCallback((newTheme: ThemeName) => {
-    setThemeState(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem(STORAGE_KEY, newTheme);
+  const setMode = useCallback((newMode: Mode) => {
+    setModeState(newMode);
+    document.documentElement.setAttribute("data-mode", newMode);
+    localStorage.setItem(MODE_KEY, newMode);
+  }, []);
+
+  const setAccent = useCallback((newAccent: Accent) => {
+    setAccentState(newAccent);
+    document.documentElement.setAttribute("data-accent", newAccent);
+    localStorage.setItem(ACCENT_KEY, newAccent);
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ mode, accent, setMode, setAccent }}>
       {children}
     </ThemeContext.Provider>
   );
