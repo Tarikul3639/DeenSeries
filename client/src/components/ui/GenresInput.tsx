@@ -60,14 +60,14 @@ export const GenresInput = ({
                 {value.map((genre, index) => (
                     <div
                         key={index}
-                        className="flex items-center gap-1 bg-slate-100 text-sm px-2 py-1 rounded"
+                        className="flex items-center gap-1 bg-muted text-sm px-2 py-1 rounded"
                     >
                         <span>{genre}</span>
 
                         <button
                             type="button"
                             onClick={() => removeGenre(index)}
-                            className="text-slate-500 hover:text-red-500"
+                            className="text-muted-foreground hover:text-destructive"
                         >
                             <X className="h-3 w-3" />
                         </button>

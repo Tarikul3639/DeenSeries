@@ -61,7 +61,7 @@ export const MovieCard = ({ item }: MovieCardProps) => {
     return (
         <div className="group flex flex-col gap-2">
             {/* Poster Container */}
-            <div className="relative aspect-4/5 w-full overflow-hidden rounded-sm bg-zinc-900 shadow-sm">
+            <div className="relative aspect-4/5 w-full overflow-hidden rounded-sm bg-foreground shadow-sm">
                 {/* Avatar instead of img */}
                 <Avatar className="h-full w-full rounded-none">
                     <AvatarImage
@@ -117,7 +117,7 @@ export const MovieCard = ({ item }: MovieCardProps) => {
                     </svg>
 
                     {rating && (
-                        <span className="text-xs font-semibold text-zinc-100">
+                        <span className="text-xs font-semibold text-muted-foreground">
                             {rating?.toFixed(2)}
                         </span>
                     )}

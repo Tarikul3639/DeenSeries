@@ -61,7 +61,7 @@ export function Pagination({
       <button
         disabled={page === 1}
         onClick={() => onPageChange(page - 1)}
-        className="p-2 rounded-md border bg-white text-sm disabled:opacity-40 hover:bg-gray-50 transition-all cursor-pointer disabled:cursor-not-allowed"
+        className="p-2 rounded-md border bg-background text-sm disabled:opacity-40 hover:bg-muted transition-all cursor-pointer disabled:cursor-not-allowed"
       >
         <ChevronLeft size={16} />
       </button>
@@ -72,7 +72,7 @@ export function Pagination({
           return (
             <span
               key={`ellipsis-${index}`}
-              className="px-2 text-gray-400 text-sm font-medium select-none"
+              className="px-2 text-muted-foreground text-sm font-medium select-none"
             >
               ...
             </span>
@@ -84,8 +84,8 @@ export function Pagination({
             key={`page-${p}`}
             onClick={() => onPageChange(p as number)}
             className={`px-3 py-1.5 text-sm font-medium rounded-md border min-w-9 transition-all cursor-pointer ${p === page
-              ? "bg-primary border-primary text-white shadow-sm"
-              : "bg-white border-gray-200 text-gray-700 hover:bg-gray-100"
+              ? "bg-primary border-primary text-primary-foreground shadow-sm"
+              : "bg-background border-border text-foreground hover:bg-muted"
               }`}
           >
             {p}
@@ -97,7 +97,7 @@ export function Pagination({
       <button
         disabled={page === totalPages}
         onClick={() => onPageChange(page + 1)}
-        className="p-2 rounded-md border bg-white text-sm disabled:opacity-40 hover:bg-gray-50 transition-all cursor-pointer disabled:cursor-not-allowed"
+        className="p-2 rounded-md border bg-background text-sm disabled:opacity-40 hover:bg-muted transition-all cursor-pointer disabled:cursor-not-allowed"
       >
         <ChevronRight size={16} />
       </button>

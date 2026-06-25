@@ -6,7 +6,7 @@ export const MovieCardSkeleton = () => {
         <div className="flex flex-col gap-2 animate-pulse">
 
             {/* Poster Skeleton */}
-            <div className="aspect-4/5 w-full rounded-sm bg-zinc-300 relative overflow-hidden">
+            <div className="aspect-4/5 w-full rounded-sm bg-muted relative overflow-hidden">
 
                 {/* shimmer */}
                 <div className="absolute inset-0 overflow-hidden">
@@ -14,14 +14,14 @@ export const MovieCardSkeleton = () => {
                 </div>
 
                 {/* subtle overlay */}
-                <div className="absolute inset-0 bg-linear-to-t from-zinc-700/20 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-muted/30 via-transparent to-transparent" />
             </div>
 
             {/* Text Skeleton */}
             <div className="space-y-2">
-                <div className="h-3 w-3/4 rounded-sm bg-zinc-400" />
-                <div className="h-3 w-1/2 rounded-sm bg-zinc-400" />
-                <div className="h-3 w-1/3 rounded-sm bg-zinc-500" />
+                <div className="h-3 w-3/4 rounded-sm bg-muted" />
+                <div className="h-3 w-1/2 rounded-sm bg-muted" />
+                <div className="h-3 w-1/3 rounded-sm bg-muted" />
             </div>
 
         </div>

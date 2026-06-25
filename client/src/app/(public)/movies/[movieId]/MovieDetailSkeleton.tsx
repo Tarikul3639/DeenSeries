@@ -2,12 +2,12 @@
 
 export const MovieDetailSkeleton = () => {
   return (
-    <main className="min-h-screen bg-zinc-50/50 text-zinc-800 pb-16 animate-pulse">
+    <main className="min-h-screen bg-muted/50 text-foreground pb-16 animate-pulse">
 
       {/* NAV */}
-      <div className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md px-4 h-16.5 sm:h-20 flex items-center">
+      <div className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md px-4 h-16.5 sm:h-20 flex items-center">
         <div className="w-full mx-auto max-w-6xl">
-          <div className="h-4 w-24 bg-zinc-200 rounded" />
+          <div className="h-4 w-24 bg-muted rounded" />
         </div>
       </div>
 
@@ -15,7 +15,7 @@ export const MovieDetailSkeleton = () => {
       <div className="mx-auto max-w-6xl px-4 mt-2 space-y-6">
 
         {/* 🎬 PLAYER */}
-        <div className="relative w-full aspect-video overflow-hidden rounded-sm bg-zinc-200">
+        <div className="relative w-full aspect-video overflow-hidden rounded-sm bg-muted">
           {/* shimmer */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute inset-y-0 w-[200%] bg-linear-to-r from-transparent via-white/60 to-transparent animate-[shimmer_1.2s_linear_infinite]" />
@@ -30,52 +30,52 @@ export const MovieDetailSkeleton = () => {
 
             {/* TITLE */}
             <div className="space-y-2">
-              <div className="h-3 w-24 bg-zinc-200 rounded" />
-              <div className="h-6 sm:h-8 w-3/4 bg-zinc-300 rounded" />
-              <div className="h-3 w-40 bg-zinc-200 rounded" />
+              <div className="h-3 w-24 bg-muted rounded" />
+              <div className="h-6 sm:h-8 w-3/4 bg-muted rounded" />
+              <div className="h-3 w-40 bg-muted rounded" />
             </div>
 
-            <div className="h-px bg-zinc-200" />
+            <div className="h-px bg-muted" />
 
             {/* DESCRIPTION */}
             <div className="space-y-2">
-              <div className="h-3 w-32 bg-zinc-200 rounded" />
+              <div className="h-3 w-32 bg-muted rounded" />
               <div className="space-y-1">
-                <div className="h-3 w-full bg-zinc-200 rounded" />
-                <div className="h-3 w-5/6 bg-zinc-200 rounded" />
-                <div className="h-3 w-4/6 bg-zinc-200 rounded" />
+                <div className="h-3 w-full bg-muted rounded" />
+                <div className="h-3 w-5/6 bg-muted rounded" />
+                <div className="h-3 w-4/6 bg-muted rounded" />
               </div>
             </div>
 
           </div>
 
           {/* RIGHT SIDEBAR */}
-          <div className="bg-white border border-zinc-200 p-5 rounded-sm space-y-4">
+          <div className="bg-background border border-border p-5 rounded-sm space-y-4">
 
             {/* TITLE */}
             <div className="space-y-2">
-              <div className="h-4 w-3/4 bg-zinc-300 rounded" />
-              <div className="h-3 w-1/2 bg-zinc-200 rounded" />
+              <div className="h-4 w-3/4 bg-muted rounded" />
+              <div className="h-3 w-1/2 bg-muted rounded" />
             </div>
 
-            <div className="h-px bg-zinc-100" />
+            <div className="h-px bg-muted" />
 
             {/* META */}
             <div className="space-y-3">
 
               <div className="flex justify-between">
-                <div className="h-3 w-16 bg-zinc-200 rounded" />
-                <div className="h-3 w-10 bg-zinc-300 rounded" />
+                <div className="h-3 w-16 bg-muted rounded" />
+                <div className="h-3 w-10 bg-muted rounded" />
               </div>
 
               <div className="flex justify-between">
-                <div className="h-3 w-16 bg-zinc-200 rounded" />
-                <div className="h-3 w-10 bg-zinc-300 rounded" />
+                <div className="h-3 w-16 bg-muted rounded" />
+                <div className="h-3 w-10 bg-muted rounded" />
               </div>
 
               <div className="flex justify-between">
-                <div className="h-3 w-16 bg-zinc-200 rounded" />
-                <div className="h-3 w-10 bg-zinc-300 rounded" />
+                <div className="h-3 w-16 bg-muted rounded" />
+                <div className="h-3 w-10 bg-muted rounded" />
               </div>
 
             </div>
@@ -83,7 +83,7 @@ export const MovieDetailSkeleton = () => {
             {/* GENRES */}
             <div className="flex flex-wrap gap-1 pt-2">
               {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="h-4 w-12 bg-zinc-200 rounded" />
+                <div key={i} className="h-4 w-12 bg-muted rounded" />
               ))}
             </div>
 

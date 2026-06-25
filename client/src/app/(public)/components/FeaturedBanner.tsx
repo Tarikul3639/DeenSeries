@@ -124,7 +124,7 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                         variants={textVariants}
                         initial="hidden"
                         animate="visible"
-                        className="mt-2 sm:mt-4 text-xs sm:text-sm lg:text-base xl:text-xl text-gray-200 line-clamp-2 max-w-md sm:max-w-none"
+                        className="mt-2 sm:mt-4 text-xs sm:text-sm lg:text-base xl:text-xl text-muted-foreground line-clamp-2 max-w-md sm:max-w-none"
                     >
                         {current.description || "No description available."}
                     </motion.p>
@@ -150,7 +150,7 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
 
                         <Link
                             href="/series"
-                            className="rounded border border-white/30 px-3 py-1.5 sm:px-6 sm:py-3 text-white hover:bg-white/10 transition-colors active:scale-95"
+                            className="rounded border border-white/30 px-3 py-1.5 sm:px-6 sm:py-3 text-white hover:bg-background/10 transition-colors active:scale-95"
                         >
                             Browse
                         </Link>
@@ -164,7 +164,7 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                     <button
                         key={i}
                         onClick={() => setIndex(i)}
-                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${i === index ? "w-4 sm:w-6 bg-white" : "w-1.5 sm:w-2 bg-white/40"}`}
+                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${i === index ? "w-4 sm:w-6 bg-background" : "w-1.5 sm:w-2 bg-background/40"}`}
                         aria-label={`Go to slide ${i + 1}`}
                     />
                 ))}

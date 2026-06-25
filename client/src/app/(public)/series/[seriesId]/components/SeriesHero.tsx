@@ -50,7 +50,7 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
             <div className="w-full mx-auto max-w-6xl flex items-center">
               <Link
                 href={`/series`}
-                className="group inline-flex items-center gap-2.5 text-[11px] sm:text-xs font-medium text-zinc-700 transition-colors duration-200 hover:text-zinc-900"
+                className="group inline-flex items-center gap-2.5 text-[11px] sm:text-xs font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
               >
                 <ArrowLeft className="size-3 sm:size-3.5 transform transition-all duration-300 cubic-bezier(0.16, 1, 0.3, 1) group-hover:-translate-x-1" />
                 <span className="relative flex w-20 sm:w-24 overflow-hidden py-0.5">
@@ -75,7 +75,7 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
 
             {/* Title & Tagline */}
             <div className="space-y-0.5 sm:space-y-1">
-              <h1 className="text-xl sm:text-3xl md:text-5xl font-extrabold tracking-tight text-black">
+              <h1 className="text-xl sm:text-3xl md:text-5xl font-extrabold tracking-tight text-foreground">
                 {currentSeries.title}
               </h1>
               {currentSeries.tagline && (
@@ -88,7 +88,7 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
             {/* Badges / Meta Info Row */}
             <div className="flex flex-wrap items-center gap-x-2 sm:gap-x-3 gap-y-1.5 sm:gap-y-2 text-[10px] sm:text-xs pt-0.5 sm:pt-1">
               {currentSeries.genres?.length ? (
-                <div className="flex items-center gap-1 text-[9px] sm:text-[11px] bg-red-600/90 text-white px-1.5 sm:px-2 py-0.5 rounded">
+                <div className="flex items-center gap-1 text-[9px] sm:text-[11px] bg-destructive/90 text-white px-1.5 sm:px-2 py-0.5 rounded">
                   {currentSeries.genres.slice(0, 2).join(" • ")}
                 </div>
               ) : null}

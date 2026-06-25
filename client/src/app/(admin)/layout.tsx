@@ -23,7 +23,7 @@ export default function AdminLayout({
 
     if (loading) {
         return (
-            <div className="flex min-h-screen items-center justify-center text-sm text-zinc-500">
+            <div className="flex min-h-screen items-center justify-center text-sm text-muted-foreground">
                 Checking access...
             </div>
         );
@@ -32,7 +32,7 @@ export default function AdminLayout({
     if (!isAuth) return null;
 
     return (
-        <div className="flex min-h-screen flex-col bg-zinc-50 mt-4">
+        <div className="flex min-h-screen flex-col bg-background mt-4">
             <AdminShell>
                 {/* MAIN CONTENT */}
                 <main className="flex-1">{children}</main>

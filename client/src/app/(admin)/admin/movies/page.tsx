@@ -42,7 +42,7 @@ export default function MoviesPage() {
 
         <Link
           href="/admin/movies/create"
-          className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-sm text-sm hover:opacity-90 transition"
+          className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-sm text-sm hover:opacity-90 transition"
         >
           <Plus className="h-4 w-4" />
           Add Movie
@@ -50,7 +50,7 @@ export default function MoviesPage() {
       </div>
 
       {/* TABLE */}
-      <div className="rounded-xl border bg-white overflow-x-auto">
+      <div className="rounded-xl border bg-background overflow-x-auto">
         <table className="w-full text-sm">
           {/* HEAD */}
           <thead className="bg-muted/40 text-xs uppercase">
@@ -100,7 +100,7 @@ export default function MoviesPage() {
                           alt={m.title}
                           className="object-cover rounded-none"
                         />
-                        <AvatarFallback className="w-full h-full rounded bg-linear-to-br from-indigo-500 to-purple-500 text-white font-bold text-xs border-transparent">
+                        <AvatarFallback className="w-full h-full rounded bg-linear-to-br from-primary to-primary/80 text-white font-bold text-xs border-transparent">
                           {m.title.slice(0, 2).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
@@ -138,7 +138,7 @@ export default function MoviesPage() {
                       <Link
                         href={`/admin/movies/edit/${m._id}`}
                         onClick={(e) => e.stopPropagation()}
-                        className="p-2 rounded-sm border hover:bg-blue-50 text-blue-500 transition"
+                        className="p-2 rounded-sm border hover:bg-primary/10 text-primary transition"
                       >
                         <Pencil className="h-4 w-4" />
                       </Link>
@@ -150,7 +150,7 @@ export default function MoviesPage() {
                           e.stopPropagation();
                         }}
                         disabled={isDeleting}
-                        className="p-2 rounded-sm border hover:bg-red-50 text-red-500 transition"
+                        className="p-2 rounded-sm border hover:bg-destructive/10 text-destructive transition"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>

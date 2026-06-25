@@ -25,20 +25,20 @@ export function ErrorState({
 
   return (
     <div className="w-full min-h-100 flex justify-center items-center px-4 py-18 transition-all duration-300">
-      <div className="w-full max-w-md text-center bg-rose-50/40 border border-rose-100 rounded-3xl p-8 transition-all duration-300">
+      <div className="w-full max-w-md text-center bg-destructive/5 border border-destructive/20 rounded-3xl p-8 transition-all duration-300">
         
         {/* Icon */}
-        <div className="mx-auto w-16 h-16 rounded-2xl bg-rose-100 flex items-center justify-center mb-5">
-          <AlertCircle className="text-rose-500" size={28} />
+        <div className="mx-auto w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center mb-5">
+          <AlertCircle className="text-destructive" size={28} />
         </div>
 
         {/* Title */}
-        <h2 className="text-slate-800 font-bold text-lg tracking-tight mb-2 px-4">
+        <h2 className="text-foreground font-bold text-lg tracking-tight mb-2 px-4">
           {title}
         </h2>
 
         {/* Error message */}
-        <p className="text-sm text-slate-500 max-w-75 mx-auto leading-relaxed mb-6">
+        <p className="text-sm text-muted-foreground max-w-75 mx-auto leading-relaxed mb-6">
           {errorMessage}
         </p>
 
@@ -46,7 +46,7 @@ export function ErrorState({
         {onRetry && (
           <button
             onClick={onRetry}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rose-500 text-white font-medium text-sm hover:bg-rose-600 active:scale-[0.98] transition-all duration-200 shadow-sm shadow-rose-500/10 cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-destructive text-destructive-foreground font-medium text-sm hover:bg-destructive/90 active:scale-[0.98] transition-all duration-200 shadow-sm shadow-destructive/10 cursor-pointer"
           >
             <RefreshCw size={14} />
             <span>Try Again</span>
@@ -55,13 +55,13 @@ export function ErrorState({
 
         {/* Show debug info only in development */}
         {process.env.NODE_ENV === "development" && rawError && (
-          <div className="mt-8 border border-rose-100/60 bg-rose-50/20 rounded-2xl p-4 text-left">
-            <div className="flex items-center gap-1.5 text-rose-400 font-semibold text-[10px] uppercase tracking-wider mb-2">
+          <div className="mt-8 border border-destructive/10 bg-destructive/5 rounded-2xl p-4 text-left">
+            <div className="flex items-center gap-1.5 text-destructive/70 font-semibold text-[10px] uppercase tracking-wider mb-2">
               <Terminal size={12} />
               <span>Debug Console (Dev Only)</span>
             </div>
 
-            <pre className="text-[11px] font-mono text-slate-600 overflow-auto max-h-37.5 max-w-full p-3 bg-white rounded-xl border border-slate-100 scrollbar-thin">
+            <pre className="text-[11px] font-mono text-muted-foreground overflow-auto max-h-37.5 max-w-full p-3 bg-background rounded-xl border border-border scrollbar-thin">
               {JSON.stringify(rawError, null, 2)}
             </pre>
           </div>

@@ -63,7 +63,7 @@ export default function MovieForm({
   };
 
   return (
-    <div className="space-y-6 rounded-2xl border bg-white p-6">
+    <div className="space-y-6 rounded-2xl border bg-background p-6">
       <Input
         label="Title"
         name="title"
@@ -164,7 +164,7 @@ export default function MovieForm({
       <button
         onClick={handleSubmit}
         disabled={loading}
-        className="flex items-center justify-center gap-2 w-full rounded-sm bg-primary py-2 text-sm text-white disabled:opacity-60"
+        className="flex items-center justify-center gap-2 w-full rounded-sm bg-primary py-2 text-sm text-primary-foreground disabled:opacity-60"
       >
         {loading ? (
           <Loader2 className="h-4 w-4 animate-spin" />

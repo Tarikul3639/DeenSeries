@@ -39,7 +39,7 @@ export const BackLink = ({
     return (
         <button
             onClick={handleBack}
-            className={`group inline-flex items-center gap-2.5 text-base font-medium text-zinc-500 hover:text-zinc-900 transition ${className}`}
+            className={`group inline-flex items-center gap-2.5 text-base font-medium text-muted-foreground hover:text-foreground transition ${className}`}
         >
             <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-all duration-300" />
 
