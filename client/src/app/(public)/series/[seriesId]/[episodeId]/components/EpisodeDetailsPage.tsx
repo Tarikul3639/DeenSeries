@@ -44,7 +44,8 @@ export default function EpisodeDetailsPage({
                         href={`/series/${seriesId}`}
                         label="Back"
                         hoverLabel="To Series"
-                        weight={80}
+                        className="text-sm sm:text-base"
+                        weight={300}
                     />
                 </div>
             </div>
@@ -56,7 +57,7 @@ export default function EpisodeDetailsPage({
                     {/* Left: Video Player (takes 2 cols) */}
                     <div className="md:col-span-2 space-y-4">
                         {/* Theater Player */}
-                        <div className="-mx-4.5 sm:mx-0 w-auto relative aspect-video overflow-hidden bg-black rounded-sm border border-border shadow-md">
+                        <div className="w-auto relative aspect-video overflow-hidden bg-black rounded-sm border border-border shadow-md">
                             {isEmbedLoading && (
                                 <div className="absolute inset-0 z-10 flex items-center justify-center bg-black">
                                     <div className="flex flex-col items-center gap-3">
@@ -74,7 +75,7 @@ export default function EpisodeDetailsPage({
                         </div>
 
                         {/* Title (hidden on mobile, shown here on md+) */}
-                        <div className="hidden md:block space-y-1">
+                        <div className="space-y-1">
                             <span className="text-[10px] font-bold tracking-widest uppercase text-warning block">
                                 Now Playing
                             </span>

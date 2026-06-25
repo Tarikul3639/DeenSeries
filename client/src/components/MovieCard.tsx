@@ -67,11 +67,11 @@ export const MovieCard = ({ item }: MovieCardProps) => {
                     <AvatarImage
                         src={displayImage}
                         alt={title}
-                        className="h-full w-full rounded-none object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="h-full w-full rounded-none object-cover transition-transform duration-500 group-hover:scale-105 border border-none"
                     />
 
                     {/* Same style fallback */}
-                    <AvatarFallback className="flex items-center justify-center bg-linear-to-br from-[#193cb8] to-black text-white text-lg font-semibold rounded-md">
+                    <AvatarFallback className="flex items-center justify-center bg-linear-to-br from-primary to-secondary text-white text-lg font-semibold rounded-none border-none ring-0">
                         {title?.slice(0, 3).toUpperCase()}
                     </AvatarFallback>
                 </Avatar>

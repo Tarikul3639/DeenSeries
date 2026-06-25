@@ -20,7 +20,7 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
             alt=""
             className="w-full h-full rounded-none object-cover scale-105 blur-sm brightness-75"
           />
-          <AvatarFallback className="w-full h-full flex items-center justify-center rounded-none bg-linear-to-br from-[#193cb8] to-black text-white text-4xl font-bold" />
+          <AvatarFallback className="w-full h-full flex items-center justify-center rounded-none bg-linear-to-br from-primary to-secondary text-white text-4xl font-bold" />
         </Avatar>
 
         {/* overlay gradient */}
@@ -39,7 +39,7 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
                 alt={currentSeries.title}
                 className="w-full h-full rounded-sm object-cover"
               />
-              <AvatarFallback className="flex items-center justify-center rounded-none bg-linear-to-br from-[#193cb8] via-[#0f2a80] to-black text-white text-3xl font-bold tracking-tight">
+              <AvatarFallback className="flex items-center justify-center rounded-none bg-linear-to-br from-primary to-secondary text-white text-3xl font-bold tracking-tight">
                 {currentSeries.title?.slice(0, 2).toUpperCase()}
               </AvatarFallback>
             </Avatar>
@@ -130,9 +130,9 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
               <div className="pt-1.5 sm:pt-3 flex flex-wrap gap-3">
                 <Link
                   href={`/series/${currentSeries._id}/${firstEpisodeId}`}
-                  className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded bg-primary text-background font-semibold px-3.5 py-2 sm:px-5 sm:py-2.5 text-[11px] sm:text-xs hover:bg-primary/90 transition-colors shadow-sm"
+                  className="flex items-center justify-center gap-1.5 rounded bg-primary px-3.5 py-2 sm:px-5 sm:py-2.5 text-[11px] sm:text-xs font-semibold text-primary-foreground hover:opacity-90 transition-opacity active:scale-95"
                 >
-                  <Play className="h-3 w-3 sm:h-4 sm:w-4 fill-current" />
+                  <Play className="size-2.5 sm:size-3.5 md:size-4 fill-current" />
                   <span>Watch Season 1 (Ep 1)</span>
                 </Link>
               </div>
