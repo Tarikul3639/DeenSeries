@@ -20,6 +20,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+/* VIEWPORT */
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 /* METADATA */
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

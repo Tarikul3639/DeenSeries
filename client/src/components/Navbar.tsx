@@ -36,7 +36,7 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <header ref={ref} className="sticky top-0 z-50 border-b border-border/60 bg-background backdrop-blur-2xl">
+    <header ref={ref} className="sticky top-0 z-50 pt-[env(safe-area-inset-top)] border-b border-border/60 bg-background backdrop-blur-2xl">
       <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/40 to-transparent" />
 
       <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-3 sm:px-6 lg:px-8">

@@ -1,165 +1,183 @@
 "use client";
 
 import { useState } from "react";
-import { Tv, Sparkles, Layers, Info } from "lucide-react";
-import { BackLink } from "@/components/ui/BackLink";
-import { useGetEpisodeBySeriesQuery } from "@/store/features/episodes/episode.api";
+import Link from "next/link";
+import { Tv, Star, Calendar, ChevronRight, Layers } from "lucide-react";
+import { useGetEpisodeBySeriesQuery, useGetEpisodesBySeriesQuery } from "@/store/features/episodes/episode.api";
 import { EpisodeDetailsSkeleton } from "./EpisodeDetailsSkeleton";
+import { EpisodeList } from "./EpisodeList";
 
 const getEmbedSrc = (embed: string) => {
-    const match = embed.match(/src=["']([^"']+)["']/);
-    return match ? match[1] : "";
+  const match = embed.match(/src=["']([^"']+)["']/);
+  return match ? match[1] : "";
 };
 
 export default function EpisodeDetailsPage({
+  seriesId,
+  episodeId,
+}: {
+  seriesId: string;
+  episodeId: string;
+}) {
+  const [isEmbedLoading, setIsEmbedLoading] = useState(true);
+
+  const { data: episodeData, isLoading: isEpisodeLoading } = useGetEpisodeBySeriesQuery({
     seriesId,
     episodeId,
-}: {
-    seriesId: string;
-    episodeId: string;
-}) {
-    const [isEmbedLoading, setIsEmbedLoading] = useState(true);
+  });
 
-    const { data, isLoading } = useGetEpisodeBySeriesQuery({
-        seriesId,
-        episodeId,
-    });
+  const { data: allEpisodesData, isLoading: isListLoading } = useGetEpisodesBySeriesQuery(seriesId);
 
-    if (isLoading) return <EpisodeDetailsSkeleton />;
+  if (isEpisodeLoading || isListLoading) return <EpisodeDetailsSkeleton />;
 
-    if (!data) {
-        return (
-            <div className="flex min-h-[50vh] items-center justify-center font-medium text-muted-foreground tracking-tight text-xs">
-                Episode not found
-            </div>
-        );
-    }
-
+  if (!episodeData) {
     return (
-        <main className="min-h-screen bg-muted/50 text-foreground pb-16">
-            {/* Sticky Navigation */}
-            <div className="sticky flex items-left top-0 z-40 w-full bg-linear-to-b from-background via-background/80 to-transparent px-4 backdrop-blur-md h-16.5 sm:h-20">
-                <div className="w-full mx-auto max-w-6xl flex items-center">
-                    <BackLink
-                        href={`/series/${seriesId}`}
-                        label="Back"
-                        hoverLabel="To Series"
-                        className="text-sm sm:text-base"
-                        weight={300}
-                    />
-                </div>
-            </div>
-
-            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-1 space-y-6">
-                {/* YouTube-style: Video + Sidebar side by side on md+ */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
-
-                    {/* Left: Video Player (takes 2 cols) */}
-                    <div className="md:col-span-2 space-y-4">
-                        {/* Theater Player */}
-                        <div className="w-auto relative aspect-video overflow-hidden bg-black rounded-sm border border-border shadow-md">
-                            {isEmbedLoading && (
-                                <div className="absolute inset-0 z-10 flex items-center justify-center bg-black">
-                                    <div className="flex flex-col items-center gap-3">
-                                        <div className="h-10 w-10 animate-spin rounded-full border-2 border-border border-t-white" />
-                                        <p className="text-xs text-muted-foreground">Loading video...</p>
-                                    </div>
-                                </div>
-                            )}
-                            <iframe
-                                src={getEmbedSrc(data.episode.embed)}
-                                className="w-full h-full rounded-sm border-0"
-                                allowFullScreen
-                                onLoad={() => setIsEmbedLoading(false)}
-                            />
-                        </div>
-
-                        {/* Title (hidden on mobile, shown here on md+) */}
-                        <div className="space-y-1">
-                            <span className="text-[10px] font-bold tracking-widest uppercase text-warning block">
-                                Now Playing
-                            </span>
-                            <h1 className="text-xl font-bold tracking-tight sm:text-2xl text-foreground">
-                                {data.episode.title}
-                            </h1>
-                            <span className="text-xs font-semibold text-muted-foreground block">
-                                {data.series.title} • Season 1
-                            </span>
-                        </div>
-
-                        <div className="h-px bg-muted w-full" />
-
-                        {/* Synopsis */}
-                        <div className="space-y-2">
-                            <h3 className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                                <Info className="h-3 w-3" />
-                                Episode Overview
-                            </h3>
-                            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-2xl">
-                                {data.episode.description} Watch this episode in an immersive,
-                                distraction-free environment optimized for high-fidelity audio
-                                and video playback.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Right: Directory Card (1 col, sticky) */}
-                    <div className="md:col-span-1 md:sticky md:top-24 bg-background border border-border p-5 rounded-sm space-y-4 shadow-2xs self-start">
-                        <div className="space-y-1">
-                            <h2 className="text-sm font-bold text-foreground tracking-tight">
-                                {data.series.title}
-                            </h2>
-                            <p className="text-[11px] text-muted-foreground font-medium leading-relaxed italic">
-                                "{data.series.tagline}"
-                            </p>
-                        </div>
-                        <p className="text-[11px] text-muted-foreground leading-relaxed">
-                            {data.series.description}
-                        </p>
-                        <div className="h-px bg-muted" />
-
-                        {/* Metadata Badges */}
-                        <div className="space-y-2.5 pt-1">
-                            <div className="flex items-center justify-between text-[11px]">
-                                <span className="text-muted-foreground flex items-center gap-1">
-                                    <Sparkles className="h-3 w-3" /> Rating
-                                </span>
-                                <span className="text-warning font-bold">
-                                    ★ {data.episode.rating}
-                                </span>
-                            </div>
-                            <div className="flex items-center justify-between text-[11px]">
-                                <span className="text-muted-foreground flex items-center gap-1">
-                                    <Layers className="h-3 w-3" /> Stream
-                                </span>
-                                <span className="bg-muted border border-border px-1.5 py-0.5 text-[9px] font-bold text-muted-foreground rounded-xs uppercase tracking-wide">
-                                    {data.episode.quality}
-                                </span>
-                            </div>
-                            <div className="flex items-center justify-between text-[11px]">
-                                <span className="text-muted-foreground flex items-center gap-1">
-                                    <Tv className="h-3 w-3" /> Release
-                                </span>
-                                <span className="text-muted-foreground font-medium">
-                                    {data.episode.releaseDate}
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* Genre Labels */}
-                        <div className="flex flex-wrap gap-1 pt-1">
-                            {data.series.genres?.map((genre: string) => (
-                                <span
-                                    key={genre}
-                                    className="rounded-xs bg-muted border border-border px-2 py-0.5 text-[10px] font-medium text-muted-foreground"
-                                >
-                                    {genre}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+      <div className="flex min-h-[50vh] items-center justify-center text-xs font-medium text-muted-foreground tracking-tight">
+        Episode not found
+      </div>
     );
+  }
+
+  const { episode, series } = episodeData;
+  const allEpisodes = allEpisodesData?.episode || [];
+
+  return (
+    <main className="min-h-screen bg-background">
+      <div className="mx-auto max-w-450 px-4 pt-4 pb-16 sm:px-6 lg:flex lg:items-start lg:gap-6">
+
+        {/* LEFT COLUMN — Player + Info */}
+        <div className="min-w-0 flex-1 space-y-4">
+
+          {/* ── Video Player ─────────────────────────── */}
+          <div
+            className="relative w-full overflow-hidden rounded-xl bg-black shadow-xl ring-1 ring-border/20"
+            style={{ aspectRatio: "16/9" }}
+          >
+            {isEmbedLoading && (
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-black">
+                <div className="h-9 w-9 animate-spin rounded-full border-2 border-border border-t-primary" />
+                <p className="text-[11px] text-muted-foreground">Loading video...</p>
+              </div>
+            )}
+            <iframe
+              src={getEmbedSrc(episode.embed)}
+              className="h-full w-full border-0"
+              allowFullScreen
+              onLoad={() => setIsEmbedLoading(false)}
+            />
+          </div>
+
+          {/* ── Episode Title ─────────────────────────── */}
+          <h1 className="text-lg font-bold leading-snug tracking-tight text-foreground sm:text-xl">
+            {episode.title}
+          </h1>
+
+          {/* ── Meta Row ──────────────────────────────── */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
+            <span className="font-semibold text-primary">{series.title}</span>
+            <span className="flex items-center gap-1">
+              <Tv className="size-3.5" />
+              Episode {episode.episodeNumber}
+            </span>
+            {episode.releaseDate && (
+              <span className="flex items-center gap-1">
+                <Calendar className="size-3.5" />
+                {episode.releaseDate}
+              </span>
+            )}
+            {episode.rating && (
+              <span className="flex items-center gap-1">
+                <Star className="size-3.5 text-warning" />
+                {episode.rating}
+              </span>
+            )}
+          </div>
+
+          {/* ── Divider ───────────────────────────────── */}
+          <div className="h-px bg-border/60" />
+
+          {/* ── Description ── */}
+          {(episode.description || series.description) && (
+            <div className="rounded-xl bg-muted/40 p-4">
+              <div className="mb-3 flex items-center gap-2">
+                <div className="flex size-7 items-center justify-center rounded-md bg-primary/10">
+                  <Layers className="size-3.5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-[13px] font-semibold text-foreground leading-none">{series.title}</p>
+                  {series.tagline && (
+                    <p className="mt-0.5 text-[10px] italic text-muted-foreground">"{series.tagline}"</p>
+                  )}
+                </div>
+              </div>
+
+              {series.genres && series.genres.length > 0 && (
+                <div className="mb-3 flex flex-wrap gap-1.5">
+                  {series.genres.map((genre) => (
+                    <span
+                      key={genre}
+                      className="rounded-full border border-border bg-background px-2.5 py-0.5 text-[10px] font-medium text-muted-foreground"
+                    >
+                      {genre}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <div className="text-sm text-muted-foreground leading-relaxed">
+                {episode.description || series.description}
+              </div>
+            </div>
+          )}
+
+          {/* ── Mobile Episode List ───────────────────── */}
+          {allEpisodes.length > 0 && (
+            <div className="lg:hidden space-y-3 pt-2">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold text-foreground">All Episodes</h3>
+                <span className="text-xs text-muted-foreground">{allEpisodes.length} episodes</span>
+              </div>
+              <div className="max-h-80 overflow-y-auto rounded-xl border border-border bg-background p-2">
+                <EpisodeList
+                  episodes={allEpisodes}
+                  seriesId={seriesId}
+                  currentEpisodeId={episodeId}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* RIGHT SIDEBAR — Desktop only */}
+        {allEpisodes.length > 0 && (
+          <aside className="hidden lg:block lg:w-95 xl:w-100 shrink-0">
+            <div className="rounded-xl border border-border bg-muted/20 overflow-hidden">
+              {/* Header */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-border/50">
+                <div>
+                  <h3 className="text-sm font-semibold text-foreground">{series.title}</h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">{allEpisodes.length} Episodes</p>
+                </div>
+                <Link
+                  href={`/series/${seriesId}`}
+                  className="flex items-center gap-0.5 text-xs text-primary hover:underline shrink-0"
+                >
+                  See all <ChevronRight className="size-3" />
+                </Link>
+              </div>
+
+              {/* Scrollable episode list */}
+              <div className="overflow-y-auto p-2 max-h-[calc(100vh-5rem)]">
+                <EpisodeList
+                  episodes={allEpisodes}
+                  seriesId={seriesId}
+                  currentEpisodeId={episodeId}
+                />
+              </div>
+            </div>
+          </aside>
+        )}
+      </div>
+    </main>
+  );
 }

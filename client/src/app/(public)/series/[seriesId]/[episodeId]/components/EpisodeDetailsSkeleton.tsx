@@ -2,96 +2,90 @@
 
 export const EpisodeDetailsSkeleton = () => {
   return (
-    <main className="min-h-screen bg-muted/50 text-foreground pb-16 animate-pulse">
+    <main className="min-h-screen bg-background animate-pulse">
+      <div className="mx-auto max-w-450 px-4 pt-4 pb-16 sm:px-6 lg:flex lg:items-start lg:gap-6">
 
-      {/* NAV */}
-      <div className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md px-4 h-16.5 sm:h-20 flex items-center">
-        <div className="w-full mx-auto max-w-6xl">
-          <div className="h-4 w-24 bg-muted rounded" />
-        </div>
-      </div>
+        {/* LEFT COLUMN */}
+        <div className="min-w-0 flex-1 space-y-4">
 
-      {/* MAIN */}
-      <div className="mx-auto max-w-6xl px-4 mt-1 space-y-6">
-
-        {/* YouTube-style grid: player+synopsis left, card right */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
-
-          {/* LEFT: Player + Title + Synopsis */}
-          <div className="md:col-span-2 space-y-4">
-
-            {/* Player */}
-            <div className="relative w-full aspect-video overflow-hidden rounded-sm bg-muted border border-border">
-              <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute inset-y-0 w-[200%] bg-linear-to-r from-transparent via-white/60 to-transparent animate-[shimmer_1.2s_linear_infinite]" />
-              </div>
+          {/* Player */}
+          <div className="relative w-full overflow-hidden rounded-xl bg-muted" style={{ aspectRatio: "16/9" }}>
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute inset-y-0 w-[200%] bg-linear-to-r from-transparent via-white/10 to-transparent animate-[shimmer_1.2s_linear_infinite]" />
             </div>
-
-            {/* Title (md+) */}
-            <div className="space-y-2">
-              <div className="h-3 w-24 bg-muted rounded" />
-              <div className="h-6 w-3/4 bg-muted rounded" />
-              <div className="h-3 w-40 bg-muted rounded" />
-            </div>
-
-            <div className="h-px bg-muted" />
-
-            {/* Synopsis */}
-            <div className="space-y-2">
-              <div className="h-3 w-32 bg-muted rounded" />
-              <div className="space-y-1">
-                <div className="h-3 w-full bg-muted rounded" />
-                <div className="h-3 w-5/6 bg-muted rounded" />
-                <div className="h-3 w-4/6 bg-muted rounded" />
-              </div>
-            </div>
-
           </div>
 
-          {/* RIGHT SIDEBAR */}
-          <div className="md:col-span-1 md:sticky md:top-24 bg-background border border-border p-5 rounded-sm space-y-4 self-start">
+          {/* Title */}
+          <div className="h-6 w-3/4 rounded-lg bg-muted" />
 
-            {/* Title */}
-            <div className="space-y-2">
-              <div className="h-4 w-3/4 bg-muted rounded" />
-              <div className="h-3 w-1/2 bg-muted rounded" />
-            </div>
+          {/* Meta row */}
+          <div className="flex flex-wrap gap-3">
+            <div className="h-3 w-28 rounded bg-muted" />
+            <div className="h-3 w-20 rounded bg-muted" />
+            <div className="h-3 w-24 rounded bg-muted" />
+          </div>
 
-            {/* Description */}
-            <div className="space-y-1">
-              <div className="h-3 w-full bg-muted rounded" />
-              <div className="h-3 w-5/6 bg-muted rounded" />
-            </div>
+          {/* Divider */}
+          <div className="h-px bg-border/60" />
 
-            <div className="h-px bg-muted" />
-
-            {/* Meta */}
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <div className="h-3 w-16 bg-muted rounded" />
-                <div className="h-3 w-10 bg-muted rounded" />
-              </div>
-              <div className="flex justify-between">
-                <div className="h-3 w-16 bg-muted rounded" />
-                <div className="h-3 w-10 bg-muted rounded" />
-              </div>
-              <div className="flex justify-between">
-                <div className="h-3 w-16 bg-muted rounded" />
-                <div className="h-3 w-10 bg-muted rounded" />
+          {/* Description card */}
+          <div className="rounded-xl bg-muted/40 p-4 space-y-3">
+            {/* Series header */}
+            <div className="flex items-center gap-2">
+              <div className="size-7 rounded-md bg-muted" />
+              <div className="space-y-1.5">
+                <div className="h-3.5 w-36 rounded bg-muted" />
+                <div className="h-2.5 w-24 rounded bg-muted" />
               </div>
             </div>
-
             {/* Genres */}
-            <div className="flex flex-wrap gap-1 pt-2">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="h-4 w-12 bg-muted rounded" />
+            <div className="flex gap-1.5">
+              {[60, 48, 72].map((w, i) => (
+                <div key={i} className="h-5 rounded-full bg-muted" style={{ width: w }} />
               ))}
             </div>
-
+            {/* Description lines */}
+            <div className="space-y-2">
+              <div className="h-3 w-full rounded bg-muted" />
+              <div className="h-3 w-5/6 rounded bg-muted" />
+              <div className="h-3 w-4/6 rounded bg-muted" />
+            </div>
           </div>
-
         </div>
 
+        {/* RIGHT SIDEBAR — Desktop only */}
+        <aside className="hidden lg:block lg:w-95 xl:w-100 shrink-0">
+          <div className="rounded-xl border border-border bg-muted/20 overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border/50">
+              <div className="space-y-1.5">
+                <div className="h-3.5 w-32 rounded bg-muted" />
+                <div className="h-2.5 w-16 rounded bg-muted" />
+              </div>
+              <div className="h-3 w-14 rounded bg-muted" />
+            </div>
+
+            {/* Episode list skeletons */}
+            <div className="p-2 space-y-1">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="flex items-start gap-2 rounded-lg p-2">
+                  {/* Episode number */}
+                  <div className="w-6 shrink-0 flex justify-center">
+                    <div className="h-3 w-3 rounded bg-muted" />
+                  </div>
+                  {/* Thumbnail */}
+                  <div className="w-30 shrink-0 rounded-md bg-muted" style={{ aspectRatio: "16/9" }} />
+                  {/* Info */}
+                  <div className="flex-1 pt-0.5 space-y-2">
+                    <div className="h-3 w-full rounded bg-muted" />
+                    <div className="h-3 w-4/5 rounded bg-muted" />
+                    <div className="h-2.5 w-1/2 rounded bg-muted" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
       </div>
     </main>
   );
