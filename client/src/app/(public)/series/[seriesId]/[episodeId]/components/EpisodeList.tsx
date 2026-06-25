@@ -23,12 +23,12 @@ export function EpisodeList({
           <Link
             key={ep._id}
             href={`/series/${seriesId}/${ep._id}`}
-            className={`group flex items-start gap-2 rounded-lg p-2 transition-all duration-150 ${
+            className={`group flex items-start gap-2 rounded-lg p-1 lg:p-2 transition-all duration-150 ${
               isCurrent ? "bg-primary/10" : "hover:bg-muted active:bg-muted/70"
             }`}
           >
             {/* Episode number */}
-            <div className={`flex w-5 shrink-0 self-center items-center justify-center text-center text-[11px] font-medium text-muted-foreground ${isCurrent ? "text-primary" : ""}`}>
+            <div className={`flex w-2.5 lg:w-5 shrink-0 self-center items-center justify-center text-center text-[11px] font-medium text-muted-foreground ${isCurrent ? "text-primary" : ""}`}>
               {ep.episodeNumber}
             </div>
 

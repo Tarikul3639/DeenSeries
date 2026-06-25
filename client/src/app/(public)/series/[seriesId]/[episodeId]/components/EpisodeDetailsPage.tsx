@@ -132,10 +132,19 @@ export default function EpisodeDetailsPage({
 
           {/* ── Mobile Episode List ───────────────────── */}
           {allEpisodes.length > 0 && (
-            <div className="lg:hidden space-y-3 pt-2">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold text-foreground">All Episodes</h3>
-                <span className="text-xs text-muted-foreground">{allEpisodes.length} episodes</span>
+            <div className="lg:hidden rounded-xl border border-border bg-muted/20 overflow-hidden">
+               {/* Header */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-border/50">
+                <div>
+                  <h3 className="text-sm font-semibold text-foreground">{series.title}</h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">{allEpisodes.length} Episodes</p>
+                </div>
+                <Link
+                  href={`/series/${seriesId}`}
+                  className="flex items-center gap-0.5 text-xs text-primary hover:underline shrink-0"
+                >
+                  See all <ChevronRight className="size-3" />
+                </Link>
               </div>
               <div className="max-h-80 overflow-y-auto rounded-xl border border-border bg-background p-2">
                 <EpisodeList
