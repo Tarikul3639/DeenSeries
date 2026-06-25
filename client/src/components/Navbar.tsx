@@ -8,6 +8,7 @@ import { Menu, X, PlayCircle, Shield } from "lucide-react";
 import { useResponsive } from "@/hooks/useResponsive";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { Logo } from "./Logo";
+import ThemeSelector from "./ThemeSelector";
 
 type NavItem = {
   label: string;
@@ -68,6 +69,8 @@ export default function Navbar() {
 
         {/* Right Side */}
         <div className="flex items-center gap-2 sm:gap-3">
+
+          <ThemeSelector />
 
           <Link
             href="/login"

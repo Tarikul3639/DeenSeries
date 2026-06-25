@@ -37,7 +37,7 @@ export default function CreateSeriesPage() {
           weight={150}
         />
 
-        <p className="text-sm sm:text-base text-zinc-500 line-clamp-1">
+        <p className="text-sm sm:text-base text-muted-foreground line-clamp-1">
           Create a new series
         </p>
       </div>

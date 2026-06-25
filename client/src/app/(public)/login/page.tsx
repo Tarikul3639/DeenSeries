@@ -32,7 +32,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <main className="h-dvh bg-zinc-50/60 text-zinc-800 flex items-center justify-center px-8">
+    <main className="h-dvh bg-muted/60 text-foreground flex items-center justify-center px-8">
       <div className="w-full -mt-32 max-w-sm space-y-6">
 
         {/* HEADER PLATFORM BRANDING */}
@@ -41,10 +41,10 @@ export default function AdminLoginPage() {
             <Shield className="size-6 sm:size-8" />
           </div>
           <div className="space-y-0.5">
-            <h1 className="text-lg sm:text-2xl font-bold tracking-tight text-zinc-900">
+            <h1 className="text-lg sm:text-2xl font-bold tracking-tight text-foreground">
               Admin Gatekeeper
             </h1>
-            <p className="text-xs sm:text-sm text-zinc-400">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               Enter administrative key passphrase to continue.
             </p>
           </div>
@@ -53,12 +53,12 @@ export default function AdminLoginPage() {
         {/* 🔐 PASSWORD SUBMISSION BLOCK */}
         <form onSubmit={handleSubmit} className="space-y-3.5">
           <div className="space-y-1.5">
-            <label className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-zinc-400 block">
+            <label className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-muted-foreground block">
               Security Key
             </label>
 
             <div className="relative group">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 size-4.5 sm:size-5 text-zinc-400 group-focus-within:text-primary" />
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 size-4.5 sm:size-5 text-muted-foreground group-focus-within:text-primary" />
 
               <input
                 type={showPassword ? "text" : "password"}
@@ -69,7 +69,7 @@ export default function AdminLoginPage() {
                   if (error) setError("");
                 }}
                 disabled={isLoading}
-                className="w-full rounded-sm border border-zinc-200 bg-white pl-10 sm:pl-11 pr-10 sm:pr-11 py-2.5 text-sm sm:text-base font-medium text-zinc-900 placeholder:text-zinc-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:border-primary disabled:opacity-60 transition-all"
+                className="w-full rounded-sm border border-border bg-background pl-10 sm:pl-11 pr-10 sm:pr-11 py-2.5 text-sm sm:text-base font-medium text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:border-primary disabled:opacity-60 transition-all"
               />
 
               <button
@@ -77,7 +77,7 @@ export default function AdminLoginPage() {
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={isLoading}
                 title={showPassword ? "Hide password" : "Show password"}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 transition-colors p-0.5"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground transition-colors p-0.5"
               >
                 {showPassword ? <EyeOff className="size-4.5 sm:size-5" /> : <Eye className="size-4.5 sm:size-5" />}
               </button>
@@ -86,7 +86,7 @@ export default function AdminLoginPage() {
 
           {/* ERROR DISPATCH CALL */}
           {error && (
-            <p className="text-[11px] sm:text-xs font-medium text-red-600 bg-red-50 border border-red-100 p-2 rounded-sm leading-normal">
+            <p className="text-[11px] sm:text-xs font-medium text-destructive bg-destructive/10 border border-destructive/20 p-2 rounded-sm leading-normal">
               {error}
             </p>
           )}
@@ -115,7 +115,7 @@ export default function AdminLoginPage() {
         <div className="text-center">
           <a
             href="/"
-            className="text-xs sm:text-sm text-zinc-400 hover:text-primary transition-colors underline underline-offset-2 font-medium"
+            className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors underline underline-offset-2 font-medium"
           >
             Return to Public Library
           </a>

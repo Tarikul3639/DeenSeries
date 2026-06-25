@@ -3,8 +3,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { Provider as ReduxProvider } from "react-redux";
 import { store } from "@/store";
-
-/* optional future */
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { ReactNode } from "react";
 
 export default function Providers({
@@ -13,12 +12,11 @@ export default function Providers({
   children: ReactNode;
 }) {
   return (
-    <ReduxProvider store={store}>
-      <Toaster
-        richColors
-        theme="light"
-      />
-      {children}
-    </ReduxProvider>
+    <ThemeProvider>
+      <ReduxProvider store={store}>
+        <Toaster richColors />
+        {children}
+      </ReduxProvider>
+    </ThemeProvider>
   );
 }

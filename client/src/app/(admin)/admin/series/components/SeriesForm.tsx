@@ -46,7 +46,7 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
   };
 
   return (
-    <div className="space-y-5 rounded-2xl border bg-white p-6">
+    <div className="space-y-5 rounded-2xl border bg-background p-6">
       <Input
         label="Title"
         name="title"
@@ -131,7 +131,7 @@ export default function SeriesForm({ initialData, onSubmit, loading }: Props) {
       <button
         onClick={handleSubmit}
         disabled={loading}
-        className="flex justify-center items-center gap-2 w-full rounded-sm bg-primary py-2 text-sm text-white hover:opacity-90 transition disabled:opacity-60"
+        className="flex justify-center items-center gap-2 w-full rounded-sm bg-primary py-2 text-sm text-primary-foreground hover:opacity-90 transition disabled:opacity-60"
       >
         {loading ? (
           <Loader2 className="size-4 sm:size-4.5 animate-spin" />

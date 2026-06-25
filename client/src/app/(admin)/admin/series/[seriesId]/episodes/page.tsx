@@ -86,7 +86,7 @@ export default function SeriesEpisodesPage() {
 
 
             {/* TABLE */}
-            <div className="rounded-xl border bg-white overflow-x-auto">
+            <div className="rounded-xl border bg-background overflow-x-auto">
 
                 <table className="w-full text-sm">
 
@@ -157,14 +157,14 @@ export default function SeriesEpisodesPage() {
 
                                             <Link
                                                 href={`/admin/series/${seriesId}/episodes/edit/${ep._id}`}
-                                                className="p-2 rounded-md hover:bg-primary/10 text-zinc-600 hover:text-primary"
+                                                className="p-2 rounded-md hover:bg-primary/10 text-muted-foreground hover:text-primary"
                                             >
                                                 <Pencil className="h-4 w-4" />
                                             </Link>
 
                                             <button
                                                 onClick={() => handleDelete(ep._id)}
-                                                className="p-2 rounded-md hover:bg-red-50 text-red-500"
+                                                className="p-2 rounded-md hover:bg-destructive/10 text-destructive"
                                             >
                                                 <Trash2 className="h-4 w-4" />
                                             </button>

@@ -69,7 +69,7 @@ export default function AdminSeriesPage() {
 
         <Link
           href="/admin/series/create"
-          className="flex items-center justify-center max-sm:self-end gap-2 rounded-sm bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:shadow-md hover:scale-[1.02] transition-all"
+          className="flex items-center justify-center max-sm:self-end gap-2 rounded-sm bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:shadow-md hover:scale-[1.02] transition-all"
         >
           <Plus className="h-4 w-4" />
           Add Series
@@ -83,12 +83,12 @@ export default function AdminSeriesPage() {
           placeholder="Search series..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-sm border bg-white pl-9 pr-4 py-2 sm:py-2.5 text-sm sm:text-base outline-none focus:ring-1 focus:ring-primary/20 focus-within:border-primary transition"
+          className="w-full rounded-sm border bg-background pl-9 pr-4 py-2 sm:py-2.5 text-sm sm:text-base outline-none focus:ring-1 focus:ring-primary/20 focus-within:border-primary transition"
         />
       </div>
 
       {/* TABLE */}
-      <div className="overflow-x-auto rounded-xl border bg-white min-h-100">
+      <div className="overflow-x-auto rounded-xl border bg-background min-h-100">
         <table className="w-full border-collapse">
           {/* HEAD */}
           <thead className="bg-muted/40 text-xs uppercase text-muted-foreground">
@@ -143,7 +143,7 @@ export default function AdminSeriesPage() {
                   </td>
 
                   {/* EPISODES */}
-                  <td className="px-4 py-4 text-sm font-medium text-zinc-700">
+                  <td className="px-4 py-4 text-sm font-medium text-muted-foreground">
                     {item.totalEpisodes ?? 0}
                   </td>
 
@@ -160,7 +160,7 @@ export default function AdminSeriesPage() {
                       <Link
                         href={`/admin/series/edit/${item._id}`}
                         onClick={(e) => e.stopPropagation()}
-                        className="rounded-lg p-2 text-zinc-600 hover:bg-primary/10 hover:text-primary transition"
+                        className="rounded-lg p-2 text-muted-foreground hover:bg-primary/10 hover:text-primary transition"
                       >
                         <Pencil className="h-4 w-4" />
                       </Link>
@@ -170,7 +170,7 @@ export default function AdminSeriesPage() {
                           e.stopPropagation();
                           handleDelete(item._id);
                         }}
-                        className="rounded-lg p-2 text-red-500 hover:bg-red-100 transition"
+                        className="rounded-lg p-2 text-destructive hover:bg-destructive/20 transition"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>

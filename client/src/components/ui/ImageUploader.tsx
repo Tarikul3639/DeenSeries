@@ -83,10 +83,10 @@ export default function ImageUploader({
             <div
                 className={[
                     "flex items-center gap-3 rounded-md px-3 py-2.5 transition-colors",
-                    "bg-white dark:bg-zinc-900",
+                    "bg-background",
                     preview
                         ? "border border-border"
-                        : "border border-dashed border-border hover:border-primary hover:bg-blue-50/40 dark:hover:bg-blue-950/20",
+                        : "border border-dashed border-border hover:border-primary hover:bg-primary/10 dark:hover:bg-primary/20",
                 ].join(" ")}
             >
                 {/* Thumbnail */}
@@ -120,8 +120,8 @@ export default function ImageUploader({
                     <label
                         className={[
                             "cursor-pointer text-xs font-medium px-2.5 py-1 rounded",
-                            "bg-blue-50 text-primary border border-blue-200",
-                            "hover:bg-blue-100 transition-colors",
+                            "bg-primary/10 text-primary border border-primary/20",
+                            "hover:bg-primary/20 transition-colors",
                             busy ? "pointer-events-none opacity-50" : "",
                         ].join(" ")}
                     >
@@ -147,7 +147,7 @@ export default function ImageUploader({
                         <button
                             onClick={handleRemove}
                             disabled={busy}
-                            className="h-7 w-7 flex items-center justify-center rounded border border-border text-muted-foreground hover:text-red-500 hover:border-red-200 hover:bg-red-50 transition-colors disabled:opacity-50"
+                            className="h-7 w-7 flex items-center justify-center rounded border border-border text-muted-foreground hover:text-destructive hover:border-destructive/30 hover:bg-destructive/10 transition-colors disabled:opacity-50"
                         >
                             {deleting ? (
                                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
