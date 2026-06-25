@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, PlayCircle, Shield } from "lucide-react";
+import { Menu, X, Shield } from "lucide-react";
 import { useResponsive } from "@/hooks/useResponsive";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { Logo } from "./Logo";
@@ -67,11 +67,13 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right Side */}
+        {/* Right Side — Desktop: Theme + Login | Mobile: Theme + Hamburger */}
         <div className="flex items-center gap-2 sm:gap-3">
 
+          {/* Theme selector — visible on both mobile and desktop */}
           <ThemeSelector />
 
+          {/* Admin Login — desktop only */}
           <Link
             href="/login"
             className={`hidden md:flex items-center rounded-md border px-3 py-2 text-xs sm:text-sm transition ${pathname === "/login"
@@ -82,6 +84,7 @@ export default function Navbar() {
             Admin Login
           </Link>
 
+          {/* Mobile menu toggle */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
