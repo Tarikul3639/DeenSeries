@@ -334,3 +334,57 @@
   scrollbar-width: thin;
   scrollbar-color: var(--primary) transparent;
 }
+
+/* =========================================================
+   SAFE AREA / NOTCH UTILITIES
+   ========================================================= */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+html,
+body {
+  min-height: 100dvh;
+  background: var(--background);
+}
+
+/* Utility classes */
+.pt-safe {
+  padding-top: var(--safe-top);
+}
+
+.pb-safe {
+  padding-bottom: var(--safe-bottom);
+}
+
+.pl-safe {
+  padding-left: var(--safe-left);
+}
+
+.pr-safe {
+  padding-right: var(--safe-right);
+}
+
+.px-safe {
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+}
+
+.py-safe {
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+}
+
+.p-safe {
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+}
+
+.min-h-safe-screen {
+  min-height: calc(100dvh - var(--safe-top) - var(--safe-bottom));
+}
