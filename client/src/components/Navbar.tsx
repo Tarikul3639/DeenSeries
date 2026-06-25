@@ -36,11 +36,14 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <header ref={ref} className="sticky top-0 z-50 pt-[env(safe-area-inset-top)] border-b border-border/60 bg-background backdrop-blur-2xl">
+    <header
+      ref={ref}
+      style={{ paddingTop: "env(safe-area-inset-top)" }}
+      className="sticky top-0 z-50 border-b border-border/60 bg-background backdrop-blur-2xl"
+    >
       <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/40 to-transparent" />
 
       <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-3 sm:px-6 lg:px-8">
-
         {/* Logo */}
         <Logo size={isMobile ? 42 : 49} />
 
@@ -57,8 +60,8 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={`rounded-full px-4 py-2 text-sm transition ${active
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   }`}
               >
                 {item.label}
@@ -69,14 +72,13 @@ export default function Navbar() {
 
         {/* Right Side */}
         <div className="flex items-center gap-2 sm:gap-3">
-
           <ThemeSelector />
 
           <Link
             href="/login"
             className={`hidden md:flex items-center rounded-md border px-3 py-2 text-xs sm:text-sm transition ${pathname === "/login"
-              ? "bg-primary text-primary-foreground"
-              : "text-muted-foreground hover:bg-muted hover:text-foreground border-border"
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground border-border"
               }`}
           >
             Admin Login
@@ -105,7 +107,6 @@ export default function Navbar() {
           >
             <div className="mx-auto max-w-7xl px-3 py-3 sm:px-6">
               <div className="rounded-xl space-y-1 border border-border/60 bg-background/70 p-2 shadow-sm">
-
                 {navItems.map((item) => {
                   const active =
                     item.href === "/"
@@ -117,8 +118,8 @@ export default function Navbar() {
                       key={item.href}
                       href={item.href}
                       className={`block rounded-lg px-3 py-3 text-sm transition ${active
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
                         }`}
                     >
                       {item.label}
@@ -136,7 +137,6 @@ export default function Navbar() {
 
                   <span>Admin Login</span>
                 </Link>
-
               </div>
             </div>
           </motion.div>
