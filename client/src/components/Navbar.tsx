@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X, PlayCircle, Shield } from "lucide-react";
 import { useResponsive } from "@/hooks/useResponsive";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { Logo } from "./Logo";
@@ -36,7 +36,7 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <header ref={ref} className="sticky top-0 z-50 border-b border-border/60 bg-background backdrop-blur-2xl">
+    <header ref={ref} className="sticky top-0 z-50 pt-[env(safe-area-inset-top)] border-b border-border/60 bg-background backdrop-blur-2xl">
       <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/40 to-transparent" />
 
       <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-3 sm:px-6 lg:px-8">
@@ -67,13 +67,11 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right Side — Desktop: Theme + Login | Mobile: Theme + Hamburger */}
+        {/* Right Side */}
         <div className="flex items-center gap-2 sm:gap-3">
 
-          {/* Theme selector — visible on both mobile and desktop */}
           <ThemeSelector />
 
-          {/* Admin Login — desktop only */}
           <Link
             href="/login"
             className={`hidden md:flex items-center rounded-md border px-3 py-2 text-xs sm:text-sm transition ${pathname === "/login"
@@ -84,7 +82,6 @@ export default function Navbar() {
             Admin Login
           </Link>
 
-          {/* Mobile menu toggle */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}

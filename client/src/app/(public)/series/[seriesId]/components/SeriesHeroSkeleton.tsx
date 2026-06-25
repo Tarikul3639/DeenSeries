@@ -9,11 +9,11 @@ export const SeriesHeroSkeleton = () => {
 
                 {/* Shimmer */}
                 <div className="absolute inset-0 overflow-hidden">
-                    <div className="absolute inset-y-0 w-[200%] bg-linear-to-r from-transparent via-white/10 to-transparent animate-[shimmer_1.2s_linear_infinite]" />
+                    <div className="absolute inset-y-0 w-[200%] bg-linear-to-r from-transparent via-foreground/8 to-transparent animate-[shimmer_1.2s_linear_infinite]" />
                 </div>
 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-linear-to-t from-muted/40 via-muted/10 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-background/60 via-background/20 to-transparent" />
             </div>
 
             {/* Content */}
@@ -23,13 +23,10 @@ export const SeriesHeroSkeleton = () => {
                     {/* LEFT POSTER */}
                     <div className="hidden md:block md:col-span-1">
                         <div className="relative aspect-4/5 rounded-sm bg-muted overflow-hidden">
-
                             <div className="absolute inset-0 overflow-hidden">
-                                <div className="absolute inset-y-0 w-[200%] bg-linear-to-r from-transparent via-white/10 to-transparent animate-[shimmer_1.2s_linear_infinite]" />
+                                <div className="absolute inset-y-0 w-[200%] bg-linear-to-r from-transparent via-foreground/8 to-transparent animate-[shimmer_1.2s_linear_infinite]" />
                             </div>
-
-                            <div className="absolute inset-0 bg-linear-to-t from-muted/30 via-transparent to-transparent" />
-
+                            <div className="absolute inset-0 bg-linear-to-t from-background/40 via-transparent to-transparent" />
                         </div>
                     </div>
 
@@ -37,30 +34,30 @@ export const SeriesHeroSkeleton = () => {
                     <div className="md:col-span-3 space-y-4">
 
                         {/* Category */}
-                        <div className="h-3 w-24 rounded-sm bg-muted" />
+                        <div className="h-3 w-24 rounded-sm bg-muted-foreground/10" />
 
                         {/* Title */}
-                        <div className="h-8 md:h-10 w-3/4 rounded-sm bg-muted" />
+                        <div className="h-8 md:h-10 w-3/4 rounded-sm bg-muted-foreground/15" />
 
                         {/* Meta */}
-                        <div className="h-3 w-1/2 rounded-sm bg-muted" />
+                        <div className="h-3 w-1/2 rounded-sm bg-muted-foreground/10" />
 
                         {/* Tags */}
                         <div className="flex gap-2">
-                            <div className="h-5 w-16 rounded-sm bg-muted" />
-                            <div className="h-5 w-16 rounded-sm bg-muted" />
+                            <div className="h-5 w-16 rounded-sm bg-muted-foreground/10" />
+                            <div className="h-5 w-16 rounded-sm bg-muted-foreground/10" />
                         </div>
 
                         {/* Description */}
                         <div className="space-y-2">
-                            <div className="h-3 w-full rounded-sm bg-muted" />
-                            <div className="h-3 w-5/6 rounded-sm bg-muted" />
-                            <div className="h-3 w-3/4 rounded-sm bg-muted" />
+                            <div className="h-3 w-full rounded-sm bg-muted-foreground/10" />
+                            <div className="h-3 w-5/6 rounded-sm bg-muted-foreground/10" />
+                            <div className="h-3 w-3/4 rounded-sm bg-muted-foreground/10" />
                         </div>
 
                         {/* Button */}
                         <div className="pt-2">
-                            <div className="h-8 w-28 rounded-sm bg-muted" />
+                            <div className="h-8 w-28 rounded-sm bg-muted-foreground/15" />
                         </div>
 
                     </div>
