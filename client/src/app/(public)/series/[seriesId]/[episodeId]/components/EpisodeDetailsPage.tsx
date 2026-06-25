@@ -38,7 +38,7 @@ export default function EpisodeDetailsPage({
     return (
         <main className="min-h-screen bg-muted/50 text-foreground pb-16">
             {/* Sticky Navigation */}
-            <div className="sticky flex items-left top-0 z-50 w-full bg-linear-to-b from-background via-background/80 to-transparent px-4 backdrop-blur-md h-16.5 sm:h-20">
+            <div className="sticky flex items-left top-0 z-40 w-full bg-linear-to-b from-background via-background/80 to-transparent px-4 backdrop-blur-md h-16.5 sm:h-20">
                 <div className="w-full mx-auto max-w-6xl flex items-center">
                     <BackLink
                         href={`/series/${seriesId}`}

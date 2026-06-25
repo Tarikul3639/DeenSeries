@@ -27,7 +27,7 @@ export default function ThemeSelector() {
       {/* Trigger button */}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center justify-center rounded-lg p-2 text-foreground transition hover:bg-muted z-999"
+        className="inline-flex items-center justify-center rounded-lg p-2 text-foreground transition hover:bg-muted z-100"
         aria-label="Theme settings"
         title="Theme settings"
       >
@@ -36,7 +36,7 @@ export default function ThemeSelector() {
 
       {/* Popover panel */}
       {open && (
-        <div className="absolute right-0 top-full z-999 mt-2 w-64 rounded-xl border border-border bg-popover p-4 shadow-xl">
+        <div className="absolute right-0 top-full z-100 mt-2 w-64 rounded-xl border border-border bg-popover p-4 shadow-xl">
           {/* Mode toggle */}
           <div className="mb-4">
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
