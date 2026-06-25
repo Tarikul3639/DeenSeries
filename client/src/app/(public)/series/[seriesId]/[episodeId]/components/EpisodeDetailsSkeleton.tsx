@@ -2,96 +2,79 @@
 
 export const EpisodeDetailsSkeleton = () => {
   return (
-    <main className="min-h-screen bg-muted/50 text-foreground pb-16 animate-pulse">
-
+    <main className="min-h-screen bg-background pb-16 animate-pulse">
       {/* NAV */}
-      <div className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md px-4 h-16.5 sm:h-20 flex items-center">
-        <div className="w-full mx-auto max-w-6xl">
+      <div className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border/40">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center">
           <div className="h-4 w-24 bg-muted rounded" />
         </div>
       </div>
 
       {/* MAIN */}
-      <div className="mx-auto max-w-6xl px-4 mt-1 space-y-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        {/* YouTube-style grid: player+synopsis left, card right */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-start">
-
-          {/* LEFT: Player + Title + Synopsis */}
-          <div className="md:col-span-2 space-y-4">
-
+          {/* LEFT */}
+          <div className="lg:col-span-2 space-y-5">
             {/* Player */}
-            <div className="relative w-full aspect-video overflow-hidden rounded-sm bg-muted border border-border">
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-muted ring-1 ring-border/20">
               <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute inset-y-0 w-[200%] bg-linear-to-r from-transparent via-white/60 to-transparent animate-[shimmer_1.2s_linear_infinite]" />
               </div>
             </div>
 
-            {/* Title (md+) */}
-            <div className="space-y-2">
-              <div className="h-3 w-24 bg-muted rounded" />
-              <div className="h-6 w-3/4 bg-muted rounded" />
-              <div className="h-3 w-40 bg-muted rounded" />
-            </div>
-
-            <div className="h-px bg-muted" />
-
-            {/* Synopsis */}
-            <div className="space-y-2">
-              <div className="h-3 w-32 bg-muted rounded" />
-              <div className="space-y-1">
-                <div className="h-3 w-full bg-muted rounded" />
-                <div className="h-3 w-5/6 bg-muted rounded" />
-                <div className="h-3 w-4/6 bg-muted rounded" />
+            {/* Title */}
+            <div className="space-y-3">
+              <div className="h-6 sm:h-7 w-3/4 bg-muted rounded" />
+              <div className="flex gap-3">
+                <div className="h-3 w-24 bg-muted rounded" />
+                <div className="h-3 w-20 bg-muted rounded" />
+                <div className="h-3 w-16 bg-muted rounded" />
               </div>
             </div>
 
-          </div>
-
-          {/* RIGHT SIDEBAR */}
-          <div className="md:col-span-1 md:sticky md:top-24 bg-background border border-border p-5 rounded-sm space-y-4 self-start">
-
-            {/* Title */}
-            <div className="space-y-2">
-              <div className="h-4 w-3/4 bg-muted rounded" />
-              <div className="h-3 w-1/2 bg-muted rounded" />
-            </div>
+            <div className="h-px bg-border" />
 
             {/* Description */}
-            <div className="space-y-1">
+            <div className="space-y-2">
+              <div className="h-4 w-32 bg-muted rounded" />
               <div className="h-3 w-full bg-muted rounded" />
               <div className="h-3 w-5/6 bg-muted rounded" />
             </div>
 
-            <div className="h-px bg-muted" />
-
-            {/* Meta */}
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <div className="h-3 w-16 bg-muted rounded" />
-                <div className="h-3 w-10 bg-muted rounded" />
+            {/* Series Card */}
+            <div className="rounded-lg border border-border bg-muted/30 p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <div className="size-8 rounded-md bg-muted" />
+                <div className="space-y-1 flex-1">
+                  <div className="h-4 w-3/4 bg-muted rounded" />
+                  <div className="h-3 w-1/2 bg-muted rounded" />
+                </div>
               </div>
-              <div className="flex justify-between">
-                <div className="h-3 w-16 bg-muted rounded" />
-                <div className="h-3 w-10 bg-muted rounded" />
-              </div>
-              <div className="flex justify-between">
-                <div className="h-3 w-16 bg-muted rounded" />
-                <div className="h-3 w-10 bg-muted rounded" />
-              </div>
+              <div className="h-3 w-full bg-muted rounded" />
+              <div className="h-3 w-4/5 bg-muted rounded" />
             </div>
-
-            {/* Genres */}
-            <div className="flex flex-wrap gap-1 pt-2">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="h-4 w-12 bg-muted rounded" />
-              ))}
-            </div>
-
           </div>
 
+          {/* RIGHT */}
+          <div className="hidden lg:block space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="h-4 w-20 bg-muted rounded" />
+              <div className="h-3 w-16 bg-muted rounded" />
+            </div>
+            <div className="rounded-lg border border-border bg-muted/20 p-2 space-y-1">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="flex items-center gap-3 rounded-lg p-2">
+                  <div className="size-10 rounded bg-muted" />
+                  <div className="flex-1 space-y-1">
+                    <div className="h-3 w-full bg-muted rounded" />
+                    <div className="h-2.5 w-1/2 bg-muted rounded" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-
       </div>
     </main>
   );
