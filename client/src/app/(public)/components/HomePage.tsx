@@ -14,6 +14,7 @@ import { useGetFeaturedQuery } from "@/store/features/home/home.api";
 import { ErrorState } from "@/components/ErrorState";
 import { EmptyState } from "@/components/EmptyState";
 import { FeaturedBannerSkeleton } from "./FeaturedBannerSkeleton";
+import ContinueWatchingBanner from "@/components/ContinueWatchingBanner";
 
 export default function HomePage() {
   const {
@@ -66,6 +67,11 @@ export default function HomePage() {
             <EmptyState onReset={() => { }} />
           </div>
         )}
+      </div>
+
+      {/* Continue Watching Banner */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-4">
+        <ContinueWatchingBanner />
       </div>
 
       <div className="max-w-7xl mx-auto px-2 sm:px-4 space-y-3 sm:space-y-6 pb-10">

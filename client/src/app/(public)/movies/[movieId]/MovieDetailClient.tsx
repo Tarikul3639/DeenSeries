@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { BackLink } from "@/components/ui/BackLink";
 import { MovieDetailSkeleton } from "./MovieDetailSkeleton";
+import { useSaveMovieWatchHistory } from "@/hooks/useWatchHistory";
 
 // API
 import { useGetMovieByIdQuery } from "@/store/features/movies/movie.api";
@@ -18,6 +19,13 @@ export default function MovieDetailClient({ movieId }: {movieId: string;}) {
   /* SINGLE FETCH */
   const { data: movie, isLoading, isError } =
     useGetMovieByIdQuery(movieId);
+
+  /* SAVE TO WATCH HISTORY (after 4s delay) */
+  useSaveMovieWatchHistory(
+    movie?._id ?? "",
+    movie?.title ?? "",
+    movie?.thumbnail || movie?.poster
+  );
 
   /* LOADING */
   if (isLoading) {

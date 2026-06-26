@@ -6,6 +6,7 @@ import { Tv, Star, Calendar, ChevronRight, Layers } from "lucide-react";
 import { useGetEpisodeBySeriesQuery, useGetEpisodesBySeriesQuery } from "@/store/features/episodes/episode.api";
 import { EpisodeDetailsSkeleton } from "./EpisodeDetailsSkeleton";
 import { EpisodeList } from "./EpisodeList";
+import { useSaveSeriesWatchHistory } from "@/hooks/useWatchHistory";
 
 const getEmbedSrc = (embed: string) => {
   const match = embed.match(/src=["']([^"']+)["']/);
@@ -27,6 +28,15 @@ export default function EpisodeDetailsPage({
   });
 
   const { data: allEpisodesData, isLoading: isListLoading } = useGetEpisodesBySeriesQuery(seriesId);
+
+  /* SAVE TO WATCH HISTORY (after 4s delay) */
+  useSaveSeriesWatchHistory(
+    episodeData?.series?._id ?? "",
+    episodeData?.series?.title ?? "",
+    episodeData?.series?.thumbnail || episodeData?.series?.poster,
+    episodeId,
+    episodeData?.episode?.episodeNumber ?? 0
+  );
 
   if (isEpisodeLoading || isListLoading) return <EpisodeDetailsSkeleton />;
 
