@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, PlayCircle, Shield } from "lucide-react";
+import { Menu, X, LockKeyhole, Shield } from "lucide-react";
 import { useResponsive } from "@/hooks/useResponsive";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { Logo } from "./Logo";
@@ -60,8 +60,8 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={`rounded-full px-4 py-2 text-sm transition ${active
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   }`}
               >
                 {item.label}
@@ -74,24 +74,37 @@ export default function Navbar() {
         <div className="flex items-center gap-2 sm:gap-3">
           <ThemeSelector />
 
-          <Link
-            href="/login"
-            className={`hidden md:flex items-center rounded-md border px-3 py-2 text-xs sm:text-sm transition ${pathname === "/login"
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground border-border"
-              }`}
-          >
-            Admin Login
-          </Link>
+          <div className="flex items-center gap-2">
+            {/* Admin Login */}
+            <Link
+              href="/login"
+              aria-label="Admin Login"
+              title="Admin Login"
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-sm border transition-all duration-200 ${pathname === "/login"
+                  ? "border-primary bg-primary text-primary-foreground shadow-md"
+                  : "border-border bg-background text-muted-foreground hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
+                }`}
+            >
+              <LockKeyhole className="size-4.5" />
+            </Link>
 
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            className={`inline-flex items-center justify-center rounded-lg p-2 sm:p-3 text-foreground transition hover:bg-muted md:hidden ${open ? "bg-muted" : ""}`}
-            aria-label="Toggle menu"
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+            {/* Mobile Menu */}
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Toggle menu"
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200 md:hidden ${open
+                  ? "border-primary bg-primary text-primary-foreground shadow-md"
+                  : "border-border bg-background text-muted-foreground hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
+                }`}
+            >
+              {open ? (
+                <X className="size-4.5" />
+              ) : (
+                <Menu className="size-4.5" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -118,8 +131,8 @@ export default function Navbar() {
                       key={item.href}
                       href={item.href}
                       className={`block rounded-lg px-3 py-3 text-sm transition ${active
-                          ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
                         }`}
                     >
                       {item.label}
