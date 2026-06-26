@@ -5,6 +5,7 @@ export interface WatchHistoryEntry {
   type: "movie" | "series";
   contentId: string;
   title: string;
+  description?: string;
   thumbnail?: string;
   updatedAt: number; // timestamp
   // Series-only fields
@@ -15,6 +16,6 @@ export interface WatchHistoryEntry {
 export interface WatchHistoryRepository {
   getAll(): Promise<WatchHistoryEntry[]>;
   save(entry: WatchHistoryEntry): Promise<void>;
-  remove(contentId: string): Promise<void>;
+  remove(type: "movie" | "series", contentId: string): Promise<void>;
   clear(): Promise<void>;
 }

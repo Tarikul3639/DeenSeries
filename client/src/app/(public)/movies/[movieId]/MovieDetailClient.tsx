@@ -24,6 +24,7 @@ export default function MovieDetailClient({ movieId }: {movieId: string;}) {
   useSaveMovieWatchHistory(
     movie?._id ?? "",
     movie?.title ?? "",
+    movie?.description ?? "",
     movie?.thumbnail || movie?.poster
   );
 

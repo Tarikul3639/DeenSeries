@@ -11,21 +11,26 @@ export interface SaveMovieInput {
   contentId: string;
   title: string;
   thumbnail?: string;
+  description?: string;
 }
 
 export interface SaveSeriesInput {
   contentId: string;
   title: string;
   thumbnail?: string;
+  description?: string;
   episodeId: string;
   episodeNumber: number;
 }
 
 class WatchHistoryService {
+  async getAll(): Promise<WatchHistoryEntry[]> {
+    return repository.getAll();
+  }
+
   async getLatest(): Promise<WatchHistoryEntry | null> {
     const all = await repository.getAll();
     if (all.length === 0) return null;
-    // Sort by updatedAt descending, return latest
     return all.sort((a, b) => b.updatedAt - a.updatedAt)[0];
   }
 
@@ -34,6 +39,7 @@ class WatchHistoryService {
       type: "movie",
       contentId: input.contentId,
       title: input.title,
+      description: input.description,
       thumbnail: input.thumbnail,
       updatedAt: Date.now(),
     };
@@ -45,6 +51,7 @@ class WatchHistoryService {
       type: "series",
       contentId: input.contentId,
       title: input.title,
+      description: input.description,
       thumbnail: input.thumbnail,
       episodeId: input.episodeId,
       episodeNumber: input.episodeNumber,
@@ -53,8 +60,8 @@ class WatchHistoryService {
     await repository.save(entry);
   }
 
-  async remove(contentId: string): Promise<void> {
-    await repository.remove(contentId);
+  async remove(type: "movie" | "series", contentId: string): Promise<void> {
+    await repository.remove(type, contentId);
   }
 
   async clear(): Promise<void> {

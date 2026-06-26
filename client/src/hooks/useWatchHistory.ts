@@ -10,6 +10,7 @@ import { watchHistoryService } from "@/services/watch-history.service";
 export function useSaveMovieWatchHistory(
   contentId: string,
   title: string,
+  description: string,
   thumbnail?: string,
   shouldSave: boolean = true
 ) {
@@ -19,12 +20,12 @@ export function useSaveMovieWatchHistory(
     if (!shouldSave || !contentId || savedRef.current) return;
 
     const timer = setTimeout(() => {
-      watchHistoryService.saveMovie({ contentId, title, thumbnail });
+      watchHistoryService.saveMovie({ contentId, title, description, thumbnail });
       savedRef.current = true;
     }, 4000);
 
     return () => clearTimeout(timer);
-  }, [contentId, title, thumbnail, shouldSave]);
+  }, [contentId, title, description, thumbnail, shouldSave]);
 }
 
 /**
@@ -34,6 +35,7 @@ export function useSaveMovieWatchHistory(
 export function useSaveSeriesWatchHistory(
   contentId: string,
   title: string,
+  description: string,
   thumbnail: string | undefined,
   episodeId: string,
   episodeNumber: number,
@@ -48,6 +50,7 @@ export function useSaveSeriesWatchHistory(
       watchHistoryService.saveSeries({
         contentId,
         title,
+        description,
         thumbnail,
         episodeId,
         episodeNumber,
@@ -56,5 +59,5 @@ export function useSaveSeriesWatchHistory(
     }, 4000);
 
     return () => clearTimeout(timer);
-  }, [contentId, title, thumbnail, episodeId, episodeNumber, shouldSave]);
+  }, [contentId, title, description, thumbnail, episodeId, episodeNumber, shouldSave]);
 }

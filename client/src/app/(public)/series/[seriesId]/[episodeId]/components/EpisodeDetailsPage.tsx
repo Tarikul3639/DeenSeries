@@ -33,6 +33,7 @@ export default function EpisodeDetailsPage({
   useSaveSeriesWatchHistory(
     episodeData?.series?._id ?? "",
     episodeData?.series?.title ?? "",
+    episodeData?.series?.description ?? "",
     episodeData?.series?.thumbnail || episodeData?.series?.poster,
     episodeId,
     episodeData?.episode?.episodeNumber ?? 0
@@ -53,14 +54,14 @@ export default function EpisodeDetailsPage({
 
   return (
     <main className="min-h-screen bg-background">
-      <div className="mx-auto max-w-450 px-4 pt-4 pb-16 sm:px-6 lg:flex lg:items-start lg:gap-6">
+      <div className="mx-auto max-w-7xl px-1 sm:px-4 py-2 sm:py-4 lg:flex lg:items-start lg:gap-6">
 
         {/* LEFT COLUMN — Player + Info */}
         <div className="min-w-0 flex-1 space-y-4">
 
           {/* ── Video Player ─────────────────────────── */}
           <div
-            className="relative w-full overflow-hidden rounded-xl bg-black shadow-xl ring-1 ring-border/20"
+            className="relative w-full overflow-hidden rounded-sm bg-black shadow-xl ring-1 ring-border/20"
             style={{ aspectRatio: "16/9" }}
           >
             {isEmbedLoading && (
@@ -108,9 +109,9 @@ export default function EpisodeDetailsPage({
 
           {/* ── Description ── */}
           {(episode.description || series.description) && (
-            <div className="rounded-xl bg-muted/40 p-4">
+            <div className="rounded-sm bg-muted/40 p-4">
               <div className="mb-3 flex items-center gap-2">
-                <div className="flex size-7 items-center justify-center rounded-md bg-primary/10">
+                <div className="flex size-7 items-center justify-center rounded-sm bg-primary/10">
                   <Layers className="size-3.5 text-primary" />
                 </div>
                 <div>
@@ -142,7 +143,7 @@ export default function EpisodeDetailsPage({
 
           {/* ── Mobile Episode List ───────────────────── */}
           {allEpisodes.length > 0 && (
-            <div className="lg:hidden rounded-xl border border-border bg-muted/20 overflow-hidden">
+            <div className="lg:hidden rounded-sm border border-border bg-muted/20 overflow-hidden mb-4">
                {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-border/50">
                 <div>
@@ -156,7 +157,7 @@ export default function EpisodeDetailsPage({
                   See all <ChevronRight className="size-3" />
                 </Link>
               </div>
-              <div className="max-h-80 overflow-y-auto rounded-xl border border-border bg-background p-2">
+              <div className="max-h-80 overflow-y-auto rounded-sm border border-border bg-background p-2">
                 <EpisodeList
                   episodes={allEpisodes}
                   seriesId={seriesId}
@@ -170,7 +171,7 @@ export default function EpisodeDetailsPage({
         {/* RIGHT SIDEBAR — Desktop only */}
         {allEpisodes.length > 0 && (
           <aside className="hidden lg:block lg:w-95 xl:w-100 shrink-0">
-            <div className="rounded-xl border border-border bg-muted/20 overflow-hidden">
+            <div className="rounded-sm border border-border bg-muted/20 overflow-hidden">
               {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-border/50">
                 <div>

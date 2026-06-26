@@ -70,7 +70,7 @@ export default function HomePage() {
       </div>
 
       {/* Continue Watching Banner */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-4">
+      <div className="max-w-7xl mx-auto space-y-3 sm:space-y-6">
         <ContinueWatchingBanner />
       </div>
 
