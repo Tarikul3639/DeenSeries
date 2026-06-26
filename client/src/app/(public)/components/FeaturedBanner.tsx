@@ -89,7 +89,7 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                             alt={current.title}
                             className="h-full w-full object-cover object-center rounded-none"
                         />
-                        <AvatarFallback className="flex items-center rounded-none justify-center bg-linear-to-br from-[#193cb8] via-[#0f2a80] to-black text-white">
+                        <AvatarFallback className="flex items-center rounded-none justify-center bg-linear-to-br from-primary to-secondary text-white">
                             <div className="text-center space-y-1">
                                 <p className="text-4xl sm:text-5xl font-bold tracking-tight">
                                     {current.title?.slice(0, 1).toUpperCase()}
