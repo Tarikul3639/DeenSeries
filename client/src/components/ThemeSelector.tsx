@@ -44,7 +44,7 @@ export default function ThemeSelector() {
       {/* Trigger button */}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center justify-center rounded-lg p-2 text-foreground transition hover:bg-muted"
+        className="inline-flex items-center justify-center rounded p-2 text-foreground transition hover:bg-muted"
         aria-label="Theme settings"
         title="Theme settings"
       >
@@ -61,11 +61,11 @@ export default function ThemeSelector() {
           />
 
           {/* Panel */}
-          <div ref={ref} className="relative w-72 rounded-2xl border border-border bg-popover p-5 shadow-2xl">
+          <div ref={ref} className="relative w-80 rounded-lg border border-border bg-popover p-5 shadow-2xl">
             {/* Close button */}
             <button
               onClick={() => setOpen(false)}
-              className="absolute right-3 top-3 flex size-7 items-center justify-center rounded-md text-muted-foreground transition hover:bg-muted hover:text-foreground"
+              className="absolute right-3 top-3 flex size-7 items-center justify-center rounded-sm text-muted-foreground transition hover:bg-muted hover:text-foreground"
               aria-label="Close"
             >
               <X className="size-4" />
@@ -82,7 +82,7 @@ export default function ThemeSelector() {
               <div className="flex gap-2">
                 <button
                   onClick={() => setMode("light")}
-                  className={`flex flex-1 items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition ${
+                  className={`flex flex-1 items-center justify-center gap-2 rounded-sm border px-3 py-2 text-sm font-medium transition ${
                     mode === "light"
                       ? "border-primary bg-primary/10 text-primary"
                       : "border-border text-muted-foreground hover:bg-muted"
@@ -93,7 +93,7 @@ export default function ThemeSelector() {
                 </button>
                 <button
                   onClick={() => setMode("dark")}
-                  className={`flex flex-1 items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition ${
+                  className={`flex flex-1 items-center justify-center gap-2 rounded-sm border px-3 py-2 text-sm font-medium transition ${
                     mode === "dark"
                       ? "border-primary bg-primary/10 text-primary"
                       : "border-border text-muted-foreground hover:bg-muted"

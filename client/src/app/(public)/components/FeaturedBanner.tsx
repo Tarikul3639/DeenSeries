@@ -164,7 +164,8 @@ export default function FeaturedBanner({ items }: { items: FeaturedItem[] }) {
                     <button
                         key={i}
                         onClick={() => setIndex(i)}
-                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${i === index ? "w-4 sm:w-6 bg-background" : "w-1.5 sm:w-2 bg-background/40"}`}
+                        className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${i === index ? "w-4 sm:w-6 bg-primary" : "w-1.5 sm:w-2 bg-white/40"
+                            }`}
                         aria-label={`Go to slide ${i + 1}`}
                     />
                 ))}
