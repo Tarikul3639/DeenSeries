@@ -9,12 +9,21 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
+        allow: [
+          "/",
+          "/api/v1/home/featured",
+          "/api/v1/movies",
+          "/api/v1/series",
+        ],
 
         disallow: [
           "/admin",
           "/login",
-          "/api",
+
+          // Private/API routes
+          "/api/auth",
+          "/api/admin",
+          "/api/private",
         ],
       },
     ],
