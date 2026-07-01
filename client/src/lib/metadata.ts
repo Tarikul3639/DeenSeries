@@ -54,10 +54,9 @@ export function createMetadata({
 
     const canonical = `${siteConfig.url}${path}`;
     const ogImage = `${siteConfig.url}${image}`;
-    const fullTitle = `${title} | ${siteConfig.name}`;
 
     return {
-        title: fullTitle,
+        title: title,
         description,
         keywords: [...siteConfig.keywords, ...keywords],
 
@@ -75,7 +74,7 @@ export function createMetadata({
         },
 
         openGraph: {
-            title: fullTitle,
+            title,
             description: ogDescription ?? description,
             url: canonical,
             siteName: siteConfig.name,
@@ -86,14 +85,14 @@ export function createMetadata({
                     url: ogImage,
                     width: 1200,
                     height: 630,
-                    alt: fullTitle,
+                    alt: title,
                 },
             ],
         },
 
         twitter: {
             card: twitterCard,
-            title: fullTitle,
+            title: title,
             description,
             site: siteConfig.twitterHandle,
             images: [ogImage],

@@ -2,7 +2,7 @@
 
 export const MovieDetailSkeleton = () => {
   return (
-    <main className="min-h-screen bg-muted/50 text-foreground pb-16 animate-pulse">
+    <div className="min-h-screen bg-muted/50 text-foreground pb-16 animate-pulse">
 
       {/* NAV */}
       <div className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md px-4 h-16.5 sm:h-20 flex items-center">
@@ -77,6 +77,6 @@ export const MovieDetailSkeleton = () => {
 
         </div>
       </div>
-    </main>
+    </div>
   );
 };

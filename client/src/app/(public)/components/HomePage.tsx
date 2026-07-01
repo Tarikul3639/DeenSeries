@@ -41,10 +41,7 @@ export default function HomePage() {
   } = useGetFeaturedQuery();
 
   return (
-    <main className="bg-background text-foreground">
-      <h1 className="sr-only">
-        DeenSeries - Watch Islamic Movies and Series Online
-      </h1>
+    <div className="bg-background text-foreground">
       <div className="mx-auto max-w-7xl px-1 sm:px-4 py-2 sm:py-4 text-center">
 
         {/* Featured Banner */}
@@ -143,6 +140,6 @@ export default function HomePage() {
           ))}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

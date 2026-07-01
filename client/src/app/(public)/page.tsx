@@ -3,7 +3,7 @@ import { createMetadata } from "@/lib/metadata";
 import { Film, Tv, PlayCircle } from "lucide-react";
 
 export const metadata = createMetadata({
-  title: "DeenSeries - Watch Islamic Series and Movies Online",
+  title: "Watch Islamic Series and Movies Online",
   description:
     "Watch Islamic series and movies on DeenSeries. Explore stories of Salahuddin, Ertugrul, and Islamic history in a clean, modern platform.",
   path: "/",

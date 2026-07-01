@@ -17,7 +17,7 @@ export function SeriesHero({ currentSeries, firstEpisodeId }: SeriesHeroProps) {
         <Avatar className="w-full h-full rounded-none">
           <AvatarImage
             src={currentSeries.poster || currentSeries.thumbnail || undefined}
-            alt=""
+            alt={currentSeries.title}
             className="w-full h-full rounded-none object-cover scale-105 blur-sm brightness-75"
           />
           <AvatarFallback className="w-full h-full flex items-center justify-center rounded-none bg-linear-to-br from-primary to-secondary text-white text-4xl font-bold" />
