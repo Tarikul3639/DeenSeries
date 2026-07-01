@@ -1,9 +1,10 @@
 import { createMetadata } from "@/lib/metadata";
 import { AboutHero } from "./components/AboutHero";
 import { AboutGrid } from "./components/AboutGrid";
+import { AboutValues } from "./components/AboutValues";
+import { AboutFAQ } from "./components/AboutFAQ";
 import { AboutCTA } from "./components/AboutCTA";
 
-/* SEO using utility */
 export const metadata = createMetadata({
   title: "About",
   description:
@@ -20,9 +21,11 @@ export const metadata = createMetadata({
 export default function AboutPage() {
   return (
     <main className="bg-background text-foreground">
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto max-w-5xl px-4">
         <AboutHero />
         <AboutGrid />
+        <AboutValues />
+        <AboutFAQ />
         <AboutCTA />
       </div>
     </main>

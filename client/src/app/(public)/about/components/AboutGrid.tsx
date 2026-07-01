@@ -7,15 +7,15 @@ export function AboutGrid() {
   const items = [
     {
       icon: Target,
-      title: "Our Mission",
-      desc: "Provide a clean, fast, and distraction-free experience for beneficial Islamic content.",
+      title: "Our mission",
+      desc: "Provide a clean, fast, distraction-free experience for beneficial Islamic content.",
     },
     {
       icon: Sparkles,
-      title: "What We Offer",
+      title: "What we offer",
       list: [
         "Organized Islamic series & episodes",
-        "Clean modern UI",
+        "Clean, modern interface",
         "Multiple video sources",
         "No login required",
       ],
@@ -23,7 +23,7 @@ export function AboutGrid() {
     {
       icon: Cpu,
       title: "Technology",
-      desc: "Built with Next.js and Tailwind using a lightweight JSON system.",
+      desc: "Built with Next.js and Tailwind, backed by a lightweight, fast-loading data system.",
     },
     {
       icon: AlertTriangle,
@@ -33,39 +33,51 @@ export function AboutGrid() {
   ];
 
   return (
-    <section className="mx-auto max-w-5xl px-4 py-16">
-      <div className="grid gap-6 md:grid-cols-2">
-        {items.map((item, i) => {
-          const Icon = item.icon;
+    <section className="py-16">
+      <div className="relative">
+        {/* connecting thread */}
+        <div
+          className="absolute left-3.75 top-2 bottom-2 w-px bg-border"
+          aria-hidden="true"
+        />
 
-          return (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
-              viewport={{ once: true }}
-              className="rounded-2xl border border-border/60 bg-muted/30 p-6"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <Icon className="h-5 w-5 text-primary" />
-                <h2 className="text-lg font-semibold">{item.title}</h2>
-              </div>
+        <div className="space-y-10">
+          {items.map((item, i) => {
+            const Icon = item.icon;
 
-              {item.list ? (
-                <ul className="mt-2 space-y-2 text-sm text-muted-foreground">
-                  {item.list.map((l) => (
-                    <li key={l}>• {l}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="mt-2 text-sm text-muted-foreground leading-7">
-                  {item.desc}
-                </p>
-              )}
-            </motion.div>
-          );
-        })}
+            return (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
+                viewport={{ once: true }}
+                className="relative pl-11"
+              >
+                <div className="absolute left-0 top-0.5 w-7.75 h-7.75 rounded-full bg-background border-2 border-primary/30 flex items-center justify-center">
+                  <Icon className="h-3.5 w-3.5 text-primary" />
+                </div>
+
+                <h2 className="text-base font-semibold">{item.title}</h2>
+
+                {item.list ? (
+                  <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
+                    {item.list.map((l) => (
+                      <li key={l} className="flex gap-2">
+                        <span className="text-primary">—</span>
+                        {l}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-md">
+                    {item.desc}
+                  </p>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

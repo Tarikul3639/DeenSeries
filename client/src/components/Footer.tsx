@@ -230,8 +230,21 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-10 flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
+
           <p>© 2026 DeenSeries. All rights reserved.</p>
-          <p>Watch with purpose.</p>
+
+          <p>
+            Built by{" "}
+            <a
+              href="https://tarikul-islam.me"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Tarikul Islam
+            </a>
+          </p>
+
         </div>
       </div>
     </footer>
